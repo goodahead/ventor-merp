@@ -20,7 +20,7 @@
 
 {
     'name': 'Ventor Custom Access Rights',
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.0.1",
     'author': 'Ventor, Xpansa Group',
     'website': 'https://ventor.tech/',
     'installable': True,
