@@ -31,6 +31,7 @@ class VentorConfigSettings(models.TransientModel):
     base_version = fields.Char(
         string='Base Module Version',
         compute='_compute_base_version',
+        compute_sudo=True,
         store=False,
     )
 
@@ -43,9 +44,9 @@ class VentorConfigSettings(models.TransientModel):
 
     @api.depends('company_id')
     def _compute_base_version(self):
-        manifest = http.addons_manifest.get('ventor_base', None)
-        version = manifest['version'].split('.')
-        self.base_version = '.'.join(version[-3:])
+        manifest = http.addons_manifest.get('ventor_base', False)
+        version = manifest and manifest['version'].split('.')
+        self.base_version = version and '.'.join(version[-3:])
 
     @api.model
     def get_values(self):
