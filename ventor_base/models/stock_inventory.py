@@ -27,8 +27,7 @@ class InventoryLine(models.Model):
         """ check product lot/serial except for stock_fix_lot """
         if self.env.context.get("skip_product_lot_check") and not self.product_qty:
                 return
-        lot_validation = self.env['ventor.config'].search([('key', '=', 'ventor_base.force_lot_validation_on_inventory_adjustment')]).mapped('value')
-        if lot_validation:
+        if self.company_id.force_lot_validation_on_inventory_adjustment:
             for product in self:
                 if product.product_tracking in ("lot", "serial") and not product.prod_lot_id:
                     raise ValidationError(
