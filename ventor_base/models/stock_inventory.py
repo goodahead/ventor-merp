@@ -22,14 +22,17 @@ class InventoryLine(models.Model):
     _inherit = "stock.inventory.line"
     _description = "Inventory Line"
 
-    @api.constrains("prod_lot_id")
+    @api.constrains("prod_lot_id", "product_qty")
     def _check_product_lot(self):
         """ check product lot/serial except for stock_fix_lot """
-        if self.env.context.get("skip_product_lot_check") and not self.product_qty:
+        for product in self:
+            if (
+                not product.product_qty
+                or not product.company_id.force_lot_validation_on_inventory_adjustment
+                or (product.env.context.get("skip_product_lot_check") and not product.product_qty)
+            ):
                 return
-        if self.company_id.force_lot_validation_on_inventory_adjustment:
-            for product in self:
-                if product.product_tracking in ("lot", "serial") and not product.prod_lot_id:
+            if product.product_tracking in ("lot", "serial") and not product.prod_lot_id:
                     raise ValidationError(
                         _(
                             "You need to supply a Lot/Serial number for product: %s",
