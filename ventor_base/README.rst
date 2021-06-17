@@ -10,3 +10,8 @@ Changelog
 ***********************
 
 Added 3 more menu groups to Ventor Menu Management.
+
+14.0.1.1.0 (2021-06-17)
+***********************
+
+Added functionality to force lot validation on Inventory Adjustment
