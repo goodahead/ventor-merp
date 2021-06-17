@@ -13,3 +13,4 @@ class Company(models.Model):
     force_lot_validation_on_inventory_adjustment = fields.Boolean(
         string='Force Lot Validation on Inventory Adjustment',
     )
+    
