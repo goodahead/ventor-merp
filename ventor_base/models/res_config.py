@@ -41,6 +41,10 @@ class VentorConfigSettings(models.TransientModel):
         related='company_id.stock_inventory_location'
     )
 
+    force_lot_validation_on_inventory_adjustment = fields.Boolean(
+        string='Force Lot Validation on Inventory Adjustment',
+    )
+
     @api.depends('company_id')
     def _compute_base_version(self):
         manifest = http.addons_manifest.get('ventor_base', None)
@@ -55,10 +59,12 @@ class VentorConfigSettings(models.TransientModel):
 
         logo = conf.get_param('logo.file', default=None)
         name = conf.get_param('logo.name', default=None)
+        lot_validation_status = conf.get_param('ventor_base.force_lot_validation_on_inventory_adjustment')
 
         res.update({
             'logotype_file': logo or False,
-            'logotype_name': name or False
+            'logotype_name': name or False,
+            'force_lot_validation_on_inventory_adjustment': lot_validation_status or False,
         })
 
         view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
@@ -74,6 +80,7 @@ class VentorConfigSettings(models.TransientModel):
         self._validate_logotype()
         conf.set_param('logo.file', self.logotype_file or False)
         conf.set_param('logo.name', self.logotype_name or False)
+        conf.set_param("ventor_base.force_lot_validation_on_inventory_adjustment", self.force_lot_validation_on_inventory_adjustment or False)
 
         view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
         view_with_barcode.active = self.add_barcode_on_view
