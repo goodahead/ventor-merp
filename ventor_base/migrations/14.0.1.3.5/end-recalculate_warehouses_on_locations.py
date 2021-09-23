@@ -3,7 +3,7 @@ from odoo import SUPERUSER_ID, _, api
 
 
 def migrate(cr, version):
-    """Update calculated_warehouse for users"""
+    """Update warehouse_id for all locations"""
 
     env = api.Environment(cr, SUPERUSER_ID, {})
     all_locations = env['stock.location'].with_context(active_test=False).search([
