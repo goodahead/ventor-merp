@@ -19,7 +19,7 @@
     'data': [
         'security/ir.model.access.csv',
         'security/groups.xml',
-        "data/00_ir_action_server_data.xml",
+        # "data/00_ir_action_server_data.xml",
         'views/res_config.xml',
         'views/res_users.xml',
         # 'views/stock_inventory.xml',
