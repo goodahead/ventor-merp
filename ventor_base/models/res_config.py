@@ -2,8 +2,6 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
 from odoo import models, fields, api, _
-from odoo import http
-# from odoo.exceptions import Warning
 from odoo.exceptions import UserError
 import base64
 import struct
