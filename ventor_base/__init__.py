@@ -12,7 +12,7 @@ def _post_init_hook(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
 
     all_stock_inventory = env['stock.inventory'].search([
-            ('state', '=', 'draft'),
+            ('state', 'in', ('draft', 'confirm', 'cancel', 'done')),
             ])
     for stock_inv in all_stock_inventory:
         warehouse_ids = stock_inv.location_ids.mapped("warehouse_id")
