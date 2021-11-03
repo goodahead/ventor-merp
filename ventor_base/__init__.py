@@ -11,6 +11,16 @@ def _post_init_hook(cr, registry):
     """
     env = api.Environment(cr, SUPERUSER_ID, {})
 
+    all_stock_inventory_ids = env["stock.inventory"].search(
+        [
+            ("location_ids", "!=", False),
+        ]
+    )
+    for stock_inv in all_stock_inventory_ids:
+        warehouse_ids = stock_inv.location_ids.mapped("warehouse_id")
+        if len(warehouse_ids) == 1:
+            stock_inv.warehouse_id = warehouse_ids
+
     users_model = env['res.users']
 
     values = [(4, user.id) for user in users_model.search([])]

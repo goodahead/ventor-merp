@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+14.0.1.3.6 (2021-09-23)
+***********************
+
+* Added migration to recalculated warehouse on Inventory Adjustments and dependence of selected locations on warehouse
+
 14.0.1.3.5 (2021-09-23)
 ***********************
 
