@@ -9,6 +9,8 @@ class StockInventory(models.Model):
     _name = 'stock.inventory'
     _inherit = ['stock.inventory', 'stock.location.mixin']
 
+    warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse', required=False)
+
     def _onchange_company_id(self):
         super(StockInventory, self)._onchange_company_id(default)
         # Apply logic only in multi-location environment
@@ -17,6 +19,16 @@ class StockInventory(models.Model):
             if location_id:
                 self.location_ids = location_id
 
+    @api.constrains("warehouse_id", "location_ids")
+    def _check_locations(self):
+        if self.warehouse_id and self.location_ids and self.warehouse_id != self.location_ids.mapped("warehouse_id"):
+            raise ValidationError(
+                        _(
+                            "You defined warehouse for the inventory '{}', but locations contain "
+                            "different warehouse(s) in it. "
+                            "Please, leave Warehouse field empty, or define proper one.".format(self.display_name)
+                        )
+                    ) 
 
 class InventoryLine(models.Model):
     _inherit = "stock.inventory.line"
