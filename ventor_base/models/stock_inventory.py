@@ -28,7 +28,24 @@ class StockInventory(models.Model):
                             "different warehouse(s) in it. "
                             "Please, leave Warehouse field empty, or define proper one.".format(self.display_name)
                         )
-                    ) 
+                    )
+
+    def _update_location(self):
+        if not self.warehouse_id and len(self.location_ids.mapped("warehouse_id")) == 1:
+            self.warehouse_id = self.location_ids.mapped("warehouse_id")
+        if self.warehouse_id and not self.location_ids:
+            self.location_ids = self.warehouse_id.view_location_id
+
+    @api.model
+    def create(self, vals):
+        res = super(StockInventory, self).create(vals)
+        res._update_location()
+        return res
+
+    def write(self, vals):
+        res = super(StockInventory, self).write(vals)
+        self._update_location()
+        return res
 
 class InventoryLine(models.Model):
     _inherit = "stock.inventory.line"
