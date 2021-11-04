@@ -28,7 +28,11 @@ class StockInventory(models.Model):
                             "different warehouse(s) in it. "
                             "Please, leave Warehouse field empty, or define proper one.".format(self.display_name)
                         )
-                    ) 
+                    )
+        if not self.warehouse_id and len(self.location_ids.mapped("warehouse_id")) == 1:
+            self.warehouse_id = self.location_ids.mapped("warehouse_id")
+        if self.warehouse_id and not self.location_ids:
+            self.location_ids = self.warehouse_id.view_location_id
 
 class InventoryLine(models.Model):
     _inherit = "stock.inventory.line"
