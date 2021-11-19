@@ -49,18 +49,19 @@ class ResUsers(models.Model):
         string='User Settings'
     )
 
-    def __init__(self, pool, cr):
-        """
-        Adding access rights on ventor_global_settings and ventor_user_settings
-        """
+    @property
+    def SELF_READABLE_FIELDS(self):
+        readable_fields = [
+            'ventor_global_settings',
+            'ventor_user_settings',
+            'custom_package_name',
+        ]
+        return super().SELF_READABLE_FIELDS + readable_fields
 
-        readable_fields = ['ventor_global_settings', 'ventor_user_settings', 'custom_package_name']
+    @property
+    def SELF_WRITEABLE_FIELDS(self):
         writable_fields = ['ventor_user_settings']
-
-        init_res = super().__init__(pool, cr)
-        type(self).SELF_READABLE_FIELDS = type(self).SELF_READABLE_FIELDS + readable_fields
-        type(self).SELF_WRITEABLE_FIELDS = type(self).SELF_WRITEABLE_FIELDS + writable_fields
-        return init_res
+        return super().SELF_WRITEABLE_FIELDS + writable_fields
 
     def _compute_global_settings(self):
         settings = []
