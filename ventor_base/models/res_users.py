@@ -20,20 +20,20 @@ class ResUsers(models.Model):
         string='Default Inventory Location',
     )
 
-    default_warehouse = fields.Many2one(
-        comodel_name='stock.warehouse',
-        string='Default Warehouse For Ventor App'
-    )
+    # default_warehouse = fields.Many2one(
+    #     comodel_name='stock.warehouse',
+    #     string='Default Warehouse For Ventor App'
+    # )
 
-    stock_location_id = fields.Many2one(
-        'stock.location',
-        string='Force Source Location for Instant Move',
-        required=False,
-    )
+    # stock_location_id = fields.Many2one(
+    #     'stock.location',
+    #     string='Force Source Location for Instant Move',
+    #     required=False,
+    # )
 
-    allow_to_change_force_source_location = fields.Boolean(
-        string='Allow to change Force Source Location',
-    )
+    # allow_to_change_force_source_location = fields.Boolean(
+    #     string='Allow to change Force Source Location',
+    # )
 
     custom_package_name = fields.Char(
         string='Custom package name'
