@@ -2,6 +2,9 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
 from odoo import models, fields, api
+import logging
+_logger = logging.getLogger(__name__)
+
 
 
 class StockLocation(models.Model):
@@ -25,8 +28,11 @@ class StockLocation(models.Model):
         strategy = self.env.user.company_id.outgoing_routing_strategy
         strategy_order = self.env.user.company_id.outgoing_routing_order
 
-        base, field = strategy.split('.', 1)
-        if base not in ('location_id') and field not in self:
+        if strategy and len(strategy.split('.')) > 1:
+            base, field = strategy.split('.', 1)
+            if base not in ('location_id') and field not in self:
+                return
+        else:
             return
 
         res = self.sudo().search([], order='{} {}'.format(
