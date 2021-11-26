@@ -2,7 +2,6 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
 from odoo import models, fields, api, _
-from odoo import http
 from odoo.exceptions import Warning
 import base64
 import struct
@@ -33,13 +32,6 @@ class VentorConfigSettings(models.TransientModel):
         compute='_compute_base_version',
         store=False,
     )
-
-    # inventory_location = fields.Many2one(
-    #     'stock.location',
-    #     string='Default Inventory Location',
-    #     readonly=False,
-    #     related='company_id.stock_inventory_location'
-    # )
 
     force_lot_validation_on_inventory_adjustment = fields.Boolean(
         string='Force Lot Validation on Inventory Adjustment',

@@ -15,26 +15,6 @@ class ResUsers(models.Model):
         help='List of all warehouses user has access to',
     )
 
-    # default_inventory_location = fields.Many2one(
-    #     comodel_name='stock.location',
-    #     string='Default Inventory Location',
-    # )
-
-    # default_warehouse = fields.Many2one(
-    #     comodel_name='stock.warehouse',
-    #     string='Default Warehouse For Ventor App'
-    # )
-
-    # stock_location_id = fields.Many2one(
-    #     'stock.location',
-    #     string='Force Source Location for Instant Move',
-    #     required=False,
-    # )
-
-    # allow_to_change_force_source_location = fields.Boolean(
-    #     string='Allow to change Force Source Location',
-    # )
-
     custom_package_name = fields.Char(
         string='Custom package name'
     )
