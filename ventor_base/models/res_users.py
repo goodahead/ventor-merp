@@ -15,10 +15,10 @@ class ResUsers(models.Model):
         help='List of all warehouses user has access to',
     )
 
-    default_inventory_location = fields.Many2one(
-        comodel_name='stock.location',
-        string='Default Inventory Location',
-    )
+    # default_inventory_location = fields.Many2one(
+    #     comodel_name='stock.location',
+    #     string='Default Inventory Location',
+    # )
 
     # default_warehouse = fields.Many2one(
     #     comodel_name='stock.warehouse',

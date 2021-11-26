@@ -6,7 +6,6 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-
 class StockLocation(models.Model):
     _inherit = "stock.location"
 

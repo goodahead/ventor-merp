@@ -7,17 +7,18 @@ from odoo.exceptions import ValidationError
 
 class StockInventory(models.Model):
     _name = 'stock.inventory'
-    _inherit = ['stock.inventory', 'stock.location.mixin']
+    _inherit = ['stock.inventory']
+    # _inherit = ['stock.inventory', 'stock.location.mixin']
 
     warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse', required=False)
 
-    def _onchange_company_id(self):
-        super(StockInventory, self)._onchange_company_id(default)
-        # Apply logic only in multi-location environment
-        if self.user_has_groups('stock.group_stock_multi_locations'):
-            location_id = self._get_default_location_warehouse()
-            if location_id:
-                self.location_ids = location_id
+    # def _onchange_company_id(self):
+    #     super(StockInventory, self)._onchange_company_id(default)
+    #     # Apply logic only in multi-location environment
+    #     if self.user_has_groups('stock.group_stock_multi_locations'):
+    #         location_id = self._get_default_location_warehouse()
+    #         if location_id:
+    #             self.location_ids = location_id
 
     @api.constrains("warehouse_id", "location_ids")
     def _check_locations(self):

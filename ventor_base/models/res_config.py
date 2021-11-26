@@ -34,12 +34,12 @@ class VentorConfigSettings(models.TransientModel):
         store=False,
     )
 
-    inventory_location = fields.Many2one(
-        'stock.location',
-        string='Default Inventory Location',
-        readonly=False,
-        related='company_id.stock_inventory_location'
-    )
+    # inventory_location = fields.Many2one(
+    #     'stock.location',
+    #     string='Default Inventory Location',
+    #     readonly=False,
+    #     related='company_id.stock_inventory_location'
+    # )
 
     force_lot_validation_on_inventory_adjustment = fields.Boolean(
         string='Force Lot Validation on Inventory Adjustment',

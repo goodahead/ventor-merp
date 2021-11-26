@@ -7,8 +7,8 @@ from odoo import models, fields
 class Company(models.Model):
     _inherit = 'res.company'
 
-    stock_inventory_location = fields.Many2one('stock.location',
-                                               string='Default Inventory Location')
+    # stock_inventory_location = fields.Many2one('stock.location',
+    #                                            string='Default Inventory Location')
 
     force_lot_validation_on_inventory_adjustment = fields.Boolean(
         string='Force Lot Validation on Inventory Adjustment',
