@@ -38,11 +38,3 @@ class TestCheckDefaultLocation(TransactionCase):
         product = self.product.with_user(self.user)
         res = product.action_update_quantity_on_hand()
         self.assertEqual(self.location.id, res['context'].get('default_location_id'))
-
-    def test_check_default_inventory_location(self):
-        self.user.write({
-            'default_inventory_location': self.location.id
-        })
-        product = self.product.with_user(self.user)
-        res = product.action_update_quantity_on_hand()
-        self.assertEqual(self.location.id, res['context'].get('default_location_id'))
