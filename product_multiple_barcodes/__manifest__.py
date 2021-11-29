@@ -3,7 +3,7 @@
 
 {
     'name': 'Product Multiple Barcodes',
-    "version": "14.0.1.0.1",
+    "version": "15.0.1.0.1",
     'author': 'VentorTech',
     'website': 'https://ventor.tech/',
     'license': 'LGPL-3',
@@ -20,5 +20,6 @@
         'security/ir.model.access.csv',
         'wizard/multiply_barcode_wizard.xml',
         'views/product_template_views.xml',
+        'views/stock_picking_views.xml',
     ],
 }

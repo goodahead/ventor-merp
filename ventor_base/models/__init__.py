@@ -7,9 +7,9 @@ from . import stock_location_mixin
 from . import stock_location
 from . import ventor_config
 from . import stock_picking
+from . import stock_quant
 from . import product
 from . import res_company
 from . import res_config
 from . import res_users
-from . import stock_inventory
 from . import stock_warehouse
