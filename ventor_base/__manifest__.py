@@ -3,7 +3,7 @@
 
 {
     'name': 'Ventor Base',
-    'version': '13.0.1.0.0',
+    'version': '13.0.1.3.6',
     'author': 'VentorTech',
     'website': 'https://ventor.tech/',
     'license': 'LGPL-3',
