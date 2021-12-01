@@ -39,6 +39,11 @@ class VentorConfigSettings(models.TransientModel):
         related='company_id.force_lot_validation_on_inventory_adjustment',
     )
 
+    custom_package_name = fields.Char(
+        string='Custom package name',
+        config_parameter='ventor_base.custom_package_name'
+    )
+
     @api.depends('company_id')
     def _compute_base_version(self):
         self.env.cr.execute(
