@@ -11,10 +11,6 @@
             <data>
                 <xpath expr="//notebook/page[@name='preferences']" position="after">
                     <page string="Ventor Preferences">
-                        <group name="merp" col="8">
-                            <label for="custom_package_name" colspan="3"/>
-                            <field name="custom_package_name" nolabel="1" colspan="5"/>
-                        </group>
                         <group>
                             <field name="ventor_global_settings"
                                    style="overflow-y: scroll; resize: none; height: 120px; width: 100%%"

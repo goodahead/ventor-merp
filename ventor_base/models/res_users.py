@@ -15,10 +15,6 @@ class ResUsers(models.Model):
         help='List of all warehouses user has access to',
     )
 
-    custom_package_name = fields.Char(
-        string='Custom package name'
-    )
-
     ventor_global_settings = fields.Text(
         string='Global Settings',
         readonly=True,

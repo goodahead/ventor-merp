@@ -61,17 +61,29 @@
                             </div>
                         </div>
                     </div>
-                    <h2>Custom Mobile Logo</h2>
+                    <h2>Additional Customisation</h2>
                     <div class="row mt16 o_settings_container">
                         <div class="col-12 col-lg-6 o_setting_box">
                             <div class="o_setting_left_pane"/>
                             <div class="o_setting_right_pane">
-                                <field name="logotype_name" invisible="1"/>
-                                <field name="logotype_file"
-                                       widget="binary"
-                                       filename="logotype_name" />
-                                <div class="text-muted">
-                                    My Logo
+                                <span class="o_form_label">Custom Mobile Logo</span>
+                                <div>
+                                    <field name="logotype_name" invisible="1"/>
+                                    <field name="logotype_file"
+                                           widget="binary"
+                                           filename="logotype_name" />
+                                    <div class="text-muted">
+                                        My Logo
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Custom Build Name</span>
+                                <div>
+                                    <field name="custom_package_name"/>
                                 </div>
                             </div>
                         </div>
