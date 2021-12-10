@@ -87,21 +87,20 @@
                   web_icon="ventor_base,static/description/icon.png"
                   groups="ventor_role_admin"/>
 
-        <menuitem name="Configuration"
-                  id="ventor_app_settings_menu"
-                  parent="ventor_app_base_menu"/>
+        <menuitem id="ventor_app_settings"
+                  name="Settings"
+                  parent="ventor_app_base_menu"
+                  action="ventor_configs_action"/>
 
         <menuitem name="Operation Types"
                   id="ventor_app_operation_app_menu"
-                  parent="ventor_app_settings_menu"
-                  action="ventor_stock_picking_action"
-                  sequence="2"/>
+                  parent="ventor_app_base_menu"
+                  action="ventor_stock_picking_action"/>
 
-        <menuitem id="ventor_app_settings"
-                  name="Settings"
-                  parent="ventor_app_settings_menu"
-                  action="ventor_configs_action"
-                  sequence="1"/>
+        <menuitem name="User Settings"
+                  id="ventor_app_user_settings_menu"
+                  parent="ventor_app_base_menu"
+                  action="base.action_res_users"/>
 
     </data>
 </odoo>

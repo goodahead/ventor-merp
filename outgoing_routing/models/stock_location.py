@@ -25,8 +25,11 @@ class StockLocation(models.Model):
         strategy = self.env.user.company_id.outgoing_routing_strategy
         strategy_order = self.env.user.company_id.outgoing_routing_order
 
-        base, field = strategy.split('.', 1)
-        if base not in ('location_id') and field not in self:
+        if strategy and len(strategy.split('.')) > 1:
+            base, field = strategy.split('.', 1)
+            if base not in ('location_id') and field not in self:
+                return
+        else:
             return
 
         res = self.sudo().search([], order='{} {}'.format(

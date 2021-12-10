@@ -24,7 +24,7 @@ class VentorConfigSettings(models.TransientModel):
     )
 
     add_barcode_on_view = fields.Boolean(
-        string='Add a Barcode Field on a Stock Location Form',
+        string='Show the Location barcode field on the form',
     )
 
     base_version = fields.Char(
@@ -33,17 +33,15 @@ class VentorConfigSettings(models.TransientModel):
         store=False,
     )
 
-    inventory_location = fields.Many2one(
-        'stock.location',
-        string='Default Inventory Location',
-        readonly=False,
-        related='company_id.stock_inventory_location'
-    )
-
     force_lot_validation_on_inventory_adjustment = fields.Boolean(
         string='Force Lot Validation on Inventory Adjustment',
         readonly=False,
         related='company_id.force_lot_validation_on_inventory_adjustment',
+    )
+
+    custom_package_name = fields.Char(
+        string='Custom package name',
+        config_parameter='ventor_base.custom_package_name',
     )
 
     @api.depends('company_id')
