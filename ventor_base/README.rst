@@ -10,6 +10,7 @@ Changelog
 ***********************
 
 * Added sudo rules for validating stock picking in transit
+* Added security group 'Warehouse Operations: Allow applying all qty of product'
 
 15.0.1.3.7 (2021-12-2)
 ***********************
