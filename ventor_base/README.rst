@@ -6,10 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-13.0.1.3.8 (2021-12-14)
+13.0.1.3.8 (2021-12-16)
 ***********************
 
 * Added sudo rules for validating stock picking in transit
+* Added security group 'Warehouse Operations: Allow applying all qty of product'
 
 13.0.1.3.7 (2021-12-2)
 ***********************
