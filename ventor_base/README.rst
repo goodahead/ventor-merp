@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+14.0.1.3.8 (2021-12-14)
+***********************
+
+* Added sudo rules for validating stock picking in transit
+
 14.0.1.3.7 (2021-12-2)
 ***********************
 
