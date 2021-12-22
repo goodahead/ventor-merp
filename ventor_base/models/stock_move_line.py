@@ -3,7 +3,6 @@
 
 from odoo import _, api, models
 from odoo.exceptions import UserError
-from odoo.tools.float_utils import float_is_zero
 
 
 class StockMoveLine(models.Model):
