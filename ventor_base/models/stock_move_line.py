@@ -22,6 +22,7 @@ class StockMoveLine(models.Model):
                 raise UserError(
                     _(
                         'You cannot split the same package in two locations. '
-                        'This package %s is used in following documents', ', '.join(set(sml_same_package_ids.mapped("origin")))
+                        'This package %s is used in following documents %s', 
+                        sml.result_package_id.display_name, ', '.join(set(sml_same_package_ids.mapped("origin")))
                     )
                 )
