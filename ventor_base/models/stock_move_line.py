@@ -13,17 +13,15 @@ class StockMoveLine(models.Model):
         for sml in self:
             sml_same_package_ids = self.search(
                 [
-                    ("state", "not in", ("done", "cancel")), 
-                    ("result_package_id", "=", sml.result_package_id.id), 
+                    ("state", "not in", ("done", "cancel")),
+                    ("result_package_id", "=", sml.result_package_id.id),
                     ("location_dest_id", "!=", sml.location_dest_id.id),
                 ]
             )
             if sml_same_package_ids:
                 raise UserError(
-                    _(  
-                        'You cannot move the same package content more than once '
-                        'in the same transfer or split the same package into two location.\n'
-                        'This package is used in source document %s', ', '.join(set(sml_same_package_ids.mapped("origin")))
+                    _(
+                        'You cannot split the same package in two locations. '
+                        'This package %s is used in following documents', ', '.join(set(sml_same_package_ids.mapped("origin")))
                     )
                 )
- 
