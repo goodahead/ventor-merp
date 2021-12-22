@@ -8,4 +8,5 @@ from . import res_company
 from . import res_config
 from . import res_users
 from . import stock_inventory
+from . import stock_move_line
 from . import stock_warehouse
