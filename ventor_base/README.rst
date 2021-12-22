@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+14.0.1.3.9 (2021-12-22)
+***********************
+
+* Added constrain for checking destination package in sml
+
 14.0.1.3.8 (2021-12-14)
 ***********************
 
