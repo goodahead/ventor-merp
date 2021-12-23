@@ -11,18 +11,19 @@ class StockMoveLine(models.Model):
     @api.constrains("result_package_id")
     def _validate_destination_package(self):
         for sml in self:
-            sml_same_package_ids = self.search(
-                [
-                    ("state", "not in", ("done", "cancel")),
-                    ("result_package_id", "=", sml.result_package_id.id),
-                    ("location_dest_id", "!=", sml.location_dest_id.id),
-                ]
-            )
-            if sml_same_package_ids:
-                raise UserError(
-                    _(
-                        'You cannot split the same package in two locations. '
-                        'This package %s is used in following documents %s', 
-                        sml.result_package_id.display_name, ', '.join(set(sml_same_package_ids.mapped("origin")))
-                    )
+            if sml.result_package_id:
+                sml_same_package_ids = self.search(
+                    [
+                        ("state", "not in", ("done", "cancel")),
+                        ("result_package_id", "=", sml.result_package_id.id),
+                        ("location_dest_id", "!=", sml.location_dest_id.id),
+                    ]
                 )
+                if sml_same_package_ids:
+                    raise UserError(
+                        _(
+                            'You cannot split the same package in two locations. '
+                            'This package %s is used in following documents %s', 
+                            sml.result_package_id.display_name, ', '.join(set(sml_same_package_ids.mapped("origin")))
+                        )
+                    )
