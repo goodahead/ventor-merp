@@ -20,10 +20,10 @@ class StockMoveLine(models.Model):
                     ]
                 )
                 if sml_same_package_ids:
+                    documents = ', '.join(set(sml.origin for sml in sml_same_package_ids if sml.origin))
+                    add_message = _(' This package %s is used in following documents %s', sml.result_package_id.display_name, documents) if documents else ''
                     raise UserError(
                         _(
-                            'You cannot split the same package in two locations. '
-                            'This package %s is used in following documents %s', 
-                            sml.result_package_id.display_name, ', '.join(set(sml.origin for sml in sml_same_package_ids if sml.origin))
+                            'You cannot split the same package in two locations.' + add_message
                         )
                     )
