@@ -24,6 +24,6 @@ class StockMoveLine(models.Model):
                         _(
                             'You cannot split the same package in two locations. '
                             'This package %s is used in following documents %s', 
-                            sml.result_package_id.display_name, ', '.join(set(sml_same_package_ids.mapped("origin")))
+                            sml.result_package_id.display_name, ', '.join(set(sml.origin for sml in sml_same_package_ids if sml.origin))
                         )
                     )
