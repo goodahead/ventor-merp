@@ -4,6 +4,34 @@ from odoo import fields, models, api, _
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
+    behavior_on_backorder_creation = fields.Selection(
+        [
+            ("always_create_backorder", "Always Create Backorder"),
+            ("never_create_backorder", "Never Create Backorder"),
+            ("ask_me_every_time", "Ask Me Every Time"),
+        ],
+        string="Behavior On Backorder Creation",
+        default="ask_me_every_time",
+        required=True,
+        help="Choose how to process backorder. You can always create "
+             "backorder, always ignore backorders or chose it all the time(default)"
+    )
+
+    behavior_on_split_operation = fields.Selection(
+        [
+            ("always_split_line", "Always Split the Line"),
+            ("always_move_less_items", "Always Move Less Items"),
+            ("ask_me_every_time", "Ask Me Every Time"),
+        ],
+        string="Behavior On Split Operation",
+        required=True,
+        compute='_compute_behavior_on_split_operation',
+        readonly=False,
+        store=True,
+        help="Choose how to process backorder. You can always create "
+             "backorder, always ignore backorders or chose it all the time(default)"
+    )
+
     confirm_source_location = fields.Boolean(
         string="Confirm source location",
         help="The dot next to the field gets yellow color means user have "
@@ -90,6 +118,13 @@ class StockPickingType(models.Model):
         help="Allow scan product owner. You can specify product owner while moving items. "
              "Working only with 'Consignment' setting on Odoo side"
     )
+
+    def _compute_behavior_on_split_operation(self):
+        for operation_type in self:
+            if operation_type.code == 'incoming':
+                operation_type.behavior_on_split_operation = 'always_split_line'
+            else:
+                operation_type.behavior_on_split_operation = 'ask_me_every_time'
 
     @api.model
     def create(self, vals):

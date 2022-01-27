@@ -55,6 +55,11 @@ class VentorConfigSettings(models.TransientModel):
         split_value = full_version and full_version.split('.')
         self.base_version = split_value and '.'.join(split_value[-3:])
 
+    @api.onchange('group_stock_tracking_lot')
+    def _onchange_packages(self):
+        for operation_type in self.env["stock.picking.type"].search([('active', '=', True)]):
+            operation_type.manage_packages = self.group_stock_tracking_lot
+
     @api.model
     def get_values(self):
         res = super(VentorConfigSettings, self).get_values()
