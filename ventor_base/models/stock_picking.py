@@ -4,6 +4,26 @@ from odoo import fields, models, api, _
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
+    apply_default_lots = fields.Boolean(
+        string="Apply default lots",
+        help="If it's on, you don't need to scan lot number to confirm it. "
+             "On receipts the app will create default Odoo lots and apply them to the product. "
+             "On delivery zone you don't need to confirm lots and "
+             "they will be taken Odoo by default"
+    )
+
+    apply_quantity_automatically = fields.Boolean(
+        string="Apply quantity automatically",
+        help="Automatically validate the line after scanning a destination location. "
+             "Warning: you have to insert QTY first before destination location"
+    )
+
+    autocomplete_the_item_quantity_field = fields.Boolean(
+        string="Autocomplete the item quantity field",
+        help="Automatically insert expected quantity. No need to enter the quantity "
+             "of goods using the keyboard or using scanning"
+    )
+
     behavior_on_backorder_creation = fields.Selection(
         [
             ("always_create_backorder", "Always Create Backorder"),
@@ -25,61 +45,11 @@ class StockPickingType(models.Model):
         ],
         string="Behavior On Split Operation",
         required=True,
-        compute='_compute_behavior_on_split_operation',
+        compute="_compute_behavior_on_split_operation",
         readonly=False,
         store=True,
         help="Choose how to process backorder. You can always create "
              "backorder, always ignore backorders or chose it all the time(default)"
-    )
-
-    confirm_source_location = fields.Boolean(
-        string="Confirm source location",
-        help="The dot next to the field gets yellow color means user have "
-             "to confirm it. User has to scan a barcode of source location"
-    )
-
-    change_source_location = fields.Boolean(
-        string="Change source location",
-        help="User can change default source location to pick item from another location. "
-             "Works only if 'Confirm source location' setting is active",
-    )
-
-    show_next_product = fields.Boolean(
-        string="Show next product",
-        help="Product field will show the next product to be picked. "
-             "Use the setting during picking and delivery. "
-             "It is recommended to disable the setting for the reception area",
-    )
-
-    confirm_product = fields.Boolean(
-        string="Confirm product",
-        help="The dot next to the field gets yellow color means user have to confirm it. "
-             "User has to scan a barcode of product"
-    )
-
-    apply_default_lots = fields.Boolean(
-        string="Apply default lots",
-        help="If it's on, you don't need to scan lot number to confirm it. "
-             "On receipts the app will create default Odoo lots and apply them to the product. "
-             "On delivery zone you don't need to confirm lots and "
-             "they will be taken Odoo by default"
-    )
-
-    transfer_more_items = fields.Boolean(
-        string="Transfer more items",
-        help="Allows moving more items than expected (for example kg of meat, etc)"
-    )
-
-    confirm_destination_location = fields.Boolean(
-        string="Confirm destination location",
-        help="The dot next to the field gets yellow color means user have to confirm it. "
-             "User has to scan a barcode of destination location"
-    )
-
-    apply_quantity_automatically = fields.Boolean(
-        string="Apply quantity automatically",
-        help="Automatically validate the line after scanning a destination location. "
-             "Warning: you have to insert QTY first before destination location"
     )
 
     change_destination_location = fields.Boolean(
@@ -88,10 +58,54 @@ class StockPickingType(models.Model):
              "while receiving to be placed at any available location",
     )
 
-    autocomplete_the_item_quantity_field = fields.Boolean(
-        string="Autocomplete the item quantity field",
+    change_source_location = fields.Boolean(
+        string="Change source location",
+        help="User can change default source location to pick item from another location. "
+             "Works only if 'Confirm source location' setting is active",
+    )
+
+    confirm_destination_location = fields.Boolean(
+        string="Confirm destination location",
+        help="The dot next to the field gets yellow color means user have to confirm it. "
+             "User has to scan a barcode of destination location"
+    )
+
+    confirm_product = fields.Boolean(
+        string="Confirm product",
+        help="The dot next to the field gets yellow color means user have to confirm it. "
+             "User has to scan a barcode of product"
+    )
+
+    confirm_source_location = fields.Boolean(
+        string="Confirm source location",
+        help="The dot next to the field gets yellow color means user have "
+             "to confirm it. User has to scan a barcode of source location"
+    )
+
+    manage_packages = fields.Boolean(
+        string="Manage packages",
+        help="Scan source (destination) packages right after scanning source (destination) "
+             "location. Use it if you move from one package to another or pick items from "
+             "packages or pallets. Works only if package management settings is active on Odoo side"
+    )
+
+    manage_product_owner = fields.Boolean(
+        string="Manage product owner",
+        help="Allow scan product owner. You can specify product owner while moving items. "
+             "Working only with 'Consignment' setting on Odoo side"
+    )
+
+    scan_destination_location = fields.Boolean(
+        string="Scan destination location",
         help="Automatically insert expected quantity. No need to enter the quantity "
              "of goods using the keyboard or using scanning"
+    )
+
+    show_next_product = fields.Boolean(
+        string="Show next product",
+        help="Product field will show the next product to be picked. "
+             "Use the setting during picking and delivery. "
+             "It is recommended to disable the setting for the reception area",
     )
 
     show_print_attachment_button = fields.Boolean(
@@ -106,17 +120,9 @@ class StockPickingType(models.Model):
              "keeping it in the hidden menu"
     )
 
-    manage_packages = fields.Boolean(
-        string="Manage packages",
-        help="Scan source (destination) packages right after scanning source (destination) "
-             "location. Use it if you move from one package to another or pick items from "
-             "packages or pallets. Works only if package management settings is active on Odoo side"
-    )
-
-    manage_product_owner = fields.Boolean(
-        string="Manage product owner",
-        help="Allow scan product owner. You can specify product owner while moving items. "
-             "Working only with 'Consignment' setting on Odoo side"
+    transfer_more_items = fields.Boolean(
+        string="Transfer more items",
+        help="Allows moving more items than expected (for example kg of meat, etc)"
     )
 
     def _compute_behavior_on_split_operation(self):
@@ -180,6 +186,11 @@ class StockPickingType(models.Model):
                 if stock_picking_type.apply_quantity_automatically:
                     if not stock_picking_type.confirm_destination_location:
                         stock_picking_type.apply_quantity_automatically = False
+
+        if 'show_next_product' in vals:
+            for stock_picking_type in self:
+                if not stock_picking_type.show_next_product and stock_picking_type.confirm_product:
+                    stock_picking_type.confirm_product = False
 
         return res
 
