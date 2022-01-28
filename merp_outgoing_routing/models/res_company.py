@@ -9,10 +9,10 @@ class Company(models.Model):
 
     outgoing_routing_strategy = fields.Selection(
         [
-            ('name', 'Sort by source locations in alphabetical order'),
-            ('removal_prio', 'Sort by location removal strategy priority'),
+            ('location_id.name', 'Sort by source locations in alphabetical order'),
+            ('location_id.removal_prio', 'Sort by location removal strategy priority'),
         ],
-        string='Routing Strategy', default='name')
+        string='Routing Strategy', default='location_id.name')
 
     outgoing_routing_order = fields.Selection(
         [

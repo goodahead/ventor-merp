@@ -89,22 +89,22 @@ class TestMerpOutgoingRouting(TransactionCase):
         })
 
     def test_sort_alphabet_a_z(self):
-        outgoing_routing_strategy = 'name'
+        outgoing_routing_strategy = 'location_id.name'
         outgoing_routing_order = 0
         self.check_sort(outgoing_routing_strategy, outgoing_routing_order)
 
     def test_sort_alphabet_z_a(self):
-        outgoing_routing_strategy = 'name'
+        outgoing_routing_strategy = 'location_id.name'
         outgoing_routing_order = 1
         self.check_sort(outgoing_routing_strategy, outgoing_routing_order)
 
     def test_sort_removal_priority_a_z(self):
-        outgoing_routing_strategy = 'removal_prio'
+        outgoing_routing_strategy = 'location_id.removal_prio'
         outgoing_routing_order = 0
         self.check_sort(outgoing_routing_strategy, outgoing_routing_order)
 
     def test_sort_removal_priority_z_a(self):
-        outgoing_routing_strategy = 'removal_prio'
+        outgoing_routing_strategy = 'location_id.removal_prio'
         outgoing_routing_order = 1
         self.check_sort(outgoing_routing_strategy, outgoing_routing_order)
 
