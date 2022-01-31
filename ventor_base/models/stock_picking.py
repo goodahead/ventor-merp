@@ -48,8 +48,8 @@ class StockPickingType(models.Model):
         compute="_compute_behavior_on_split_operation",
         readonly=False,
         store=True,
-        help="Choose how to process backorder. You can always create "
-             "backorder, always ignore backorders or chose it all the time(default)"
+        help="Choose how to process less product qty than initial. You can always split "
+             "the line, always move less items or choose it all the time(default)"
     )
 
     change_destination_location = fields.Boolean(
@@ -127,7 +127,7 @@ class StockPickingType(models.Model):
 
     def _compute_behavior_on_split_operation(self):
         for operation_type in self:
-            if operation_type.code == 'incoming':
+            if operation_type.code == 'incoming' and operation_type.return_picking_type_id:
                 operation_type.behavior_on_split_operation = 'always_split_line'
             else:
                 operation_type.behavior_on_split_operation = 'ask_me_every_time'
