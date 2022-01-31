@@ -6,6 +6,14 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+15.0.1.3.9 (2022-01-31)
+***********************
+
+* Added automatic switch on the 'Manage package' setting in all menus to default if setting "Package" is switched on
+* Added the setting “Scan destination location” to all Operation Types
+* Added dependency of settings 'Show next product' and 'Confirm product'
+* Added the settings 'Behavior on split operation' and 'Behavior on backorder creation' to all Operation Types
+
 15.0.1.3.8 (2021-12-16)
 ***********************
 
