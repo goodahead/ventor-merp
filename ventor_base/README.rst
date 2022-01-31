@@ -6,7 +6,7 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-14.0.1.3.9 (2021-12-14)
+14.0.1.3.9 (2022-01-28)
 ***********************
 
 * Added automatic switch on the 'Manage package' setting in all menus to default if setting "Package" is switched on
