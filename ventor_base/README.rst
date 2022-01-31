@@ -6,7 +6,7 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-14.0.1.3.8 (2022-01-31)
+13.0.1.3.9 (2022-01-31)
 ***********************
 
 * Added automatic switch on the 'Manage package' setting in all menus to default if setting "Package" is switched on
@@ -14,6 +14,10 @@ Changelog
 * Added dependency of settings 'Show next product' and 'Confirm product'
 * Added the settings 'Behavior on split operation' and 'Behavior on backorder creation' to all Operation Types
 
+13.0.1.3.8 (2021-12-16)
+***********************
+
+* Added security group 'Warehouse Operations: Allow applying all qty of product'
 
 13.0.1.3.7 (2021-12-2)
 ***********************
