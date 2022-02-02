@@ -97,8 +97,7 @@ class StockPickingType(models.Model):
 
     scan_destination_location = fields.Boolean(
         string="Scan destination location",
-        help="Automatically insert expected quantity. No need to enter the quantity "
-             "of goods using the keyboard or using scanning"
+        help="User has to scan a barcode of destination package"
     )
 
     show_next_product = fields.Boolean(
@@ -125,6 +124,7 @@ class StockPickingType(models.Model):
         help="Allows moving more items than expected (for example kg of meat, etc)"
     )
 
+    @api.depends('code', 'return_picking_type_id')
     def _compute_behavior_on_split_operation(self):
         for operation_type in self:
             if operation_type.code == 'incoming' and operation_type.return_picking_type_id:
@@ -215,5 +215,8 @@ class StockPickingType(models.Model):
                 "show_put_in_pack_button": self.show_put_in_pack_button,
                 "manage_packages": self.manage_packages,
                 "manage_product_owner": self.manage_product_owner,
+                "behavior_on_backorder_creation": self.behavior_on_backorder_creation,
+                "behavior_on_split_operation": self.behavior_on_split_operation,
+                "scan_destination_location": self.scan_destination_location,
             }
         }
