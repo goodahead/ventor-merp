@@ -84,9 +84,10 @@ class StockPickingType(models.Model):
 
     manage_packages = fields.Boolean(
         string="Manage packages",
+        default=lambda self: self._get_group_stock_tracking_lot(),
         help="Scan source (destination) packages right after scanning source (destination) "
              "location. Use it if you move from one package to another or pick items from "
-             "packages or pallets. Works only if package management settings is active on Odoo side"
+             "packages or pallets. Works only if package management settings is active on Odoo side",
     )
 
     manage_product_owner = fields.Boolean(
@@ -172,6 +173,14 @@ class StockPickingType(models.Model):
                 }
             }
 
+    def _get_group_stock_tracking_lot(self):
+        group_stock_tracking_lot = (
+                    self.env['res.config.settings']
+                    .default_get('group_stock_tracking_lot')
+                    .get('group_stock_tracking_lot')
+        )
+        return group_stock_tracking_lot
+
     def write(self, vals):
         res = super(StockPickingType, self).write(vals)
 
@@ -192,6 +201,12 @@ class StockPickingType(models.Model):
                 if not stock_picking_type.show_next_product and stock_picking_type.confirm_product:
                     stock_picking_type.confirm_product = False
 
+        if 'manage_packages' in vals:
+            if vals.get('manage_packages'):
+                group_stock_tracking_lot = self._get_group_stock_tracking_lot()
+                for stock_picking_type in self:
+                    if vals.get('manage_packages') and not group_stock_tracking_lot:
+                        self.manage_packages = False
         return res
 
     def get_ventor_settings(self):
