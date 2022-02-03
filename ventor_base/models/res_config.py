@@ -78,8 +78,7 @@ class VentorConfigSettings(models.TransientModel):
         group_stock_tracking_lot = previous_group.get('group_stock_tracking_lot')
 
         if group_stock_tracking_lot != self.group_stock_tracking_lot:
-            for operation_type in operation_type_ids:
-                operation_type.manage_packages = self.group_stock_tracking_lot
+            operation_type_ids.manage_packages = self.group_stock_tracking_lot
 
     def set_values(self):
         previous_group = self.default_get('group_stock_tracking_lot')

@@ -12,9 +12,7 @@ def migrate(cr, version):
     stock_picking_type_ids = env['stock.picking.type'].with_context(active_test=False).search([])
 
     if not group_stock_tracking_lot:
-        for stock_picking_type in stock_picking_type_ids:
-            stock_picking_type.manage_packages = False
+        stock_picking_type_ids.manage_packages = False
 
     elif group_stock_tracking_lot and not any(stock_picking_type_ids.mapped("manage_packages")):
-        for stock_picking_type in stock_picking_type_ids:
-            stock_picking_type.manage_packages = True
+        stock_picking_type_ids.manage_packages = True
