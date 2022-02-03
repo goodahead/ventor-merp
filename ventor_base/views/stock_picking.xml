@@ -24,7 +24,8 @@
                     <field name="autocomplete_the_item_quantity_field"/>
                     <field name="show_print_attachment_button"/>
                     <field name="show_put_in_pack_button"/>
-                    <field name="manage_packages"/>
+                    <field name="is_package_tracking_enabled" invisible='1'/>
+                    <field name="manage_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
                     <field name="manage_product_owner"/>
                     <field name="scan_destination_location"/>
                 </tree>
@@ -43,7 +44,7 @@
                             <field name="change_source_location"
                                    attrs="{'readonly':[('confirm_source_location','!=',True)]}"/>
                             <field name="show_next_product"/>
-                            <field name="confirm_product" attrs="{'readonly':[('show_next_product','!=',True)]}"/>
+                            <field name="confirm_product" attrs="{'readonly':[('show_next_product', '!=', True)]}"/>
                             <field name="apply_default_lots"/>
                             <field name="transfer_more_items"/>
                             <field name="confirm_destination_location"/>
@@ -57,7 +58,8 @@
                             <field name="autocomplete_the_item_quantity_field"/>
                             <field name="show_print_attachment_button"/>
                             <field name="show_put_in_pack_button"/>
-                            <field name="manage_packages"/>
+                            <field name="is_package_tracking_enabled" attrs="{'invisible': True}"/>
+                            <field name="manage_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
                             <field name="manage_product_owner"/>
                             <field name="scan_destination_location"/>
                         </group>

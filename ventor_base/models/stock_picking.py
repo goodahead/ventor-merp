@@ -82,12 +82,16 @@ class StockPickingType(models.Model):
              "to confirm it. User has to scan a barcode of source location"
     )
 
+    is_package_tracking_enabled = fields.Boolean(compute="_compute_is_package_tracking_enabled")
+
     manage_packages = fields.Boolean(
         string="Manage packages",
         default=lambda self: self._get_group_stock_tracking_lot(),
         help="Scan source (destination) packages right after scanning source (destination) "
              "location. Use it if you move from one package to another or pick items from "
-             "packages or pallets. Works only if package management settings is active on Odoo side",
+             "packages or pallets. Works only if package management settings is active on Odoo "
+             "side.\n\n If you want to use manage packages, you must turn on setting "
+             "'Delivery Packages' in inventory settings",
     )
 
     manage_product_owner = fields.Boolean(
@@ -125,13 +129,18 @@ class StockPickingType(models.Model):
         help="Allows moving more items than expected (for example kg of meat, etc)"
     )
 
-    @api.depends('code', 'return_picking_type_id')
+    @api.depends('code')
     def _compute_behavior_on_split_operation(self):
         for operation_type in self:
-            if operation_type.code == 'incoming' and operation_type.return_picking_type_id:
+            if operation_type.code == 'incoming':
                 operation_type.behavior_on_split_operation = 'always_split_line'
             else:
                 operation_type.behavior_on_split_operation = 'ask_me_every_time'
+
+    def _compute_is_package_tracking_enabled(self):
+        is_package_tracking_enabled = self._get_group_stock_tracking_lot()
+        for item in self:
+            item.is_package_tracking_enabled = is_package_tracking_enabled
 
     @api.model
     def create(self, vals):
@@ -176,6 +185,7 @@ class StockPickingType(models.Model):
     def _get_group_stock_tracking_lot(self):
         group_stock_tracking_lot = (
                     self.env['res.config.settings']
+                    .sudo()
                     .default_get('group_stock_tracking_lot')
                     .get('group_stock_tracking_lot')
         )
@@ -201,12 +211,6 @@ class StockPickingType(models.Model):
                 if not stock_picking_type.show_next_product and stock_picking_type.confirm_product:
                     stock_picking_type.confirm_product = False
 
-        if 'manage_packages' in vals:
-            if vals.get('manage_packages'):
-                group_stock_tracking_lot = self._get_group_stock_tracking_lot()
-                for stock_picking_type in self:
-                    if vals.get('manage_packages') and not group_stock_tracking_lot:
-                        self.manage_packages = False
         return res
 
     def get_ventor_settings(self):
