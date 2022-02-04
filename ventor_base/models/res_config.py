@@ -54,11 +54,6 @@ class VentorConfigSettings(models.TransientModel):
         split_value = full_version and full_version.split('.')
         self.base_version = split_value and '.'.join(split_value[-3:])
 
-    @api.onchange('group_stock_tracking_lot')
-    def _onchange_packages(self):
-        for operation_type in self.env["stock.picking.type"].search([('active', '=', True)]):
-            operation_type.manage_packages = self.group_stock_tracking_lot
-
     @api.model
     def get_values(self):
         res = super(VentorConfigSettings, self).get_values()
@@ -78,7 +73,15 @@ class VentorConfigSettings(models.TransientModel):
 
         return res
 
+    def _set_manage_packages(self, previous_group):
+        operation_type_ids = self.env['stock.picking.type'].search([])
+        group_stock_tracking_lot = previous_group.get('group_stock_tracking_lot')
+
+        if group_stock_tracking_lot != self.group_stock_tracking_lot:
+            operation_type_ids.manage_packages = self.group_stock_tracking_lot
+
     def set_values(self):
+        previous_group = self.default_get('group_stock_tracking_lot')
         res = super(VentorConfigSettings, self).set_values()
 
         conf = self.env['ventor.config'].sudo()
@@ -89,6 +92,8 @@ class VentorConfigSettings(models.TransientModel):
 
         view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
         view_with_barcode.active = self.add_barcode_on_view
+
+        self.sudo()._set_manage_packages(previous_group)
 
         return res
 

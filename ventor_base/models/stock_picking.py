@@ -82,11 +82,16 @@ class StockPickingType(models.Model):
              "to confirm it. User has to scan a barcode of source location"
     )
 
+    is_package_tracking_enabled = fields.Boolean(compute="_compute_is_package_tracking_enabled")
+
     manage_packages = fields.Boolean(
         string="Manage packages",
+        default=lambda self: self._get_group_stock_tracking_lot(),
         help="Scan source (destination) packages right after scanning source (destination) "
              "location. Use it if you move from one package to another or pick items from "
-             "packages or pallets. Works only if package management settings is active on Odoo side"
+             "packages or pallets. Works only if package management settings is active on Odoo "
+             "side.\n\n If you want to use manage packages, you must turn on setting "
+             "'Packages' in inventory settings",
     )
 
     manage_product_owner = fields.Boolean(
@@ -97,8 +102,7 @@ class StockPickingType(models.Model):
 
     scan_destination_location = fields.Boolean(
         string="Scan destination location",
-        help="Automatically insert expected quantity. No need to enter the quantity "
-             "of goods using the keyboard or using scanning"
+        help="User has to scan a barcode of destination package"
     )
 
     show_next_product = fields.Boolean(
@@ -125,12 +129,18 @@ class StockPickingType(models.Model):
         help="Allows moving more items than expected (for example kg of meat, etc)"
     )
 
+    @api.depends('code')
     def _compute_behavior_on_split_operation(self):
         for operation_type in self:
-            if operation_type.code == 'incoming' and operation_type.return_picking_type_id:
+            if operation_type.code == 'incoming':
                 operation_type.behavior_on_split_operation = 'always_split_line'
             else:
                 operation_type.behavior_on_split_operation = 'ask_me_every_time'
+
+    def _compute_is_package_tracking_enabled(self):
+        is_package_tracking_enabled = self._get_group_stock_tracking_lot()
+        for item in self:
+            item.is_package_tracking_enabled = is_package_tracking_enabled
 
     @api.model
     def create(self, vals):
@@ -171,6 +181,15 @@ class StockPickingType(models.Model):
                                  "if 'Change destination location' is enabled")
                 }
             }
+
+    def _get_group_stock_tracking_lot(self):
+        group_stock_tracking_lot = (
+                    self.env['res.config.settings']
+                    .sudo()
+                    .default_get('group_stock_tracking_lot')
+                    .get('group_stock_tracking_lot')
+        )
+        return group_stock_tracking_lot
 
     def write(self, vals):
         res = super(StockPickingType, self).write(vals)
@@ -215,5 +234,8 @@ class StockPickingType(models.Model):
                 "show_put_in_pack_button": self.show_put_in_pack_button,
                 "manage_packages": self.manage_packages,
                 "manage_product_owner": self.manage_product_owner,
+                "behavior_on_backorder_creation": self.behavior_on_backorder_creation,
+                "behavior_on_split_operation": self.behavior_on_split_operation,
+                "scan_destination_location": self.scan_destination_location,
             }
         }
