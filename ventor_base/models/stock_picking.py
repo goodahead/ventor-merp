@@ -239,13 +239,3 @@ class StockPickingType(models.Model):
                 "scan_destination_location": self.scan_destination_location,
             }
         }
-
-
-class Picking(models.Model):
-    _inherit = "stock.picking"
-
-    def _action_done(self):
-        if self and self.location_dest_id.usage in ("transit"):
-            res = super(Picking, self.sudo())._action_done()
-        res = super(Picking, self)._action_done()
-        return res
