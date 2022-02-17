@@ -21,9 +21,9 @@ def _post_init_hook(cr, registry):
         if len(warehouse_ids) == 1:
             stock_inv.warehouse_id = warehouse_ids
 
-    users_model = env['res.users']
+    users_ids = env['res.users']
 
-    values = [(4, user.id) for user in users_model.search([])]
+    values = [(4, user.id) for user in users_ids]
     env.ref('ventor_base.ventor_role_admin').users = values
 
     cr.execute(
@@ -34,3 +34,18 @@ def _post_init_hook(cr, registry):
             show_next_product = CASE code when 'incoming' THEN False ELSE True END
         """
     )
+
+    for user in users_ids:
+        user.write(
+            {
+                "allowed_warehouse_ids": [
+                    (
+                        6,
+                        0,
+                        env["stock.warehouse"].search(
+                            [("active", "=", True), ("company_id", "in", user.company_ids.ids)]
+                        ).ids
+                    )
+                ]
+            }
+        )

@@ -14,6 +14,7 @@ Changelog
 * Added the setting “Scan destination location” to all Operation Types
 * Added dependency of settings 'Show next product' and 'Confirm product'
 * Added the settings 'Behavior on split operation' and 'Behavior on backorder creation' to all Operation Types
+* Added post init hook for setup Allowed Warehouses to users
 
 13.0.1.3.7 (2021-12-2)
 ***********************
