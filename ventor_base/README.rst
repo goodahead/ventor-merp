@@ -15,6 +15,7 @@ Changelog
 * Added dependency of settings 'Show next product' and 'Confirm product'
 * Added the settings 'Behavior on split operation' and 'Behavior on backorder creation' to all Operation Types
 * Added sudo rules for validating stock picking in transit
+* Added post init hook and migration for setup Allowed Warehouses to users
 
 14.0.1.3.7 (2021-12-2)
 ***********************
