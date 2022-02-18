@@ -21,9 +21,9 @@ def _post_init_hook(cr, registry):
         if len(warehouse_ids) == 1:
             stock_inv.warehouse_id = warehouse_ids
 
-    users_ids = env['res.users']
+    users_model = env['res.users']
 
-    values = [(4, user.id) for user in users_ids]
+    values = [(4, user.id) for user in users_model.search([])]
     env.ref('ventor_base.ventor_role_admin').users = values
 
     cr.execute(
@@ -35,17 +35,10 @@ def _post_init_hook(cr, registry):
         """
     )
 
-    for user in users_ids:
-        user.write(
-            {
-                "allowed_warehouse_ids": [
-                    (
-                        6,
-                        0,
-                        env["stock.warehouse"].search(
-                            [("active", "=", True), ("company_id", "in", user.company_ids.ids)]
-                        ).ids
-                    )
-                ]
-            }
-        )
+    users = users_model.with_context(active_test=False).search([
+            ('allowed_warehouse_ids', '=', False),
+            ('share', '=', False)
+            ])
+    warehouses = env["stock.warehouse"].with_context(active_test=False).search([])
+    for user in users:
+        user.allowed_warehouse_ids = [(6, 0, warehouses.ids)]
