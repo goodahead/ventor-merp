@@ -24,3 +24,11 @@ def _post_init_hook(cr, registry):
             show_next_product = CASE code when 'incoming' THEN False ELSE True END
         """
     )
+
+    users = users_model.with_context(active_test=False).search([
+            ('allowed_warehouse_ids', '=', False),
+            ('share', '=', False)
+            ])
+    warehouses = env["stock.warehouse"].with_context(active_test=False).search([])
+    for user in users:
+        user.allowed_warehouse_ids = [(6, 0, warehouses.ids)]
