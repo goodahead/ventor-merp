@@ -50,7 +50,7 @@
                             <field name="transfer_more_items"/>
                             <field name="confirm_destination_location"/>
                             <field name="behavior_on_backorder_creation"/>
-                            <field name="behavior_on_split_operation"/>
+                            <field name="behavior_on_split_operation" required="1"/>
                         </group>
                         <group>
                             <field name="apply_quantity_automatically"
