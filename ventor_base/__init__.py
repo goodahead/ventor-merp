@@ -42,12 +42,3 @@ def _post_init_hook(cr, registry):
     warehouses = env["stock.warehouse"].with_context(active_test=False).search([])
     for user in users:
         user.allowed_warehouse_ids = [(6, 0, warehouses.ids)]
-
-
-    stock_picking_type_ids = env['stock.picking.type'].with_context(active_test=False).search([])
-    group_stock_tracking_lot = stock_picking_type_ids._get_group_stock_tracking_lot()
-
-    if not group_stock_tracking_lot:
-        stock_picking_type_ids.manage_packages = False
-    else:
-        stock_picking_type_ids.manage_packages = True
