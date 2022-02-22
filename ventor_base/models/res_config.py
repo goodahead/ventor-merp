@@ -68,8 +68,12 @@ class VentorConfigSettings(models.TransientModel):
             'logotype_name': name or False,
         })
 
-        view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
-        res['add_barcode_on_view'] = view_with_barcode.active
+        view_with_barcode = self.env.ref(
+            'ventor_base.view_location_form_inherit_additional_barcode',
+            raise_if_not_found=False
+        )
+        if view_with_barcode:
+            res['add_barcode_on_view'] = view_with_barcode.active
 
         return res
 
@@ -90,12 +94,8 @@ class VentorConfigSettings(models.TransientModel):
         conf.set_param('logo.file', self.logotype_file or False)
         conf.set_param('logo.name', self.logotype_name or False)
 
-        view_with_barcode = self.env.ref(
-            'ventor_base.view_location_form_inherit_additional_barcode',
-            raise_if_not_found=False
-        )
-        if view_with_barcode:
-            res['add_barcode_on_view'] = view_with_barcode.active
+        view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
+        view_with_barcode.active = self.add_barcode_on_view
 
         self.sudo()._set_manage_packages(previous_group)
 
