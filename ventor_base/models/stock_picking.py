@@ -44,7 +44,6 @@ class StockPickingType(models.Model):
             ("ask_me_every_time", "Ask Me Every Time"),
         ],
         string="Behavior On Split Operation",
-        required=True,
         compute="_compute_behavior_on_split_operation",
         readonly=False,
         store=True,
