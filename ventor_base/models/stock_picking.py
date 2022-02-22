@@ -86,7 +86,6 @@ class StockPickingType(models.Model):
 
     manage_packages = fields.Boolean(
         string="Manage packages",
-        default=lambda self: self._get_group_stock_tracking_lot(),
         help="Scan source (destination) packages right after scanning source (destination) "
              "location. Use it if you move from one package to another or pick items from "
              "packages or pallets. Works only if package management settings is active on Odoo "
