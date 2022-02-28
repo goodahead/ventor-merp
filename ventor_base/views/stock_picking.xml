@@ -23,11 +23,13 @@
                     <field name="change_destination_location"/>
                     <field name="autocomplete_the_item_quantity_field"/>
                     <field name="show_print_attachment_button"/>
-                    <field name="show_put_in_pack_button"/>
+                    <field name="manage_product_owner" attrs="{'readonly': [('is_consignment_enabled','=',False)]}"/>
                     <field name="is_package_tracking_enabled" invisible='1'/>
+                    <field name="is_consignment_enabled" invisible='1'/>
                     <field name="manage_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
-                    <field name="manage_product_owner"/>
-                    <field name="scan_destination_location"/>
+                    <field name="scan_destination_package"
+                           attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                    <field name="show_put_in_pack_button" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
                 </tree>
             </field>
         </record>
@@ -57,11 +59,14 @@
                             <field name="change_destination_location"/>
                             <field name="autocomplete_the_item_quantity_field"/>
                             <field name="show_print_attachment_button"/>
-                            <field name="show_put_in_pack_button"/>
+                            <field name="manage_product_owner" attrs="{'invisible': [('is_consignment_enabled','=',False)]}"/>
                             <field name="is_package_tracking_enabled" invisible='1'/>
-                            <field name="manage_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
-                            <field name="manage_product_owner"/>
-                            <field name="scan_destination_location"/>
+                            <field name="is_consignment_enabled" invisible='1'/>
+                            <field name="manage_packages" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
+                            <field name="scan_destination_package"
+                                   attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)],
+                                           'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                            <field name="show_put_in_pack_button" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
                         </group>
                     </group>
                 </xpath>
