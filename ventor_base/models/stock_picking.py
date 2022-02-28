@@ -191,14 +191,6 @@ class StockPickingType(models.Model):
                 }
             }
 
-    def _get_group(self):
-        group_stock_tracking_lot = (
-                    self.env['res.config.settings']
-                    .sudo()
-                    .default_get(['group_stock_tracking_lot', 'group_stock_tracking_owner'])
-        )
-        return group_stock_tracking_lot
-
     def write(self, vals):
         res = super(StockPickingType, self).write(vals)
 
