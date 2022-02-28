@@ -91,8 +91,11 @@ class VentorConfigSettings(models.TransientModel):
         operation_type_ids = self.env['stock.picking.type'].search([])
         group_stock_tracking_owner = previous_group.get('group_stock_tracking_owner')
 
-        if group_stock_tracking_owner != self.group_stock_tracking_owner and not self.group_stock_tracking_owner:
-                operation_type_ids.manage_product_owner = self.group_stock_tracking_owner
+        if (
+            group_stock_tracking_owner != self.group_stock_tracking_owner
+            and not self.group_stock_tracking_owner
+        ):
+            operation_type_ids.manage_product_owner = self.group_stock_tracking_owner
 
     def set_values(self):
         previous_group = self.default_get(['group_stock_tracking_lot', 'group_stock_tracking_owner'])

@@ -87,12 +87,13 @@ class StockPickingType(models.Model):
 
     manage_packages = fields.Boolean(
         string="Manage packages",
-        default=lambda self: self._get_group().get('group_stock_tracking_lot'),
+        default=lambda self: self.env.ref("stock.group_tracking_lot")
+        in self.env.ref("base.group_user").implied_ids,
         help="Scan source (destination) packages right after scanning source (destination) "
-             "location. Use it if you move from one package to another or pick items from "
-             "packages or pallets. Works only if package management settings is active on Odoo "
-             "side.\n\n If you want to use manage packages, you must turn on setting "
-             "'Delivery Packages' in inventory settings",
+        "location. Use it if you move from one package to another or pick items from "
+        "packages or pallets. Works only if package management settings is active on Odoo "
+        "side.\n\n If you want to use manage packages, you must turn on setting "
+        "'Delivery Packages' in inventory settings",
     )
 
     manage_product_owner = fields.Boolean(
@@ -139,14 +140,16 @@ class StockPickingType(models.Model):
                 operation_type.behavior_on_split_operation = 'ask_me_every_time'
 
     def _compute_is_consignment_enabled(self):
-        is_consignment_enabled = self._get_group().get('group_stock_tracking_owner')
+        internal_user_groups = self.env.ref('base.group_user').implied_ids
+        group_tracking_owner = self.env.ref("stock.group_tracking_owner")
         for item in self:
-            item.is_consignment_enabled = is_consignment_enabled
+            item.is_consignment_enabled = group_tracking_owner in internal_user_groups
 
     def _compute_is_package_tracking_enabled(self):
-        is_package_tracking_enabled = self._get_group().get('group_stock_tracking_lot')
+        internal_user_groups = self.env.ref('base.group_user').implied_ids
+        group_tracking_lot = self.env.ref("stock.group_tracking_lot")
         for item in self:
-            item.is_package_tracking_enabled = is_package_tracking_enabled
+            item.is_package_tracking_enabled = group_tracking_lot in internal_user_groups
 
     @api.model
     def create(self, vals):
