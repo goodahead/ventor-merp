@@ -15,7 +15,7 @@
                     <field name="confirm_source_location"/>
                     <field name="change_source_location"/>
                     <field name="show_next_product"/>
-                    <field name="confirm_product" attrs="{'readonly':[('show_next_product','!=',True)]}"/>
+                    <field name="confirm_product"/>
                     <field name="apply_default_lots"/>
                     <field name="transfer_more_items"/>
                     <field name="confirm_destination_location"/>
@@ -46,7 +46,7 @@
                             <field name="change_source_location"
                                    attrs="{'readonly':[('confirm_source_location','!=',True)]}"/>
                             <field name="show_next_product"/>
-                            <field name="confirm_product" attrs="{'readonly':[('show_next_product', '!=', True)]}"/>
+                            <field name="confirm_product"/>
                             <field name="apply_default_lots"/>
                             <field name="transfer_more_items"/>
                             <field name="confirm_destination_location"/>
