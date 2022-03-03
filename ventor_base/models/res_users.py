@@ -58,7 +58,7 @@ class ResUsers(models.Model):
                 {
                     'allowed_warehouse_ids': [
                         (
-                            6, 0, self.env["stock.warehouse"].with_context(active_test=False).search([]).ids
+                            6, 0, self.env["stock.warehouse"].sudo().with_context(active_test=False).search([]).ids
                         )
                     ]
                 }
