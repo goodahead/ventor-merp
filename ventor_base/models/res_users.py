@@ -54,7 +54,15 @@ class ResUsers(models.Model):
     def create(self, vals):
         result = super().create(vals)
         if not result.allowed_warehouse_ids:
-            result.write({'allowed_warehouse_ids': [(6, 0, self.env["stock.warehouse"].with_context(active_test=False).search([]).ids)]})
+            result.write(
+                {
+                    'allowed_warehouse_ids': [
+                        (
+                            6, 0, self.env["stock.warehouse"].with_context(active_test=False).search([]).ids
+                        )
+                    ]
+                }
+            )
         return result
 
     def write(self, vals):
