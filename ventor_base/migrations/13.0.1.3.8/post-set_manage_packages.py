@@ -22,7 +22,7 @@ def migrate(cr, version):
             ('allowed_warehouse_ids', '=', False),
             ('share', '=', False)
             ])
-    warehouses = env["stock.warehouse"].sudo().with_context(active_test=False).search([])
+    warehouses = env["stock.warehouse"].with_context(active_test=False).search([])
     for user in users:
         if not user.allowed_warehouse_ids:
             user.allowed_warehouse_ids = [(6, 0, warehouses.ids)]
