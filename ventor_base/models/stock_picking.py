@@ -83,9 +83,12 @@ class StockPickingType(models.Model):
 
     is_package_tracking_enabled = fields.Boolean(compute="_compute_is_package_tracking_enabled")
 
+    is_consignment_enabled = fields.Boolean(compute="_compute_is_consignment_enabled")
+
     manage_packages = fields.Boolean(
         string="Manage packages",
-        default=lambda self: self._get_group_stock_tracking_lot(),
+        default=lambda self: self.env.ref("stock.group_tracking_lot")
+        in self.env.ref("base.group_user").implied_ids,
         help="Scan source (destination) packages right after scanning source (destination) "
              "location. Use it if you move from one package to another or pick items from "
              "packages or pallets. Works only if package management settings is active on Odoo "
@@ -99,7 +102,7 @@ class StockPickingType(models.Model):
              "Working only with 'Consignment' setting on Odoo side"
     )
 
-    scan_destination_location = fields.Boolean(
+    scan_destination_package = fields.Boolean(
         string="Scan destination location",
         help="User has to scan a barcode of destination package"
     )
@@ -136,10 +139,17 @@ class StockPickingType(models.Model):
             else:
                 operation_type.behavior_on_split_operation = 'ask_me_every_time'
 
-    def _compute_is_package_tracking_enabled(self):
-        is_package_tracking_enabled = self._get_group_stock_tracking_lot()
+    def _compute_is_consignment_enabled(self):
+        internal_user_groups = self.env.ref('base.group_user').implied_ids
+        group_tracking_owner = self.env.ref("stock.group_tracking_owner")
         for item in self:
-            item.is_package_tracking_enabled = is_package_tracking_enabled
+            item.is_consignment_enabled = group_tracking_owner in internal_user_groups
+
+    def _compute_is_package_tracking_enabled(self):
+        internal_user_groups = self.env.ref('base.group_user').implied_ids
+        group_tracking_lot = self.env.ref("stock.group_tracking_lot")
+        for item in self:
+            item.is_package_tracking_enabled = group_tracking_lot in internal_user_groups
 
     @api.model
     def create(self, vals):
@@ -181,15 +191,6 @@ class StockPickingType(models.Model):
                 }
             }
 
-    def _get_group_stock_tracking_lot(self):
-        group_stock_tracking_lot = (
-                    self.env['res.config.settings']
-                    .sudo()
-                    .default_get('group_stock_tracking_lot')
-                    .get('group_stock_tracking_lot')
-        )
-        return group_stock_tracking_lot
-
     def write(self, vals):
         res = super(StockPickingType, self).write(vals)
 
@@ -205,11 +206,10 @@ class StockPickingType(models.Model):
                     if not stock_picking_type.confirm_destination_location:
                         stock_picking_type.apply_quantity_automatically = False
 
-        if 'show_next_product' in vals:
+        if 'manage_packages' in vals:
             for stock_picking_type in self:
-                if not stock_picking_type.show_next_product and stock_picking_type.confirm_product:
-                    stock_picking_type.confirm_product = False
-
+                if not stock_picking_type.manage_packages and stock_picking_type.scan_destination_package:
+                    stock_picking_type.scan_destination_package = False
         return res
 
     def get_ventor_settings(self):
@@ -235,6 +235,6 @@ class StockPickingType(models.Model):
                 "manage_product_owner": self.manage_product_owner,
                 "behavior_on_backorder_creation": self.behavior_on_backorder_creation,
                 "behavior_on_split_operation": self.behavior_on_split_operation,
-                "scan_destination_location": self.scan_destination_location,
+                "scan_destination_package": self.scan_destination_package,
             }
         }
