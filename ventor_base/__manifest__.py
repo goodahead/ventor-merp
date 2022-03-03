@@ -13,7 +13,6 @@
     'depends': [
         'base',
         'stock',
-        'sale_management',
         'stock_picking_batch',
     ],
     'data': [
