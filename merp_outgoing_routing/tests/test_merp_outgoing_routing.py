@@ -55,7 +55,7 @@ class TestMerpOutgoingRouting(TransactionCase):
             'date': datetime.now(),
             'location_dest_id': self.location_2.id,
             'product_uom_qty': 20.0,
-            'product_uom': product_uom.id,
+            'product_uom_id': product_uom.id,
             'product_id': products[0].id
         })
         self.move_line_2 = self.env['stock.pack.operation'].create({
