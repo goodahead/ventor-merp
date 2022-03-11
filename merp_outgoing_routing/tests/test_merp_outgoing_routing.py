@@ -110,11 +110,12 @@ class TestMerpOutgoingRouting(TransactionCase):
         self.check_sort(outgoing_routing_strategy, outgoing_routing_order)
 
     def check_sort(self, outgoing_routing_strategy, outgoing_routing_order):
-        self.env['res.company'].create({
-            'name': 'Test company',
-            'outgoing_routing_strategy': outgoing_routing_strategy,
-            'outgoing_routing_order': outgoing_routing_order
-        })
+        self.env.user.company_id.write(
+            {
+                'outgoing_routing_strategy': outgoing_routing_strategy,
+                'outgoing_routing_order': outgoing_routing_order
+            }
+        )
         picking = self.env['stock.picking'].sudo(self.user.id).browse(self.stock_picking.id)
         sort_move_lines = self.sort_by_locations(outgoing_routing_strategy, outgoing_routing_order)
         for line in range(len(picking.operations_to_pick)):
