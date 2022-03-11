@@ -48,46 +48,42 @@ class TestMerpOutgoingRouting(TransactionCase):
         product_uom = self.env['product.uom'].search([], limit=1, order='id')
         products = self.env['product.template'].search([], limit=4)
         self.move_line_1 = self.env['stock.pack.operation'].create({
-            'name': products[0].name,
             'picking_id': self.stock_picking.id,
             'qty_done': 1.0,
             'location_id': self.location_1.id,
             'date': datetime.now(),
             'location_dest_id': self.location_2.id,
-            'product_uom_qty': 20.0,
+            'product_qty': 20.0,
             'product_uom_id': product_uom.id,
             'product_id': products[0].id
         })
         self.move_line_2 = self.env['stock.pack.operation'].create({
-            'name': products[1].name,
             'picking_id': self.stock_picking.id,
             'qty_done': 2.0,
             'location_id': self.location_2.id,
             'date': datetime.now(),
             'location_dest_id': self.location_3.id,
-            'product_uom_qty': 25.0,
+            'product_qty': 25.0,
             'product_uom_id': product_uom.id,
             'product_id': products[1].id
         })
         self.move_line_3 = self.env['stock.pack.operation'].create({
-            'name': products[2].name,
             'picking_id': self.stock_picking.id,
             'qty_done': 3.0,
             'location_id': self.location_3.id,
             'date': datetime.now(),
             'location_dest_id': self.location_1.id,
-            'product_uom_qty': 15.0,
+            'product_qty': 15.0,
             'product_uom_id': product_uom.id,
             'product_id': products[2].id
         })
         self.move_line_4 = self.env['stock.pack.operation'].create({
-            'name': products[3].name,
             'picking_id': self.stock_picking.id,
             'qty_done': 10.0,
             'location_id': self.location_4.id,
             'date': datetime.now(),
             'location_dest_id': self.location_2.id,
-            'product_uom_qty': 10.0,
+            'product_qty': 10.0,
             'product_uom_id': product_uom.id,
             'product_id': products[3].id
         })
@@ -114,11 +110,11 @@ class TestMerpOutgoingRouting(TransactionCase):
         self.check_sort(outgoing_routing_strategy, outgoing_routing_order)
 
     def check_sort(self, outgoing_routing_strategy, outgoing_routing_order):
-        config = self.env['res.config.settings'].create({
+        self.env['res.company'].create({
+            'name': 'Test company',
             'outgoing_routing_strategy': outgoing_routing_strategy,
             'outgoing_routing_order': outgoing_routing_order
         })
-        config.execute()
         picking = self.env['stock.picking'].sudo(self.user.id).browse(self.stock_picking.id)
         sort_move_lines = self.sort_by_locations(outgoing_routing_strategy, outgoing_routing_order)
         for line in range(len(picking.operations_to_pick)):
