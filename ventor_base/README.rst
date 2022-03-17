@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+13.0.1.3.9 (2022-03-31)
+***********************
+
+* Added 'Operation Type' field and logic of validation to Batch Transfer
+
 13.0.1.3.8 (2022-02-03)
 ***********************
 
