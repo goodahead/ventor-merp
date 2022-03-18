@@ -37,6 +37,9 @@ class StockQuant(models.Model):
         context = dict(self.env.context)
         quants = super(StockQuant, self)._gather(product_id, location_id, lot_id=lot_id, package_id=package_id, owner_id=owner_id, strict=strict)
 
+        if (product_id.categ_id and product_id.categ_id.removal_strategy_id) or location_id.removal_strategy_id:
+            return quants
+
         strategy = self.env.user.company_id.stock_reservation_strategy
 
         func_reorder = getattr(self, '_reorder_{}'.format(strategy))
