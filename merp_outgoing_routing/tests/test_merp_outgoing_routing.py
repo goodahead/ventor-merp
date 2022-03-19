@@ -126,4 +126,6 @@ class TestMerpOutgoingRouting(TransactionCase):
         for line in move_lines.browse([self.move_line_1.id, self.move_line_2.id, self.move_line_3.id, self.move_line_4.id]):
             if line.qty_done != line.product_qty:
                 move_lines += line
-        return move_lines.sorted(key=lambda line: getattr(line.location_id, outgoing_routing_strategy, 'None'), reverse=outgoing_routing_order)
+        return move_lines.sorted(key=lambda line: getattr(
+            line.location_id, outgoing_routing_strategy[outgoing_routing_strategy.index('.')+1:], 'None'
+            ), reverse=outgoing_routing_order)
