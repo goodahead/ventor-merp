@@ -36,7 +36,7 @@ class StockPicking(models.Model):
                     res += operation
 
             rec.operations_to_pick = res.sorted(
-                key=lambda r: getattr(r.location_id, strategy, 'None'),
+                key=lambda r: getattr(r.location_id, strategy[strategy.index('.')+1:], 'None'),
                 reverse=strategy_order
             )
 
