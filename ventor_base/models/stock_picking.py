@@ -239,3 +239,22 @@ class StockPickingType(models.Model):
                 "scan_destination_package": self.scan_destination_package,
             }
         }
+
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
+        if vals.get('batch_id'):
+            res.batch_id._sanity_check()
+        return res
+
+    def write(self, vals):
+        res = super().write(vals)
+        if vals.get('batch_id'):
+            if not self.batch_id.picking_type_id:
+                self.batch_id.picking_type_id = self.picking_type_id[0]
+            self.batch_id._sanity_check()
+        return res
