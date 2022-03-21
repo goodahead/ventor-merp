@@ -1,2 +1,1 @@
 import stock_picking_wave
-import res_config

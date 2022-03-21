@@ -44,7 +44,7 @@ class StockPicking(models.Model):
             if operation._compute_operation_valid():
                 res += operation
         self.operations_to_pick = res.sorted(
-            key=lambda r: getattr(r.location_id, strategy[strategy.index('.')+1:], 'None'),
+            key=lambda r: getattr(r.location_id, strategy, 'None'),
             reverse=strategy_order
         )
 
