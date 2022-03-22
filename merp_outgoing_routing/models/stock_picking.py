@@ -3,6 +3,7 @@
 
 from odoo import models, fields, api, _
 
+import functools
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
@@ -18,7 +19,6 @@ class StockPicking(models.Model):
         store=False,
     )
 
-    @api.multi
     @api.depends(
         'move_line_ids',
         'move_line_ids.location_id',
@@ -29,25 +29,42 @@ class StockPicking(models.Model):
         strategy_order = self.env.user.company_id.outgoing_routing_order
 
         for rec in self:
-
-            res = self.env['stock.move.line']
-            for operation in res.search([('picking_id', '=', rec.id)]):
-                if operation._compute_operation_valid():
-                    res += operation
-
-            rec.operations_to_pick = res.sorted(
-                key=lambda r: getattr(r.location_id, strategy[strategy.index('.')+1:], 'None'),
-                reverse=strategy_order
-            )
-
-            settings = self.env['res.company'].fields_get([
-                'outgoing_routing_strategy',
-                'outgoing_routing_order',
+            all_operations = self.env['stock.move.line'].search([
+                ('picking_id', '=', rec.id),
             ])
-            strategies = settings['outgoing_routing_strategy']['selection']
-            orders = settings['outgoing_routing_order']['selection']
+            rec.strategy_order_r = rec.get_strategy_string(strategy, strategy_order)
+            rec.operations_to_pick = rec.sort_operations(all_operations, strategy, strategy_order)
 
-            rec.strategy_order_r = _('Strategy Order: ') + ', '.join([
-                dict(strategies)[strategy].lower(),
-                dict(orders)[strategy_order].lower()
-            ])
+    def sort_printer_picking_list(self, move_line_ids):
+        strategy = self.env.user.company_id.outgoing_routing_strategy
+        strategy_order = self.env.user.company_id.outgoing_routing_order
+
+        return self.sort_operations(move_line_ids, strategy, strategy_order)
+
+    def get_strategy_string(self, strategy, strategy_order):
+        settings = self.env['res.company'].fields_get([
+            'outgoing_routing_strategy',
+            'outgoing_routing_order',
+        ])
+
+        strategies = settings['outgoing_routing_strategy']['selection']
+        orders = settings['outgoing_routing_order']['selection']
+
+        result = _('Hint: operations are sorted by {} in {} order.').format(
+            dict(strategies)[strategy].lower(),
+            dict(orders)[strategy_order].lower()
+        )
+
+        return result
+
+    def sort_operations(self, all_operations, strategy, strategy_order):
+        def _r_getattr(obj, attr, *args):
+            return functools.reduce(getattr, [obj] + attr.split('.'))
+
+        validated_operations = all_operations.filtered(lambda op: op._compute_operation_valid())
+
+        result = validated_operations.sorted(
+            key=lambda op: _r_getattr(op, strategy, 'None'),
+            reverse=int(strategy_order)
+        )
+        return result

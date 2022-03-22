@@ -3,7 +3,7 @@
 
 {
     'name': 'Picking and Reservation Strategy',
-    "version": "11.0.1.0.1",
+    "version": "11.0.1.0.2",
     'author': 'VentorTech',
     'website': 'https://ventor.tech/',
     'license': 'LGPL-3',

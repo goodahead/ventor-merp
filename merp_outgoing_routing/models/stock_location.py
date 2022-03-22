@@ -21,16 +21,11 @@ class StockLocation(models.Model):
 
     @api.multi
     def _compute_outgoing_strategy_sequence(self):
-        """
-        """
         strategy = self.env.user.company_id.outgoing_routing_strategy
         strategy_order = self.env.user.company_id.outgoing_routing_order
 
-        if strategy and len(strategy.split('.')) > 1:
-            base, field = strategy.split('.', 1)
-            if base not in ('location_id') and field not in self:
-                return
-        else:
+        base, field = strategy.split('.', 1)
+        if base not in ('location_id') and field not in self:
             return
 
         res = self.sudo().search([], order='{} {}'.format(
