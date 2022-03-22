@@ -10,7 +10,7 @@ Changelog
 ***********************
 
 * Added 'Operation Type' field and logic of validation to Batch Transfer
-* Fixed reservation and removal strategy on ventor base module ignore force removal strategy on Product Category in Odoo 
+* Changed name of the group from 'Manufacturing Menu' to 'MO and WO management' 
 
 13.0.1.3.8 (2022-02-03)
 ***********************
