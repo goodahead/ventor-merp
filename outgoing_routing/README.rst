@@ -9,6 +9,9 @@ Picking and Reservation Strategy
 Changelog
 =========
 
+* 1.0.3 (2022-03-31)
+    - [FIX] Fixed reservation and removal strategy on ventor base module ignore force removal strategy on Product Category in Odoo 
+
 * 1.0.2 (2021-11-30)
     - [FIX] Fixing issue with compute method for strategy_sequence field on stock.location. That was causing issues in POS module
 

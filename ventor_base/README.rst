@@ -9,7 +9,7 @@ Changelog
 14.0.1.3.9 (2022-03-31)
 ***********************
 
-* Fixed reservation and removal strategy on ventor base module ignore force removal strategy on Product Category in Odoo 
+* Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
 
 14.0.1.3.8 (2021-12-14)
 ***********************
