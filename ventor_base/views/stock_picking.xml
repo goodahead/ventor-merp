@@ -23,9 +23,13 @@
                     <field name="change_destination_location"/>
                     <field name="autocomplete_the_item_quantity_field"/>
                     <field name="show_print_attachment_button"/>
-                    <field name="show_put_in_pack_button"/>
-                    <field name="manage_packages"/>
-                    <field name="manage_product_owner"/>
+                    <field name="manage_product_owner" attrs="{'readonly': [('is_consignment_enabled','=',False)]}"/>
+                    <field name="is_package_tracking_enabled" invisible='1'/>
+                    <field name="is_consignment_enabled" invisible='1'/>
+                    <field name="manage_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
+                    <field name="scan_destination_package"
+                           attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                    <field name="show_put_in_pack_button" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
                 </tree>
             </field>
         </record>
@@ -36,7 +40,7 @@
             <field name="inherit_id" ref="stock.view_picking_type_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='stock_picking_type_lot']" position="before">
-                    <group string="Ventor Configuration">
+                    <group string="Ventor Configuration" colspan="12">
                         <group>
                             <field name="confirm_source_location"/>
                             <field name="change_source_location"
@@ -46,6 +50,8 @@
                             <field name="apply_default_lots"/>
                             <field name="transfer_more_items"/>
                             <field name="confirm_destination_location"/>
+                            <field name="behavior_on_backorder_creation"/>
+                            <field name="behavior_on_split_operation" required="1"/>
                         </group>
                         <group>
                             <field name="apply_quantity_automatically"
@@ -53,9 +59,14 @@
                             <field name="change_destination_location"/>
                             <field name="autocomplete_the_item_quantity_field"/>
                             <field name="show_print_attachment_button"/>
-                            <field name="show_put_in_pack_button"/>
-                            <field name="manage_packages"/>
-                            <field name="manage_product_owner"/>
+                            <field name="manage_product_owner" attrs="{'invisible': [('is_consignment_enabled','=',False)]}"/>
+                            <field name="is_package_tracking_enabled" invisible='1'/>
+                            <field name="is_consignment_enabled" invisible='1'/>
+                            <field name="manage_packages" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
+                            <field name="scan_destination_package"
+                                   attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)],
+                                           'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
+                            <field name="show_put_in_pack_button" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
                         </group>
                     </group>
                 </xpath>
