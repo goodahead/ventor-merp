@@ -1,7 +1,7 @@
 ﻿# Copyright 2020 VentorTech OU
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _, tools
 from odoo import http
 from odoo.exceptions import Warning
 from PIL import Image
@@ -133,3 +133,10 @@ class VentorConfigSettings(models.TransientModel):
             raise Warning(_('The logotype can\'t be less than {}x{} px.'.format(LOGOTYPE_W, LOGOTYPE_H)))
 
         return True
+
+    @api.model
+    def create(self, values):
+        if values.get('logotype_file'):
+            tools.base64_to_image(values.get('logotype_file'))
+        res = super().create(values)
+        return res
