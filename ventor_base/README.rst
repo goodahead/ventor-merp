@@ -10,7 +10,8 @@ Changelog
 ***********************
 
 * Added 'Operation Type' field and logic of validation to Batch Transfer
-* Changed name of the group from 'Manufacturing Menu' to 'MO and WO management' 
+* Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
+* Added updating warehouse_id for all locations to ventor base in post_hook and migration
 
 13.0.1.3.8 (2022-02-03)
 ***********************
