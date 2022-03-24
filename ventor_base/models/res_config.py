@@ -4,6 +4,8 @@
 from odoo import models, fields, api, _
 from odoo import http
 from odoo.exceptions import Warning
+from PIL import Image
+import io
 import base64
 import struct
 import logging
@@ -117,9 +119,14 @@ class VentorConfigSettings(models.TransientModel):
 
         dat = base64.decodebytes(self.logotype_file)
 
-        png = (dat[:8] == b'\211PNG\r\n\032\n' and (dat[12:16] == b'IHDR'))
-        if not png:
-            raise Warning(_('Apparently, the logotype is not a .png file.'))
+        image = Image.open(io.BytesIO(dat))
+        if image.format.lower() != 'png':
+            raise Warning(
+                _(
+                    "Apparently, the logotype is not a .png file"
+                    " or the file was incorrectly converted to .png format"
+                )
+            )
 
         width, height = struct.unpack('>LL', dat[16:24])
         if int(width) < LOGOTYPE_W or int(height) < LOGOTYPE_H:
