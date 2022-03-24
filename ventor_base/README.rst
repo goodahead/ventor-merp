@@ -10,6 +10,7 @@ Changelog
 ***********************
 
 * Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
+* Added updating warehouse_id for all locations in post_hook ventor base
 
 14.0.1.3.8 (2022-02-03)
 ***********************
