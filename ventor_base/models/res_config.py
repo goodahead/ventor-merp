@@ -1,9 +1,11 @@
 ﻿# Copyright 2020 VentorTech OU
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _, tools
 from odoo import http
 from odoo.exceptions import Warning
+from PIL import Image
+import io
 import base64
 import struct
 import logging
@@ -117,12 +119,24 @@ class VentorConfigSettings(models.TransientModel):
 
         dat = base64.decodebytes(self.logotype_file)
 
-        png = (dat[:8] == b'\211PNG\r\n\032\n' and (dat[12:16] == b'IHDR'))
-        if not png:
-            raise Warning(_('Apparently, the logotype is not a .png file.'))
+        image = Image.open(io.BytesIO(dat))
+        if image.format.lower() != 'png':
+            raise Warning(
+                _(
+                    "Apparently, the logotype is not a .png file"
+                    " or the file was incorrectly converted to .png format"
+                )
+            )
 
         width, height = struct.unpack('>LL', dat[16:24])
         if int(width) < LOGOTYPE_W or int(height) < LOGOTYPE_H:
             raise Warning(_('The logotype can\'t be less than {}x{} px.'.format(LOGOTYPE_W, LOGOTYPE_H)))
 
         return True
+
+    @api.model
+    def create(self, values):
+        if values.get('logotype_file'):
+            tools.base64_to_image(values.get('logotype_file'))
+        res = super().create(values)
+        return res
