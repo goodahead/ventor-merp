@@ -23,6 +23,7 @@
     "version": "10.0.1.0.1",
     'author': 'Ventor, Xpansa Group',
     'website': 'https://ventor.tech/',
+    'license': 'LGPL-3',
     'installable': True,
     'images': ['static/description/main_banner.png'],
     'description': """
