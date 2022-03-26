@@ -10,6 +10,7 @@ Changelog
 ***********************
 
 * Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
+* Fixed uploading Custom Mobile Logo
 
 15.0.1.3.8 (2022-02-03)
 ***********************
