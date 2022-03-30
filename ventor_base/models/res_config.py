@@ -3,7 +3,7 @@
 
 from odoo import models, fields, api, _, tools
 from odoo import http
-from odoo.exceptions import Warning
+from odoo.exceptions import Warning, UserError
 from PIL import Image
 import io
 import base64
@@ -103,6 +103,8 @@ class VentorConfigSettings(models.TransientModel):
         conf = self.env['ventor.config'].sudo()
 
         self._validate_logotype()
+        if hasattr(self, 'favicon'):
+            conf.set_param('logo.favicon', self.favicon or self.env['website']._default_favicon())
         conf.set_param('logo.file', self.logotype_file or False)
         conf.set_param('logo.name', self.logotype_name or False)
 
@@ -112,6 +114,17 @@ class VentorConfigSettings(models.TransientModel):
         self.sudo()._set_manage_packages(previous_group)
         self.sudo()._set_manage_product_owner(previous_group)
         return res
+
+    def _pre_validate_logo(self, values):
+        if values.get('logotype_file'):
+            tools.base64_to_image(values.get('logotype_file'))
+        if values.get('favicon'):
+            try:
+                tools.base64_to_image(values.get('favicon'))
+            except UserError:
+                conf = self.env['ventor.config'].sudo()
+                values['favicon'] = conf.get_param('logo.favicon')
+        return values
 
     def _validate_logotype(self):
         if not self.logotype_file:
@@ -136,7 +149,6 @@ class VentorConfigSettings(models.TransientModel):
 
     @api.model
     def create(self, values):
-        if values.get('logotype_file'):
-            tools.base64_to_image(values.get('logotype_file'))
+        self._pre_validate_logo(values)
         res = super().create(values)
         return res
