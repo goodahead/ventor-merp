@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
 from odoo import _, models, fields
-from odoo.exceptions import Warning
+from odoo.exceptions import UserError
 
 import io
 import base64
@@ -30,7 +30,7 @@ class Company(models.Model):
 
         image = Image.open(io.BytesIO(dat))
         if image.format.lower() != 'png':
-            raise Warning(
+            raise UserError(
                 _(
                     'Apparently, the logotype is not a .png file'
                     ' or the file was incorrectly converted to .png format'
@@ -38,7 +38,7 @@ class Company(models.Model):
             )
 
         if int(image.width) < LOGOTYPE_W or int(image.height) < LOGOTYPE_H:
-            raise Warning(
+            raise UserError(
                 _(
                     'The logotype can\'t be less than {}x{} px.'.format(LOGOTYPE_W, LOGOTYPE_H)
                 )
