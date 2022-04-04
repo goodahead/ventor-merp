@@ -1,26 +1,20 @@
 ﻿# Copyright 2020 VentorTech OU
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
-from odoo import models, fields, api, _, tools
-from odoo import http
-from odoo.exceptions import Warning, UserError
-from PIL import Image
-import io
-import base64
-import struct
+from odoo import models, fields, api
 import logging
 
 _logger = logging.getLogger(__name__)
-
-LOGOTYPE_W = 500
-LOGOTYPE_H = 500
 
 
 class VentorConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    logotype_file = fields.Binary('Ventor Application Logo File')
-    logotype_name = fields.Char('Ventor Application Logo Filename')
+    logotype_file = fields.Binary(
+        string='Ventor Application Logo File',
+        related='company_id.logotype_file',
+        readonly=False
+    )
 
     module_outgoing_routing = fields.Boolean(
         string='Outgoing Routing'
@@ -61,16 +55,6 @@ class VentorConfigSettings(models.TransientModel):
     def get_values(self):
         res = super(VentorConfigSettings, self).get_values()
 
-        conf = self.env['ventor.config'].sudo()
-
-        logo = conf.get_param('logo.file', default=None)
-        name = conf.get_param('logo.name', default=None)
-
-        res.update({
-            'logotype_file': logo or False,
-            'logotype_name': name or False,
-        })
-
         view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
         res['add_barcode_on_view'] = view_with_barcode.active
 
@@ -100,55 +84,9 @@ class VentorConfigSettings(models.TransientModel):
         previous_group = self.default_get(['group_stock_tracking_lot', 'group_stock_tracking_owner'])
         res = super(VentorConfigSettings, self).set_values()
 
-        conf = self.env['ventor.config'].sudo()
-
-        self._validate_logotype()
-        if hasattr(self, 'favicon'):
-            conf.set_param('logo.favicon', self.favicon or self.env['website']._default_favicon())
-        conf.set_param('logo.file', self.logotype_file or False)
-        conf.set_param('logo.name', self.logotype_name or False)
-
         view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
         view_with_barcode.active = self.add_barcode_on_view
 
         self.sudo()._set_manage_packages(previous_group)
         self.sudo()._set_manage_product_owner(previous_group)
-        return res
-
-    def _pre_validate_logo(self, values):
-        if values.get('logotype_file'):
-            tools.base64_to_image(values.get('logotype_file'))
-        if values.get('favicon'):
-            try:
-                tools.base64_to_image(values.get('favicon'))
-            except UserError:
-                conf = self.env['ventor.config'].sudo()
-                values['favicon'] = conf.get_param('logo.favicon')
-        return values
-
-    def _validate_logotype(self):
-        if not self.logotype_file:
-            return False
-
-        dat = base64.decodebytes(self.logotype_file)
-
-        image = Image.open(io.BytesIO(dat))
-        if image.format.lower() != 'png':
-            raise Warning(
-                _(
-                    "Apparently, the logotype is not a .png file"
-                    " or the file was incorrectly converted to .png format"
-                )
-            )
-
-        width, height = struct.unpack('>LL', dat[16:24])
-        if int(width) < LOGOTYPE_W or int(height) < LOGOTYPE_H:
-            raise Warning(_('The logotype can\'t be less than {}x{} px.'.format(LOGOTYPE_W, LOGOTYPE_H)))
-
-        return True
-
-    @api.model
-    def create(self, values):
-        self._pre_validate_logo(values)
-        res = super().create(values)
         return res
