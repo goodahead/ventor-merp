@@ -12,6 +12,8 @@ Changelog
 * Added 'Operation Type' field and logic of validation to Batch Transfer
 * Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
 * Added updating warehouse_id for all locations to ventor base in post_hook and migration
+* Added record rules 'See Stock Quant Package from allowed warehouses' and 
+  'See Stock Inventory Lines from allowed warehouses' for restricting access to warehouses for odoo users
 
 13.0.1.3.8 (2022-02-03)
 ***********************
