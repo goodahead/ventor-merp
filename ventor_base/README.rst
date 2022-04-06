@@ -10,8 +10,7 @@ Changelog
 ***********************
 
 * Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
-* Added record rules 'See Stock Quant Package from allowed warehouses' and 
-  'See Stock Inventory Lines from allowed warehouses' for restricting access to warehouses for odoo users
+* Added record rule 'See Stock Quant Package from allowed warehouses' for restricting access to warehouses for odoo users
 
 15.0.1.3.8 (2022-02-03)
 ***********************
