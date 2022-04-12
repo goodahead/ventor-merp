@@ -73,8 +73,15 @@
             </field>
         </record>
 
-<!-- Actions-->
+<!-- Style -->
+        <template id="assets_backend" name="ventor_base_assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <!--  Scss  -->
+                <link rel="stylesheet" type="text/scss" href="ventor_base/static/src/scss/stock_picking_type.scss"/>
+            </xpath>
+        </template>
 
+<!-- Actions-->
         <record id='ventor_stock_picking_action' model='ir.actions.act_window'>
             <field name="name">Operation Types</field>
             <field name="res_model">stock.picking.type</field>
