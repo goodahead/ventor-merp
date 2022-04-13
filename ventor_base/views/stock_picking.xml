@@ -74,7 +74,6 @@
         </record>
 
 <!-- Actions-->
-
         <record id='ventor_stock_picking_action' model='ir.actions.act_window'>
             <field name="name">Operation Types</field>
             <field name="res_model">stock.picking.type</field>

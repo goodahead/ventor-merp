@@ -25,4 +25,9 @@
         'views/stock_warehouse.xml',
     ],
     'post_init_hook': '_post_init_hook',
+    'assets': {
+        'web.assets_backend': [
+            'ventor_base/static/src/**/*',
+        ],
+    }
 }
