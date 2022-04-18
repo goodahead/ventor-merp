@@ -1,3 +1,20 @@
 .custom-control.custom-checkbox.o_field_boolean.o_field_widget.o_readonly_modifier{
         pointer-events: none;
     }
+
+.o_content {
+	& > .o_list_view.ventor_base_tree {
+		& > .table-responsive {
+			& > .table {
+				& > thead {
+					& > tr {
+						& > :not(:empty) {
+							padding: -5px 4px;
+							white-space: pre-wrap;
+						}
+					}
+				}
+			}
+		}
+	}
+}
