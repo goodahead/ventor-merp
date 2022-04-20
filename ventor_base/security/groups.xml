@@ -392,7 +392,12 @@
         <field name="name">See Stock Quant Package from allowed warehouses</field>
         <field name="model_id" ref="stock.model_stock_quant_package"/>
         <field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
-        <field name="domain_force">['|', ('location_id.warehouse_id','=',False), ('location_id.warehouse_id','in',[wh.id for wh in user.allowed_warehouse_ids])]</field>
+        <field name="domain_force">[
+                '|', '|',
+                    ('location_id', '=', False),
+                    ('location_id.warehouse_id','=',False),
+                    ('location_id.warehouse_id','in',[wh.id for wh in user.allowed_warehouse_ids])
+            ]</field>
     </record>
 
     <record model="ir.rule" id="stock_quant_package_rule_stock_manager">
