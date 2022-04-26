@@ -103,7 +103,7 @@ class StockPickingType(models.Model):
     )
 
     scan_destination_package = fields.Boolean(
-        string="Scan destination location",
+        string="Scan destination package",
         help="User has to scan a barcode of destination package"
     )
 
