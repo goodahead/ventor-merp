@@ -14,12 +14,10 @@ class StockPickingBatch(models.Model):
     picking_ids = fields.One2many(
         "stock.picking",
         "batch_id",
-        string="Transfers",
         readonly=True,
         domain="[('id', 'in', allowed_picking_ids)]",
         check_company=True,
         states={"draft": [("readonly", False)], "in_progress": [("readonly", False)]},
-        help="List of transfers associated to this batch",
     )
 
     picking_type_id = fields.Many2one(
