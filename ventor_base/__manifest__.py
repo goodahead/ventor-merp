@@ -3,7 +3,7 @@
 
 {
     'name': 'Ventor Base',
-    'version': '13.0.1.3.8',
+    'version': '13.0.1.3.9',
     'author': 'VentorTech',
     'website': 'https://ventor.tech/',
     'license': 'LGPL-3',
@@ -24,6 +24,7 @@
         'views/stock_inventory.xml',
         'views/stock_location.xml',
         'views/stock_picking.xml',
+        'views/stock_picking_batch.xml',
         'views/stock_warehouse.xml',
     ],
     'post_init_hook': '_post_init_hook',

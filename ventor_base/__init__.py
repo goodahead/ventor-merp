@@ -42,3 +42,9 @@ def _post_init_hook(cr, registry):
     warehouses = env["stock.warehouse"].with_context(active_test=False).search([])
     for user in users:
         user.allowed_warehouse_ids = [(6, 0, warehouses.ids)]
+
+    # Update warehouse_id for all locations
+    all_locations = env['stock.location'].with_context(active_test=False).search([
+            ('warehouse_id', '=', False),
+            ])
+    all_locations.action_update_warehouse()
