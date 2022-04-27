@@ -48,7 +48,7 @@ Change Log
     - Added migration to prefill calculated warehouses on exsiting installations
 
 * 14.0.1.3.1 (2021-09-04)
-    Added new operation types settings:
+    - Added new operation types settings:
         - Apply quantity automatically
         - Autocomplete the item quantity field
         - Show Print attachment button
