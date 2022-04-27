@@ -3,7 +3,7 @@
 
 {
     'name': 'Ventor Custom Access Rights',
-    "version": "12.0.1.0.2",
+    "version": "12.0.1.0.3",
     'author': 'VentorTech',
     'website': 'https://ventor.tech/',
     'license': 'LGPL-3',
