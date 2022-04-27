@@ -115,7 +115,6 @@ class VentorConfigSettings(models.TransientModel):
             return False
 
         dat = base64.decodebytes(self.logotype_file)
-
         png = (dat[:8] == b'\211PNG\r\n\032\n' and (dat[12:16] == b'IHDR'))
         if not png:
             raise UserError(_('Apparently, the logotype is not a .png file.'))
