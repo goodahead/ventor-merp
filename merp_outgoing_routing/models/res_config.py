@@ -9,16 +9,18 @@ class StockConfigSettings(models.TransientModel):
 
     outgoing_routing_strategy = fields.Selection(
         [
-            ('name', 'Sort by source locations in alphabetical order'),
-            ('removal_prio', 'Sort by location removal strategy priority field'),
+            ('location_id.removal_prio', 'Location removal priority'),
+            ('location_id.name', 'Location name'),
         ],
-        string='Routing Strategy', default='name',
-        related='company_id.outgoing_routing_strategy')
+        string='Picking Strategy',
+        related='company_id.outgoing_routing_strategy',
+        readonly=False)
 
     outgoing_routing_order = fields.Selection(
         [
-            (0, 'Ascending (A-Z)'),
-            (1, 'Descending (Z-A)'),
+            ('0', 'Ascending (A-Z)'),
+            ('1', 'Descending (Z-A)'),
         ],
-        string='Routing Order', default=0,
-        related='company_id.outgoing_routing_order')
+        string='Picking Order',
+        related='company_id.outgoing_routing_order',
+        readonly=False)

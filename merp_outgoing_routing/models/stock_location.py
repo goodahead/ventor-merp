@@ -21,8 +21,6 @@ class StockLocation(models.Model):
 
     @api.multi
     def _compute_outgoing_strategy_sequence(self):
-        """
-        """
         strategy = self.env.user.company_id.outgoing_routing_strategy
         strategy_order = self.env.user.company_id.outgoing_routing_order
 
@@ -41,7 +39,7 @@ class StockLocation(models.Model):
         remaining_locations = self - processed
         max_seq = len(res)
         for remaining in remaining_locations:
-            remaining.strategy_sequence =  max_seq
+            remaining.strategy_sequence = max_seq
 
     @api.onchange('location_id')
     def _onchange_parent_location(self):
