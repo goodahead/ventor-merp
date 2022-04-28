@@ -6,7 +6,7 @@ Module Ventor Custom Access Rights
 Changelog
 ---------
 
-12.0.1.0.3 (2022-03-31)
+12.0.1.0.3 (2022-04-27)
 ***********************
 
 * Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
