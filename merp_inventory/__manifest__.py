@@ -14,7 +14,6 @@
         'merp_base'
     ],
     'data': [
-        'security/ir.model.access.csv',
         'views/res_config.xml',
         'views/res_users.xml',
         'views/stock_inventory.xml',
