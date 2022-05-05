@@ -12,7 +12,6 @@
     "license": "LGPL-3",
     "depends": [
         "stock",
-        "project_base",
     ],
     "data": [
         "views/stock_warehouse_view.xml",
