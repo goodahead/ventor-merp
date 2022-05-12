@@ -2,7 +2,6 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
 from odoo import models, fields, api
-from odoo.exceptions import Warning
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -56,8 +55,12 @@ class VentorConfigSettings(models.TransientModel):
     def get_values(self):
         res = super(VentorConfigSettings, self).get_values()
 
-        view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
-        res['add_barcode_on_view'] = view_with_barcode.active
+        view_with_barcode = self.env.ref(
+            'ventor_base.view_location_form_inherit_additional_barcode',
+            raise_if_not_found=False
+        )
+        if view_with_barcode:
+            res['add_barcode_on_view'] = view_with_barcode.active
 
         return res
 
