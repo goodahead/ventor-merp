@@ -6,10 +6,18 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-14.0.1.3.9 (2022-03-31)
+14.0.1.3.10 (2022-05-31)
 ***********************
 
 * Fixed uploading Custom Mobile Logo
+
+14.0.1.3.9 (2022-04-27)
+***********************
+
+* Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
+* Added updating warehouse_id for all locations in post_hook ventor base
+* Added record rules 'See Stock Quant Package from allowed warehouses' and 
+  'See Stock Inventory Lines from allowed warehouses' for restricting access to warehouses for odoo users
 
 14.0.1.3.8 (2022-02-03)
 ***********************
