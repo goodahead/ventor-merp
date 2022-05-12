@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+13.0.1.3.10 (2022-05-31)
+***********************
+
+* Fixed uploading Custom Mobile Logo
+
 13.0.1.3.9 (2022-04-27)
 ***********************
 

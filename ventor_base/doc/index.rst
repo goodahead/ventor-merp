@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 13.0.1.3.10 (2022-05-31)
+    - Fixed uploading Custom Mobile Logo
+
 * 13.0.1.3.9 (2022-04-27)
     - Added 'Operation Type' field and logic of validation to Batch Transfer
     - Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
