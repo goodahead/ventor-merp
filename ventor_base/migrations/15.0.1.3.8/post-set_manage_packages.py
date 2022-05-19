@@ -12,10 +12,10 @@ def migrate(cr, version):
     stock_picking_type_ids = env['stock.picking.type'].with_context(active_test=False).search([])
 
     if not group_stock_tracking_lot:
-        stock_picking_type_ids.manage_packages = False
+        stock_picking_type_ids.show_packages_fields = False
 
-    elif group_stock_tracking_lot and not any(stock_picking_type_ids.mapped("manage_packages")):
-        stock_picking_type_ids.manage_packages = True
+    elif group_stock_tracking_lot and not any(stock_picking_type_ids.mapped("show_packages_fields")):
+        stock_picking_type_ids.show_packages_fields = True
 
 
     users = env['res.users'].with_context(active_test=False).search([
