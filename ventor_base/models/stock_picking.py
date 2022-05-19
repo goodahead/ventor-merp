@@ -4,8 +4,8 @@ from odoo import fields, models, api, _
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
-    apply_default_lots = fields.Boolean(
-        string="Apply default lots",
+    apply_default_lots_and_serials = fields.Boolean(
+        string="Apply default lots and serials",
         help="If it's on, you don't need to scan lot number to confirm it. "
              "On receipts the app will create default Odoo lots and apply them to the product. "
              "On delivery zone you don't need to confirm lots and "
@@ -18,8 +18,8 @@ class StockPickingType(models.Model):
              "Warning: you have to insert QTY first before destination location"
     )
 
-    autocomplete_the_item_quantity_field = fields.Boolean(
-        string="Autocomplete the item quantity field",
+    autocomplete_item_quantity = fields.Boolean(
+        string="Autocomplete item quantity",
         help="Automatically insert expected quantity. No need to enter the quantity "
              "of goods using the keyboard or using scanning"
     )
@@ -85,25 +85,24 @@ class StockPickingType(models.Model):
 
     is_consignment_enabled = fields.Boolean(compute="_compute_is_consignment_enabled")
 
-    manage_packages = fields.Boolean(
-        string="Manage packages",
+    show_packages_fields = fields.Boolean(
+        string="Show packages fields",
         default=lambda self: self.env.ref("stock.group_tracking_lot")
         in self.env.ref("base.group_user").implied_ids,
         help="Scan source (destination) packages right after scanning source (destination) "
         "location. Use it if you move from one package to another or pick items from "
         "packages or pallets. Works only if package management settings is active on Odoo "
-        "side.\n\n If you want to use manage packages, you must turn on setting "
+        "side.\n\n If you want to use Show packages fields, you must turn on setting "
         "'Delivery Packages' in inventory settings",
     )
 
-    manage_product_owner = fields.Boolean(
-        string="Manage product owner",
+    show_product_owner_field = fields.Boolean(
+        string="Show Product Owner field",
         help="Allow scan product owner. You can specify product owner while moving items. "
-             "Working only with 'Consignment' setting on Odoo side"
     )
 
-    scan_destination_package = fields.Boolean(
-        string="Scan destination package",
+    force_destination_package_scan = fields.Boolean(
+        string="Force destination package scan",
         help="User has to scan a barcode of destination package"
     )
 
@@ -126,8 +125,8 @@ class StockPickingType(models.Model):
              "keeping it in the hidden menu"
     )
 
-    transfer_more_items = fields.Boolean(
-        string="Transfer more items",
+    move_more_than_planned = fields.Boolean(
+        string="Move more than planned",
         help="Allows moving more items than expected (for example kg of meat, etc)"
     )
 
@@ -186,7 +185,7 @@ class StockPickingType(models.Model):
             return {
                 'warning': {
                     'title': _("Warning"),
-                    'message': _("'Autocomplete the item quantity field' is available only "
+                    'message': _("'Autocomplete item quantity' is available only "
                                  "if 'Change destination location' is enabled")
                 }
             }
@@ -206,10 +205,10 @@ class StockPickingType(models.Model):
                     if not stock_picking_type.confirm_destination_location:
                         stock_picking_type.apply_quantity_automatically = False
 
-        if 'manage_packages' in vals:
+        if 'show_packages_fields' in vals:
             for stock_picking_type in self:
-                if not stock_picking_type.manage_packages and stock_picking_type.scan_destination_package:
-                    stock_picking_type.scan_destination_package = False
+                if not stock_picking_type.show_packages_fields and stock_picking_type.force_destination_package_scan:
+                    stock_picking_type.force_destination_package_scan = False
 
         return res
 
@@ -224,19 +223,19 @@ class StockPickingType(models.Model):
                 "change_source_location": self.change_source_location,
                 "show_next_product": self.show_next_product,
                 "confirm_product": self.confirm_product,
-                "apply_default_lots": self.apply_default_lots,
-                "transfer_more_items": self.transfer_more_items,
+                "apply_default_lots_and_serials": self.apply_default_lots_and_serials,
+                "move_more_than_planned": self.move_more_than_planned,
                 "confirm_destination_location": self.confirm_destination_location,
                 "apply_quantity_automatically": self.apply_quantity_automatically,
                 "change_destination_location": self.change_destination_location,
-                "autocomplete_the_item_quantity_field": self.autocomplete_the_item_quantity_field,
+                "autocomplete_item_quantity": self.autocomplete_item_quantity,
                 "show_print_attachment_button": self.show_print_attachment_button,
                 "show_put_in_pack_button": self.show_put_in_pack_button,
-                "manage_packages": self.manage_packages,
-                "manage_product_owner": self.manage_product_owner,
+                "show_packages_fields": self.show_packages_fields,
+                "show_product_owner_field": self.show_product_owner_field,
                 "behavior_on_backorder_creation": self.behavior_on_backorder_creation,
                 "behavior_on_split_operation": self.behavior_on_split_operation,
-                "scan_destination_package": self.scan_destination_package,
+                "force_destination_package_scan": self.force_destination_package_scan,
             }
         }
 
