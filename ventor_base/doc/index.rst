@@ -10,6 +10,15 @@ Change Log
 
 |
 
+* 15.0.1.3.10 (2022-05-31)
+    - Renamed name of fields in Ventor Configuration:
+        - Apply default lots -> Apply default lots and serials
+        - Transfer more items -> Move more than planned
+        - Autocomplete the item quantity field -> Autocomplete item quantity
+        - Manage packages -> Show packages fields
+        - Scan destination package -> Force destination package scan
+        - Manage product owner -> Show Product Owner field
+
 * 15.0.1.3.9 (2022-04-27)
     - Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
     - Added record rule 'See Stock Quant Package from allowed warehouses' for restricting access to warehouses for odoo users
