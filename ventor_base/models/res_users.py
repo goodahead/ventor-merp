@@ -17,6 +17,7 @@ class ResUsers(models.Model):
 
     ventor_base_version = fields.Char(
         compute="_compute_ventor_base_version",
+        compute_sudo=True,
         readonly=True,
         )
 
