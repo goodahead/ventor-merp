@@ -12,6 +12,13 @@ Change Log
 
 * 13.0.1.3.10 (2022-05-31)
     - Fixed uploading Custom Mobile Logo
+    - Renamed name of fields in Ventor Configuration:
+        - Apply default lots -> Apply default lots and serials
+        - Transfer more items -> Move more than planned
+        - Autocomplete the item quantity field -> Autocomplete item quantity
+        - Manage packages -> Show packages fields
+        - Scan destination package -> Force destination package scan
+        - Manage product owner -> Show Product Owner field
 
 * 13.0.1.3.9 (2022-04-27)
     - Added 'Operation Type' field and logic of validation to Batch Transfer

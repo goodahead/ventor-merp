@@ -5,7 +5,7 @@ class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
     apply_default_lots = fields.Boolean(
-        string="Apply default lots",
+        string="Apply default lots and serials",
         help="If it's on, you don't need to scan lot number to confirm it. "
              "On receipts the app will create default Odoo lots and apply them to the product. "
              "On delivery zone you don't need to confirm lots and "
@@ -19,7 +19,7 @@ class StockPickingType(models.Model):
     )
 
     autocomplete_the_item_quantity_field = fields.Boolean(
-        string="Autocomplete the item quantity field",
+        string="Autocomplete item quantity",
         help="Automatically insert expected quantity. No need to enter the quantity "
              "of goods using the keyboard or using scanning"
     )
@@ -86,24 +86,23 @@ class StockPickingType(models.Model):
     is_consignment_enabled = fields.Boolean(compute="_compute_is_consignment_enabled")
 
     manage_packages = fields.Boolean(
-        string="Manage packages",
+        string="Show packages fields",
         default=lambda self: self.env.ref("stock.group_tracking_lot")
         in self.env.ref("base.group_user").implied_ids,
         help="Scan source (destination) packages right after scanning source (destination) "
         "location. Use it if you move from one package to another or pick items from "
         "packages or pallets. Works only if package management settings is active on Odoo "
-        "side.\n\n If you want to use manage packages, you must turn on setting "
+        "side.\n\n If you want to use Show packages fields, you must turn on setting "
         "'Delivery Packages' in inventory settings",
     )
 
     manage_product_owner = fields.Boolean(
-        string="Manage product owner",
+        string="Show Product Owner field",
         help="Allow scan product owner. You can specify product owner while moving items. "
-             "Working only with 'Consignment' setting on Odoo side"
     )
 
     scan_destination_package = fields.Boolean(
-        string="Scan destination package",
+        string="Force destination package scan",
         help="User has to scan a barcode of destination package"
     )
 
@@ -127,7 +126,7 @@ class StockPickingType(models.Model):
     )
 
     transfer_more_items = fields.Boolean(
-        string="Transfer more items",
+        string="Move more than planned",
         help="Allows moving more items than expected (for example kg of meat, etc)"
     )
 
@@ -186,7 +185,7 @@ class StockPickingType(models.Model):
             return {
                 'warning': {
                     'title': _("Warning"),
-                    'message': _("'Autocomplete the item quantity field' is available only "
+                    'message': _("'Autocomplete item quantity' is available only "
                                  "if 'Change destination location' is enabled")
                 }
             }
