@@ -19,7 +19,7 @@ class ResUsers(models.Model):
         compute="_compute_ventor_base_version",
         compute_sudo=True,
         readonly=True,
-        )
+    )
 
     ventor_global_settings = fields.Text(
         string='Global Settings',
