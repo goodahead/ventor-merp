@@ -6,6 +6,10 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+13.0.1.3.10 (2022-05-31)
+***********************
+* Added group 'Validate Inventory by Inventory User'
+
 13.0.1.3.9 (2022-04-27)
 ***********************
 
