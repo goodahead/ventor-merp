@@ -16,8 +16,8 @@
         'stock_picking_batch',
     ],
     'data': [
-        'security/ir.model.access.csv',
         'security/groups.xml',
+        'security/ir.model.access.csv',
         'views/res_config.xml',
         'views/res_users.xml',
         'views/stock_location.xml',
