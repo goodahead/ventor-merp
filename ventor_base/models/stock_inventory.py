@@ -32,7 +32,10 @@ class StockInventory(models.Model):
     def user_has_groups(self, groups):
         # we need to override method as we need different access group
         # to be allowed to validate inventory
-        if self.env.context.get("validate_inventory_by_user"):
+        if (
+            groups == "stock.group_stock_manager"
+            and self.user_has_groups("ventor_base.merp_user_validate_inventory_adjustment")
+        ):
             groups = "ventor_base.merp_user_validate_inventory_adjustment"
         res = super(StockInventory, self).user_has_groups(groups)
         return res
@@ -48,11 +51,6 @@ class StockInventory(models.Model):
         self._update_location()
         return res
 
-    def action_validate(self):
-        if self.user_has_groups("ventor_base.merp_user_validate_inventory_adjustment"):
-            self = self.with_context(validate_inventory_by_user=True)
-        res = super(StockInventory, self).action_validate()
-        return res
 
 class InventoryLine(models.Model):
     _inherit = "stock.inventory.line"
