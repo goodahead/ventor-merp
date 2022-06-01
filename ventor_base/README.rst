@@ -6,6 +6,12 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+14.0.1.4.0 (2022-06-03)
+***********************
+
+* Added group 'Validate Inventory'
+* Added warning note in user settings about field 'Allowed Warehouses'
+
 14.0.1.3.9 (2022-04-27)
 ***********************
 
