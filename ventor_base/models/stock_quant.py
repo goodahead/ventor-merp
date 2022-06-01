@@ -27,3 +27,15 @@ class StockQuant(models.Model):
                         quant.product_id.display_name,
                     )
                 )
+
+    @api.model
+    def user_has_groups(self, groups):
+        # we need to override method as we need different access group
+        # to be allowed to validate inventory
+        if (
+            groups == "stock.group_stock_manager"
+            and self.user_has_groups("ventor_base.merp_user_validate_inventory_adjustment")
+        ):
+            groups = "ventor_base.merp_user_validate_inventory_adjustment"
+        res = super(StockQuant, self).user_has_groups(groups)
+        return res

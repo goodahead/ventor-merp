@@ -10,6 +10,10 @@ Change Log
 
 |
 
+* 15.0.1.4.0 (2022-06-03)
+    - Added group 'Validate Inventory'
+    - Added warning note in user settings about field 'Allowed Warehouses'
+
 * 15.0.1.3.9 (2022-04-27)
     - Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
     - Added record rule 'See Stock Quant Package from allowed warehouses' for restricting access to warehouses for odoo users
