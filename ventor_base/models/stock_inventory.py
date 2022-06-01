@@ -34,7 +34,7 @@ class StockInventory(models.Model):
         # to be allowed to validate inventory
         if (
             groups == "stock.group_stock_manager"
-            and self.user_has_groups("ventor_base.merp_user_validate_inventory_adjustment")
+            and self.env.context.get("validate_inventory")
         ):
             groups = "ventor_base.merp_user_validate_inventory_adjustment"
         res = super(StockInventory, self).user_has_groups(groups)
@@ -49,6 +49,12 @@ class StockInventory(models.Model):
     def write(self, vals):
         res = super(StockInventory, self).write(vals)
         self._update_location()
+        return res
+
+    def action_validate(self):
+        if self.user_has_groups("ventor_base.merp_user_validate_inventory_adjustment"):
+            self = self.with_context(validate_inventory=True)
+        res = super(StockInventory, self).action_validate()
         return res
 
 
