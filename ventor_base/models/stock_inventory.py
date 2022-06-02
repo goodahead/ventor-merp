@@ -29,6 +29,18 @@ class StockInventory(models.Model):
             self.location_ids = self.warehouse_id.view_location_id
 
     @api.model
+    def user_has_groups(self, groups):
+        # we need to override method as we need different access group
+        # to be allowed to validate inventory
+        if (
+            self.env.context.get("validate_inventory")
+            and groups == "stock.group_stock_manager"
+        ):
+            groups = "ventor_base.merp_user_validate_inventory_adjustment"
+        res = super(StockInventory, self).user_has_groups(groups)
+        return res
+
+    @api.model
     def create(self, vals):
         res = super(StockInventory, self).create(vals)
         res._update_location()
@@ -38,6 +50,11 @@ class StockInventory(models.Model):
         res = super(StockInventory, self).write(vals)
         self._update_location()
         return res
+
+    def action_validate(self):
+        res = super(StockInventory, self.with_context(validate_inventory=True)).action_validate()
+        return res
+
 
 class InventoryLine(models.Model):
     _inherit = "stock.inventory.line"

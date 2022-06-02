@@ -10,7 +10,9 @@ Change Log
 
 |
 
-* 14.0.1.3.10 (2022-05-31)
+* 14.0.1.4.0 (2022-06-08)
+    - Added group 'Validate Inventory'
+    - Added warning note in user settings about field 'Allowed Warehouses'
     - Fixed uploading Custom Mobile Logo
     - Renamed name of fields in Ventor Configuration:
         - Apply default lots -> Apply default lots and serials
