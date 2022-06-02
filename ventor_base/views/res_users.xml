@@ -25,6 +25,13 @@
                     <group string="Multi Warehouses">
                         <field name="allowed_warehouse_ids"  widget="many2many_tags" options="{'no_create': True}"/>
                     </group>
+                    <div class="text-danger">
+                        <p>
+                            Warning! If the user is Inventory / Administrator, 
+                            the Allowed Warehouses configuration is ignored and 
+                            the user will still be able to see all warehouses
+                        </p>
+                    </div>
                 </xpath>
             </data>
         </field>
