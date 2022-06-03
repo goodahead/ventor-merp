@@ -10,6 +10,10 @@ Change Log
 
 |
 
+13.0.1.4.0 (2022-06-08)
+    - Added automatic switch on the 'Show Put in pack button' setting in all menus to default if setting "Package" is switched on
+    - Added automatic switch on the 'Show Product Owner field“' setting in all menus to default if setting "Consignment" is switched on
+
 * 13.0.1.3.9 (2022-04-27)
     - Added 'Operation Type' field and logic of validation to Batch Transfer
     - Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'

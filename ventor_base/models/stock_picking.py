@@ -63,6 +63,12 @@ class StockPickingType(models.Model):
              "Works only if 'Confirm source location' setting is active",
     )
 
+    check_shipping_information = fields.Boolean(
+        string="Check shipping information",
+        help="If the setting is active the user can edit shipping information "
+             "before validate OUT transfer",
+    )
+
     confirm_destination_location = fields.Boolean(
         string="Confirm destination location",
         help="The dot next to the field gets yellow color means user have to confirm it. "
@@ -116,6 +122,7 @@ class StockPickingType(models.Model):
 
     show_print_attachment_button = fields.Boolean(
         string="Show Print attachments button",
+        default=True,
         help="Showing the Print attachments button in the toolbar instead of "
              "keeping it in the hidden menu"
     )
@@ -237,6 +244,7 @@ class StockPickingType(models.Model):
                 "behavior_on_backorder_creation": self.behavior_on_backorder_creation,
                 "behavior_on_split_operation": self.behavior_on_split_operation,
                 "scan_destination_package": self.scan_destination_package,
+                "check_shipping_information": self.check_shipping_information,
             }
         }
 
