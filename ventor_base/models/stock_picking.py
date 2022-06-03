@@ -33,7 +33,8 @@ class StockPickingType(models.Model):
         string="Behavior On Backorder Creation",
         default="ask_me_every_time",
         required=True,
-        help="Choose how to process backorders. You can always create backorders. always ignore backorders or choose it all the time (default)"
+        help="Choose how to process backorders. You can always create backorders, "
+             "always ignore backorders or choose it all the time (default)"
     )
 
     behavior_on_split_operation = fields.Selection(
