@@ -22,10 +22,13 @@
                     <field name="is_package_tracking_enabled" invisible='1'/>
                     <field name="manage_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
                     <field name="is_consignment_enabled" invisible='1'/>
+                    <field name="confirm_source_package"
+                           attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
                     <field name="scan_destination_package"
                            attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
                     <field name="manage_product_owner" attrs="{'readonly': [('is_consignment_enabled','=',False)]}"/>
-                    <field name="apply_default_lots"/>
+                    <field name="is_stock_production_lot_enabled" invisible='1'/>
+                    <field name="apply_default_lots" attrs="{'readonly': [('is_stock_production_lot_enabled','=',False)]}"/>
                     <field name="transfer_more_items"/>
                     <field name="autocomplete_the_item_quantity_field"/>
                     <field name="behavior_on_backorder_creation"/>
@@ -55,6 +58,9 @@
                                    attrs="{'readonly':[('confirm_destination_location','!=',True)]}"/>
                             <field name="is_package_tracking_enabled" invisible='1'/>
                             <field name="manage_packages" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
+                            <field name="confirm_source_package"
+                                   attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)],
+                                           'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
                             <field name="scan_destination_package"
                                    attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)],
                                            'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
@@ -62,7 +68,8 @@
                             <field name="manage_product_owner" attrs="{'invisible': [('is_consignment_enabled','=',False)]}"/>
                         </group>
                         <group>
-                            <field name="apply_default_lots"/>
+                            <field name="is_stock_production_lot_enabled" invisible='1'/>
+                            <field name="apply_default_lots" attrs="{'invisible': [('is_stock_production_lot_enabled','=',False)]}"/>
                             <field name="transfer_more_items"/>
                             <field name="autocomplete_the_item_quantity_field"/>
                             <field name="behavior_on_backorder_creation"/>
