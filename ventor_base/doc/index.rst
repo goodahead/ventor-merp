@@ -21,6 +21,8 @@ Change Log
         - Manage packages -> Show packages fields
         - Scan destination package -> Force destination package scan
         - Manage product owner -> Show Product Owner field
+    - Added the setting 'Confirm source package' to all Operation Types and dependency on the general 'Package' setting
+    - Added 'Apply default lots and serials' dependency on the general 'Lots & Serial Numbers' setting
 
 * 13.0.1.3.9 (2022-04-27)
     - Added 'Operation Type' field and logic of validation to Batch Transfer
@@ -31,7 +33,7 @@ Change Log
 
 * 13.0.1.3.8 (2022-02-03)
     - Added security group 'Warehouse Operations: Allow applying all qty of product'
-    - Added automatic switch on the 'Manage package' setting in all menus to default if setting "Package" is switched on
+    - Added automatic switch on the 'Manage package' setting in all menus to default if setting 'Package' is switched on
     - Added the setting “Scan destination location” to all Operation Types
     - Added dependency of settings 'Show next product' and 'Confirm product'
     - Added the settings 'Behavior on split operation' and 'Behavior on backorder creation' to all Operation Types

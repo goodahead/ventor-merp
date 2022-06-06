@@ -33,8 +33,8 @@ class StockPickingType(models.Model):
         string="Behavior On Backorder Creation",
         default="ask_me_every_time",
         required=True,
-        help="Choose how to process backorder. You can always create "
-             "backorder, always ignore backorders or chose it all the time(default)"
+        help="Choose how to process backorders. You can always create backorders, "
+             "always ignore backorders or choose it all the time (default)"
     )
 
     behavior_on_split_operation = fields.Selection(
@@ -65,25 +65,39 @@ class StockPickingType(models.Model):
 
     confirm_destination_location = fields.Boolean(
         string="Confirm destination location",
-        help="The dot next to the field gets yellow color means user have to confirm it. "
+        help="The dot next to the field gets yellow color means user has to confirm it. "
              "User has to scan a barcode of destination location"
     )
 
     confirm_product = fields.Boolean(
         string="Confirm product",
-        help="The dot next to the field gets yellow color means user have to confirm it. "
-             "User has to scan a barcode of product"
+        help="The dot next to the field gets yellow color means user has to confirm it. "
+             "User has to scan a barcode of product."
     )
 
     confirm_source_location = fields.Boolean(
         string="Confirm source location",
-        help="The dot next to the field gets yellow color means user have "
-             "to confirm it. User has to scan a barcode of source location"
+        help="The dot next to the field gets yellow color means user has to confirm it. "
+             "User has to scan a barcode of source location"
     )
 
-    is_package_tracking_enabled = fields.Boolean(compute="_compute_is_package_tracking_enabled")
+    confirm_source_package = fields.Boolean(
+        string="Confirm source package",
+        help="User has to scan a barcode of source package. "
+             "The dot next to the field gets yellow color means user has to confirm it"
+    )
 
-    is_consignment_enabled = fields.Boolean(compute="_compute_is_consignment_enabled")
+    is_consignment_enabled = fields.Boolean(
+        compute="_compute_is_consignment_enabled"
+    )
+
+    is_package_tracking_enabled = fields.Boolean(
+        compute="_compute_is_package_tracking_enabled"
+    )
+
+    is_stock_production_lot_enabled = fields.Boolean(
+        compute="_compute_is_stock_production_lot_enabled"
+    )
 
     manage_packages = fields.Boolean(
         string="Show packages fields",
@@ -103,7 +117,7 @@ class StockPickingType(models.Model):
 
     scan_destination_package = fields.Boolean(
         string="Force destination package scan",
-        help="User has to scan a barcode of destination package"
+        help="If this active user has to scan a destination package (pallet) all the time"
     )
 
     show_next_product = fields.Boolean(
@@ -149,6 +163,12 @@ class StockPickingType(models.Model):
         group_tracking_lot = self.env.ref("stock.group_tracking_lot")
         for item in self:
             item.is_package_tracking_enabled = group_tracking_lot in internal_user_groups
+
+    def _compute_is_stock_production_lot_enabled(self):
+        internal_user_groups = self.env.ref('base.group_user').implied_ids
+        group_production_lot = self.env.ref("stock.group_production_lot")
+        for item in self:
+            item.is_stock_production_lot_enabled = group_production_lot in internal_user_groups
 
     @api.model
     def create(self, vals):
@@ -207,8 +227,11 @@ class StockPickingType(models.Model):
 
         if 'manage_packages' in vals:
             for stock_picking_type in self:
-                if not stock_picking_type.manage_packages and stock_picking_type.scan_destination_package:
-                    stock_picking_type.scan_destination_package = False
+                if not stock_picking_type.manage_packages:
+                    if stock_picking_type.scan_destination_package:
+                        stock_picking_type.scan_destination_package = False
+                    if stock_picking_type.confirm_source_package:
+                        stock_picking_type.confirm_source_package = False
 
         return res
 
@@ -236,6 +259,7 @@ class StockPickingType(models.Model):
                 "behavior_on_backorder_creation": self.behavior_on_backorder_creation,
                 "behavior_on_split_operation": self.behavior_on_split_operation,
                 "scan_destination_package": self.scan_destination_package,
+                "confirm_source_package": self.confirm_source_package,
             }
         }
 
