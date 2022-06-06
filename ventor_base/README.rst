@@ -6,7 +6,7 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-15.0.1.3.10 (2022-05-31)
+15.0.1.4.0 (2022-06-08)
 ***********************
 
 * Renamed name of fields in Ventor Configuration:
@@ -16,6 +16,8 @@ Changelog
     Manage packages -> Show packages fields
     Scan destination package -> Force destination package scan
     Manage product owner -> Show Product Owner field
+* Added the setting 'Confirm source package' to all Operation Types and dependency on the general 'Package' setting
+* Added 'Apply default lots and serials' dependency on 'Lots & Serial Numbers'
 
 15.0.1.3.9 (2022-04-27)
 ***********************
@@ -27,7 +29,7 @@ Changelog
 ***********************
 
 * Added security group 'Warehouse Operations: Allow applying all qty of product'
-* Added automatic switch on the 'Manage package' setting in all menus to default if setting "Package" is switched on
+* Added automatic switch on the 'Manage package' setting in all menus to default if setting 'Package' is switched on
 * Added the setting “Scan destination location” to all Operation Types
 * Added dependency of settings 'Show next product' and 'Confirm product'
 * Added the settings 'Behavior on split operation' and 'Behavior on backorder creation' to all Operation Types
