@@ -85,7 +85,7 @@ class VentorConfigSettings(models.TransientModel):
             group_stock_production_lot != self.group_stock_production_lot
             and not self.group_stock_production_lot
         ):
-            operation_type_ids.apply_default_lots = self.group_stock_production_lot
+            operation_type_ids.apply_default_lots = False
 
     def _set_manage_packages(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
