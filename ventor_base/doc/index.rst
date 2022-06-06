@@ -10,6 +10,10 @@ Change Log
 
 |
 
+15.0.1.4.0 (2022-06-08)
+    - Added automatic switch on the 'Show Put in pack button' setting in all menus to default if setting "Package" is switched on
+    - Added automatic switch on the 'Show Product Owner field“' setting in all menus to default if setting "Consignment" is switched on
+
 * 15.0.1.3.9 (2022-04-27)
     - Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
     - Added record rule 'See Stock Quant Package from allowed warehouses' for restricting access to warehouses for odoo users

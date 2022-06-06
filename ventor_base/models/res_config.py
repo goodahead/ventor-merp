@@ -73,12 +73,13 @@ class VentorConfigSettings(models.TransientModel):
 
         return res
 
-    def _set_manage_packages(self, previous_group):
+    def _set_packages_fields(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
         group_stock_tracking_lot = previous_group.get('group_stock_tracking_lot')
 
         if group_stock_tracking_lot != self.group_stock_tracking_lot:
             operation_type_ids.manage_packages = self.group_stock_tracking_lot
+            operation_type_ids.show_put_in_pack_button = self.group_stock_tracking_lot
             if not self.group_stock_tracking_lot:
                 operation_type_ids.show_put_in_pack_button = self.group_stock_tracking_lot
                 operation_type_ids.scan_destination_package = self.group_stock_tracking_lot
@@ -87,10 +88,7 @@ class VentorConfigSettings(models.TransientModel):
         operation_type_ids = self.env['stock.picking.type'].search([])
         group_stock_tracking_owner = previous_group.get('group_stock_tracking_owner')
 
-        if (
-            group_stock_tracking_owner != self.group_stock_tracking_owner
-            and not self.group_stock_tracking_owner
-        ):
+        if group_stock_tracking_owner != self.group_stock_tracking_owner:
             operation_type_ids.manage_product_owner = self.group_stock_tracking_owner
 
     def set_values(self):
@@ -106,7 +104,7 @@ class VentorConfigSettings(models.TransientModel):
         view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
         view_with_barcode.active = self.add_barcode_on_view
 
-        self.sudo()._set_manage_packages(previous_group)
+        self.sudo()._set_packages_fields(previous_group)
         self.sudo()._set_manage_product_owner(previous_group)
         return res
 
