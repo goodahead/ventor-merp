@@ -30,6 +30,8 @@
                     <field name="scan_destination_package"
                            attrs="{'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
                     <field name="show_put_in_pack_button" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
+                    <field name="code" invisible='1'/>
+                    <field name="check_shipping_information" attrs="{'readonly': [('code','!=','outgoing')]}"/>
                 </tree>
             </field>
         </record>
@@ -67,6 +69,7 @@
                                    attrs="{'invisible': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)],
                                            'readonly': ['|', ('is_package_tracking_enabled','=',False), ('manage_packages','=',False)]}"/>
                             <field name="show_put_in_pack_button" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
+                            <field name="check_shipping_information" attrs="{'invisible': [('code','!=','outgoing')]}"/>
                         </group>
                     </group>
                 </xpath>
