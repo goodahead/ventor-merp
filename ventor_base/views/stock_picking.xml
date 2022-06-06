@@ -35,6 +35,8 @@
                     <field name="behavior_on_split_operation" required="1"/>
                     <field name="show_print_attachment_button"/>
                     <field name="show_put_in_pack_button" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
+                    <field name="code" invisible='1'/>
+                    <field name="check_shipping_information" attrs="{'readonly': [('code','!=','outgoing')]}"/>
                 </tree>
             </field>
         </record>
@@ -76,6 +78,7 @@
                             <field name="behavior_on_split_operation" required="1"/>
                             <field name="show_print_attachment_button"/>
                             <field name="show_put_in_pack_button" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
+                            <field name="check_shipping_information" attrs="{'invisible': [('code','!=','outgoing')]}"/>
                         </group>
                     </group>
                 </xpath>

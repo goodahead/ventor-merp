@@ -21,6 +21,8 @@ Changelog
     Manage product owner -> Show Product Owner field
 * Added the setting 'Confirm source package' to all Operation Types and dependency on the general 'Package' setting
 * Added 'Apply default lots and serials' dependency on 'Lots & Serial Numbers'
+* Added automatic switch on the 'Show Put in pack button' setting in all menus to default if setting "Package" is switched on
+* Added automatic switch on the 'Show Product Owner field“' setting in all menus to default if setting "Consignment" is switched on
 
 13.0.1.3.9 (2022-04-27)
 ***********************
