@@ -117,7 +117,9 @@ class StockPickingType(models.Model):
     )
 
     manage_product_owner = fields.Boolean(
-        string="Show Product Owner field",
+        string="Manage product owner",
+        default=lambda self: self.env.ref("stock.group_tracking_owner")
+        in self.env.ref("base.group_user").implied_ids,
         help="Allow scan product owner. You can specify product owner while moving items. "
              "Working only with 'Consignment' setting on Odoo side"
     )
@@ -143,6 +145,8 @@ class StockPickingType(models.Model):
 
     show_put_in_pack_button = fields.Boolean(
         string="Show Put in pack button",
+        default=lambda self: self.env.ref("stock.group_tracking_lot")
+        in self.env.ref("base.group_user").implied_ids,
         help="Showing the Put in pack button in the toolbar instead of "
              "keeping it in the hidden menu"
     )
