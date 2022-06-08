@@ -121,6 +121,7 @@ class StockPickingType(models.Model):
         default=lambda self: self.env.ref("stock.group_tracking_owner")
         in self.env.ref("base.group_user").implied_ids,
         help="Allow scan product owner. You can specify product owner while moving items. "
+             "Working only with 'Consignment' setting on Odoo side"
     )
 
     scan_destination_package = fields.Boolean(
