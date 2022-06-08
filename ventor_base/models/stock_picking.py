@@ -113,6 +113,7 @@ class StockPickingType(models.Model):
     manage_product_owner = fields.Boolean(
         string="Show Product Owner field",
         help="Allow scan product owner. You can specify product owner while moving items. "
+             "Working only with 'Consignment' setting on Odoo side"
     )
 
     scan_destination_package = fields.Boolean(
