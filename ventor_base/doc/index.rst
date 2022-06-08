@@ -15,6 +15,7 @@ Change Log
     - Added warning note in user settings about field 'Allowed Warehouses'
     - Fixed uploading Custom Mobile Logo
     - Renamed name of fields in Ventor Configuration:
+    
         - Apply default lots -> Apply default lots and serials
         - Transfer more items -> Move more than planned
         - Autocomplete the item quantity field -> Autocomplete item quantity
