@@ -112,7 +112,7 @@ class StockPickingType(models.Model):
         help="Scan source (destination) packages right after scanning source (destination) "
              "location. Use it if you move from one package to another or pick items from "
              "packages or pallets. Works only if package management settings is active on Odoo "
-             "side.\n\n If you want to use manage packages, you must turn on setting "
+             "side.\n\n If you want to use Show packages fields, you must turn on setting "
              "'Packages' in inventory settings",
     )
 
