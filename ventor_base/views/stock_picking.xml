@@ -34,6 +34,19 @@
             </field>
         </record>
 
+        <record id='ventor_settings_tree_view' model='ir.ui.view'>
+            <field name="name">Package Management</field>
+            <field name="model">ventor.option.setting</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name"/>
+                    <field name="is_set"/>
+                    <field name="action_type"/>
+                </tree>
+            </field>
+        </record>
+
         <record id="ventor_stock_picking_form" model="ir.ui.view">
             <field name="name">Operation Types</field>
             <field name="model">stock.picking.type</field>
@@ -99,6 +112,69 @@
             <field name="context">{'module' : 'ventor_base'}</field>
         </record>
 
+        <record id='ventor_package_management_action' model='ir.actions.act_window'>
+            <field name="name">Package Management</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'package_management')]</field>
+        </record>
+
+        <record id='ventor_batch_picking_action' model='ir.actions.act_window'>
+            <field name="name">Batch Picking</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'batch_picking')]</field>
+        </record>
+
+        <record id='ventor_internal_transfers_action' model='ir.actions.act_window'>
+            <field name="name">Internal Transfers</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'internal_transfers')]</field>
+        </record>
+
+        <record id='ventor_putaway_action' model='ir.actions.act_window'>
+            <field name="name">Putaway</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'putaway')]</field>
+        </record>
+
+        <record id='ventor_instant_inventory_action' model='ir.actions.act_window'>
+            <field name="name">Instant Inventory</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'instant_inventory')]</field>
+        </record>
+
+        <record id='ventor_inventory_adjustments_action' model='ir.actions.act_window'>
+            <field name="name">Inventory Adjustments</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'inventory_adjustments')]</field>
+        </record>
+
+        <record id='ventor_quick_info_action' model='ir.actions.act_window'>
+            <field name="name">Quick info</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'quick_info')]</field>
+        </record>
+
 <!-- Menus -->
         <menuitem name="Ventor Configuration"
                   id="ventor_app_base_menu"
@@ -110,9 +186,49 @@
                   parent="ventor_app_base_menu"
                   action="ventor_configs_action"/>
 
-        <menuitem name="Operation Types"
-                  id="ventor_app_operation_app_menu"
+        <menuitem name="Ventor Settings"
+                  id="ventor_settings_app_menu"
                   parent="ventor_app_base_menu"
+                  action="ventor_stock_picking_action"/>
+
+        <menuitem name="Warehouse Operations"
+                  id="ventor_wh_operations_app_menu"
+                  parent="ventor_settings_app_menu"
+                  action="ventor_stock_picking_action"/>
+
+        <menuitem name="Package Management"
+                  id="ventor_package_management_app_menu"
+                  parent="ventor_settings_app_menu"
+                  action="ventor_package_management_action"/>
+
+        <menuitem name="Batch Picking"
+                  id="ventor_batch_picking_app_menu"
+                  parent="ventor_settings_app_menu"
+                  action="ventor_batch_picking_action"/>
+
+        <menuitem name="Internal Transfers"
+                  id="ventor_internal_transfers_app_menu"
+                  parent="ventor_settings_app_menu"
+                  action="ventor_internal_transfers_action"/>
+
+        <menuitem name="Putaway"
+                  id="ventor_putaway_app_menu"
+                  parent="ventor_settings_app_menu"
+                  action="ventor_putaway_action"/>
+
+        <menuitem name="Instant Inventory"
+                  id="ventor_instant_inventory_app_menu"
+                  parent="ventor_settings_app_menu"
+                  action="ventor_instant_inventory_action"/>
+
+        <menuitem name="Inventory Adjustments"
+                  id="ventor_inventory_adjustments_app_menu"
+                  parent="ventor_settings_app_menu"
+                  action="ventor_inventory_adjustments_action"/>
+
+        <menuitem name="Quick info"
+                  id="ventor_quick_info_app_menu"
+                  parent="ventor_settings_app_menu"
                   action="ventor_stock_picking_action"/>
 
         <menuitem name="User Settings"
