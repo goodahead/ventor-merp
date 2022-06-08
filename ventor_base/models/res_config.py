@@ -1,23 +1,20 @@
 ﻿# Copyright 2020 VentorTech OU
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
-from odoo import models, fields, api, _
-from odoo.exceptions import Warning
-import base64
-import struct
+from odoo import models, fields, api
 import logging
 
 _logger = logging.getLogger(__name__)
-
-LOGOTYPE_W = 500
-LOGOTYPE_H = 500
 
 
 class VentorConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    logotype_file = fields.Binary('Ventor Application Logo File')
-    logotype_name = fields.Char('Ventor Application Logo Filename')
+    logotype_file = fields.Binary(
+        string='Ventor Application Logo File',
+        related='company_id.logotype_file',
+        readonly=False
+    )
 
     module_outgoing_routing = fields.Boolean(
         string='Outgoing Routing'
@@ -58,16 +55,6 @@ class VentorConfigSettings(models.TransientModel):
     def get_values(self):
         res = super(VentorConfigSettings, self).get_values()
 
-        conf = self.env['ventor.config'].sudo()
-
-        logo = conf.get_param('logo.file', default=None)
-        name = conf.get_param('logo.name', default=None)
-
-        res.update({
-            'logotype_file': logo or False,
-            'logotype_name': name or False,
-        })
-
         view_with_barcode = self.env.ref(
             'ventor_base.view_location_form_inherit_additional_barcode',
             raise_if_not_found=False
@@ -77,56 +64,50 @@ class VentorConfigSettings(models.TransientModel):
 
         return res
 
-    def _set_manage_packages(self, previous_group):
+    def _set_apply_default_lots(self, previous_group):
+        operation_type_ids = self.env['stock.picking.type'].search([])
+        group_stock_production_lot = previous_group.get('group_stock_production_lot')
+
+        if (
+            group_stock_production_lot != self.group_stock_production_lot
+            and not self.group_stock_production_lot
+        ):
+            operation_type_ids.apply_default_lots = False
+
+    def _set_packages_fields(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
         group_stock_tracking_lot = previous_group.get('group_stock_tracking_lot')
 
         if group_stock_tracking_lot != self.group_stock_tracking_lot:
             operation_type_ids.manage_packages = self.group_stock_tracking_lot
+            operation_type_ids.show_put_in_pack_button = self.group_stock_tracking_lot
             if not self.group_stock_tracking_lot:
                 operation_type_ids.show_put_in_pack_button = self.group_stock_tracking_lot
                 operation_type_ids.scan_destination_package = self.group_stock_tracking_lot
+                operation_type_ids.confirm_source_package = self.group_stock_tracking_lot
 
     def _set_manage_product_owner(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
         group_stock_tracking_owner = previous_group.get('group_stock_tracking_owner')
 
-        if (
-            group_stock_tracking_owner != self.group_stock_tracking_owner
-            and not self.group_stock_tracking_owner
-        ):
+        if group_stock_tracking_owner != self.group_stock_tracking_owner:
             operation_type_ids.manage_product_owner = self.group_stock_tracking_owner
 
     def set_values(self):
-        previous_group = self.default_get(['group_stock_tracking_lot', 'group_stock_tracking_owner'])
+        previous_group = self.default_get(
+            [
+                'group_stock_tracking_lot',
+                'group_stock_tracking_owner',
+                'group_stock_production_lot',
+            ]
+        )
         res = super(VentorConfigSettings, self).set_values()
-
-        conf = self.env['ventor.config'].sudo()
-
-        self._validate_logotype()
-        conf.set_param('logo.file', self.logotype_file or False)
-        conf.set_param('logo.name', self.logotype_name or False)
 
         view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
         view_with_barcode.active = self.add_barcode_on_view
 
-        self.sudo()._set_manage_packages(previous_group)
+        self.sudo()._set_apply_default_lots(previous_group)
+        self.sudo()._set_packages_fields(previous_group)
         self.sudo()._set_manage_product_owner(previous_group)
 
         return res
-
-    def _validate_logotype(self):
-        if not self.logotype_file:
-            return False
-
-        dat = base64.decodebytes(self.logotype_file)
-
-        png = (dat[:8] == b'\211PNG\r\n\032\n' and (dat[12:16] == b'IHDR'))
-        if not png:
-            raise Warning(_('Apparently, the logotype is not a .png file.'))
-
-        width, height = struct.unpack('>LL', dat[16:24])
-        if int(width) < LOGOTYPE_W or int(height) < LOGOTYPE_H:
-            raise Warning(_('The logotype can\'t be less than {}x{} px.'.format(LOGOTYPE_W, LOGOTYPE_H)))
-
-        return True

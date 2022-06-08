@@ -68,13 +68,8 @@
                             <div class="o_setting_right_pane">
                                 <span class="o_form_label">Custom Mobile Logo</span>
                                 <div>
-                                    <field name="logotype_name" invisible="1"/>
                                     <field name="logotype_file"
-                                           widget="binary"
-                                           filename="logotype_name" />
-                                    <div class="text-muted">
-                                        My Logo
-                                    </div>
+                                        widget="image" />
                                 </div>
                             </div>
                         </div>
