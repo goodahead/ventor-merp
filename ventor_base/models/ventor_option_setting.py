@@ -20,7 +20,7 @@ class VentorOptionSetting(models.Model):
             ('putaway', 'Putaway'),
             ('instant_inventory', 'Instant Inventory'),
             ('inventory_adjustments', 'Inventory Adjustments'),
-            ('quick_info', 'quick_info'),
+            ('quick_info', 'Quick Info'),
         ], required=True
     )
     description = fields.Text()
