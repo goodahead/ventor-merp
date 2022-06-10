@@ -27,7 +27,7 @@
         'views/stock_picking.xml',
         'views/stock_picking_batch.xml',
         'views/stock_warehouse.xml',
-        'views/ventor_option_settings.xml',
+        'views/ventor_option_setting.xml',
     ],
     'post_init_hook': '_post_init_hook',
 }
