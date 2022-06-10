@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ventor_settings_admin,ventor.settings.admin,ventor_base.model_ventor_option_setting,ventor_base.ventor_role_admin,1,1,0,0

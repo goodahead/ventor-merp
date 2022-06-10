@@ -10,6 +10,18 @@ Change Log
 
 |
 
+* 14.0.1.5.0 (2022-06-30)
+    - Added Ventor Settings menu with submenu:
+
+        Warehouse Opration
+        Package Management
+        Batch Picking
+        Internal Transfers
+        Putaway
+        Instant Inventory
+        Inventory Adjustments
+        Quick Info
+
 * 14.0.1.4.0 (2022-06-08)
     - Added group 'Validate Inventory'
     - Added warning note in user settings about field 'Allowed Warehouses'
