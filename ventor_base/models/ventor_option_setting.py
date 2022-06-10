@@ -9,6 +9,7 @@ class VentorOptionSetting(models.Model):
     _description = 'Ventor Option Setting'
 
     name = fields.Char(required=True, index=True)
+    technical_name = fields.Char(required=True)
     is_set = fields.Boolean()
     action_type = fields.Selection(
         [
@@ -22,3 +23,4 @@ class VentorOptionSetting(models.Model):
             ('quick_info', 'quick_info'),
         ], required=True
     )
+    description = fields.Text()
