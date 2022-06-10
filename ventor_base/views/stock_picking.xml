@@ -42,11 +42,11 @@
         </record>
 
         <record id='ventor_settings_tree_view' model='ir.ui.view'>
-            <field name="name">Package Management</field>
+            <field name="name">Ventor Settings</field>
             <field name="model">ventor.option.setting</field>
             <field name="priority">1000</field>
             <field name="arch" type="xml">
-                <tree create="false" delete="false" editable="top">
+                <tree editable="top">
                     <field name="name" readonly="1"/>
                     <field name="technical_name" readonly="1" groups="base.group_no_one"/>
                     <field name="is_set"/>

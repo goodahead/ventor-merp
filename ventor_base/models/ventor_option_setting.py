@@ -1,7 +1,7 @@
 # Copyright 2022 VentorTech OU
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class VentorOptionSetting(models.Model):
@@ -24,3 +24,22 @@ class VentorOptionSetting(models.Model):
         ], required=True
     )
     description = fields.Text()
+
+    def get_general_settings(self):
+        action_types = [
+            'package_management', 
+            'batch_picking',
+            'internal_transfers',
+            'putaway',
+            'instant_inventory',
+            'inventory_adjustments',
+            'quick_info'
+        ]
+        ventor_option_settings = self.env['ventor.option.setting'].search([])
+        settings = {}
+        for action_type in action_types:
+            settings[action_type] = {
+                set.technical_name: set.is_set
+                for set in ventor_option_settings.filtered(lambda r: r.action_type == action_type)
+            }
+        return settings

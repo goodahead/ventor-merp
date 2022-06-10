@@ -247,7 +247,7 @@ class StockPickingType(models.Model):
 
         return res
 
-    def get_ventor_settings(self):
+    def get_warehouse_operation_settings(self):
         return {
             "id": self.id,
             "name": self.name,

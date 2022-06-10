@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- <data noupdate="1"> -->
+    <data noupdate="1">
     <!-- Package management -->
         <record id="enable_over_flow" model="ventor.option.setting">
             <field name="name">Pack extra items</field>
@@ -147,7 +147,7 @@
             <field name="description">Choose how to to process less product qty than initial. You can always split the line, always move less items or choose it all the time (default)</field>
         </record>
 
-        <record id="manage_packages" model="ventor.option.setting">
+        <record id="manage_package_batch_picking" model="ventor.option.setting">
             <field name="name">Show packages fields</field>
             <field name="technical_name">manage_packages</field>
             <field name="is_set">False</field>
@@ -163,7 +163,7 @@
             <field name="description">User has to scan a barcode of destination package</field>
         </record>
 
-        <record id="manage_product_owner" model="ventor.option.setting">
+        <record id="manage_product_owner_batch_picking" model="ventor.option.setting">
             <field name="name">Show Product Owner field</field>
             <field name="technical_name">manage_product_owner</field>
             <field name="is_set">False</field>
@@ -278,7 +278,7 @@
             <field name="description">If it active, you can scan a product first to see the list of all locations where such product is placed. The inventory location field will be auto-filled if a product is placed only in one location</field>
         </record>
 
-        <record id="lot_for_location" model="ventor.option.setting">
+        <record id="lot_for_location_ins_inventory" model="ventor.option.setting">
             <field name="name">Show only lots/serials from inventory location</field>
             <field name="technical_name">lot_for_location</field>
             <field name="is_set">False</field>
@@ -343,5 +343,5 @@
             <field name="action_type">quick_info</field>
             <field name="description">If active you can see aggregated QTY of all quants of the same product (including negative). Disable it to see all lines separately</field>
         </record>
-    <!-- </data> -->
+    </data>
 </odoo>
