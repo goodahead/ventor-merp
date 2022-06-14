@@ -95,7 +95,7 @@
 
 <!-- Actions-->
         <record id='ventor_stock_picking_action' model='ir.actions.act_window'>
-            <field name="name">Operation Types</field>
+            <field name="name">Warehouse Operations</field>
             <field name="res_model">stock.picking.type</field>
             <field name="view_mode">tree,form</field>
             <field name="usage">menu</field>
