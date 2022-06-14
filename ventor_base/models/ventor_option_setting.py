@@ -1,7 +1,7 @@
 # Copyright 2022 VentorTech OU
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0).
 
-from odoo import _, api, models, fields
+from odoo import models, fields
 
 
 class VentorOptionSetting(models.Model):
@@ -10,14 +10,7 @@ class VentorOptionSetting(models.Model):
 
     name = fields.Char(required=True, index=True)
     technical_name = fields.Char(required=True)
-    value = fields.Many2one('ventor.setting.value', string='Value')
-    setting_values = fields.One2many('ventor.setting.value', compute='_compute_setting_values')
-    value_type = fields.Selection(
-        [
-            ('bool', 'Boolean'),
-            ('select', 'Selection'),
-        ]
-    )
+    is_set = fields.Boolean()
     action_type = fields.Selection(
         [
             ('warehouse_opration', 'Warehouse Opration'),
@@ -32,53 +25,21 @@ class VentorOptionSetting(models.Model):
     )
     description = fields.Text()
 
-    @api.depends('value')
-    def _compute_setting_values(self):
-        for record in self:
-            if record.value_type == 'bool':
-                record.setting_values = self.env['ventor.setting.value'].search(
-                    [
-                        ('key', '=', record.value_type)
-                    ]).ids
-            elif record.value_type == 'select':
-                record.setting_values = self.env['ventor.setting.value'].search(
-                    [
-                        ('key', '=', record.technical_name)
-                    ]).ids
-            else:
-                record.setting_values = False
-
     def get_general_settings(self):
         action_types = [
-            'package_management',
+            'package_management', 
             'batch_picking',
             'internal_transfers',
             'putaway',
             'instant_inventory',
             'inventory_adjustments',
-            'quick_info',
+            'quick_info'
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
         settings = {}
         for action_type in action_types:
             settings[action_type] = {
-                set.technical_name: self.set_value(set.value.value)
+                set.technical_name: set.is_set
                 for set in ventor_option_settings.filtered(lambda r: r.action_type == action_type)
             }
         return settings
-
-    def set_value(self, value):
-        if value.lower() == 'true':
-            return True
-        elif value.lower() == 'false':
-            return False
-        return value
-
-
-class VentorSettingValue(models.Model):
-    _name = 'ventor.setting.value'
-    _description = 'Ventor Setting Value'
-    _rec_name = 'value'
-
-    key = fields.Char()
-    value = fields.Char()
