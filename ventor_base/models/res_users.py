@@ -68,7 +68,7 @@ class ResUsers(models.Model):
             settings.append(stock_picking_type.get_warehouse_operation_settings())
 
         ventor_option_settings = self.env['ventor.option.setting'].sudo().get_general_settings()
-        obj={'operation_types': settings}
+        obj = {'operation_types': settings}
         obj.update(ventor_option_settings)
 
         self.ventor_global_settings = json.dumps(
