@@ -246,7 +246,7 @@ class StockPickingType(models.Model):
                         stock_picking_type.confirm_source_package = False
         return res
 
-    def get_ventor_settings(self):
+    def get_warehouse_operation_settings(self):
         return {
             "id": self.id,
             "name": self.name,

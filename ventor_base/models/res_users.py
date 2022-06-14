@@ -62,10 +62,14 @@ class ResUsers(models.Model):
         settings = []
 
         for stock_picking_type in self.env['stock.picking.type'].search([]):
-            settings.append(stock_picking_type.get_ventor_settings())
+            settings.append(stock_picking_type.get_warehouse_operation_settings())
+
+        ventor_option_settings = self.env['ventor.option.setting'].sudo().get_general_settings()
+        obj = {'operation_types': settings}
+        obj.update(ventor_option_settings)
 
         self.ventor_global_settings = json.dumps(
-            obj={'operation_types': settings},
+            obj=obj,
             indent='    ',
             sort_keys=True
         )

@@ -87,7 +87,7 @@
 
 <!-- Actions-->
         <record id='ventor_stock_picking_action' model='ir.actions.act_window'>
-            <field name="name">Operation Types</field>
+            <field name="name">Warehouse Operations</field>
             <field name="res_model">stock.picking.type</field>
             <field name="view_mode">tree,form</field>
             <field name="usage">menu</field>
@@ -114,15 +114,18 @@
                   parent="ventor_app_base_menu"
                   action="ventor_configs_action"/>
 
-        <menuitem name="Operation Types"
-                  id="ventor_app_operation_app_menu"
-                  parent="ventor_app_base_menu"
+        <menuitem name="Ventor Settings"
+                  id="ventor_settings_app_menu"
+                  parent="ventor_app_base_menu"/>
+
+        <menuitem name="Warehouse Operations"
+                  id="ventor_wh_operations_app_menu"
+                  parent="ventor_settings_app_menu"
                   action="ventor_stock_picking_action"/>
 
         <menuitem name="User Settings"
                   id="ventor_app_user_settings_menu"
                   parent="ventor_app_base_menu"
                   action="base.action_res_users"/>
-
     </data>
 </odoo>
