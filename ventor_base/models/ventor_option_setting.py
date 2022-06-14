@@ -33,7 +33,7 @@ class VentorOptionSetting(models.Model):
             'putaway',
             'instant_inventory',
             'inventory_adjustments',
-            'quick_info'
+            'quick_info',
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
         settings = {}
