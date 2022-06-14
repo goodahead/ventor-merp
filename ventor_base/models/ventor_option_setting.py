@@ -27,13 +27,13 @@ class VentorOptionSetting(models.Model):
 
     def get_general_settings(self):
         action_types = [
-            'package_management', 
+            'package_management',
             'batch_picking',
             'internal_transfers',
             'putaway',
             'instant_inventory',
             'inventory_adjustments',
-            'quick_info'
+            'quick_info',
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
         settings = {}
