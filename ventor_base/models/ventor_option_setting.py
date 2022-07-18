@@ -16,6 +16,7 @@ class VentorOptionSetting(models.Model):
             ('warehouse_opration', 'Warehouse Opration'),
             ('package_management', 'Package Management'),
             ('batch_picking', 'Batch Picking'),
+            ('cluster_picking', 'Cluster Picking'),
             ('internal_transfers', 'Internal Transfers'),
             ('putaway', 'Putaway'),
             ('instant_inventory', 'Instant Inventory'),
