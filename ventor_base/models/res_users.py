@@ -59,13 +59,9 @@ class ResUsers(models.Model):
         custom_package_name = (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("ventor_base.custom_package_name")
+            .get_param("ventor_base.custom_package_name", "")
         )
-        for user in self:
-            if custom_package_name:
-                user.custom_package_name = custom_package_name
-            else:
-                user.custom_package_name = ""
+        self.custom_package_name = custom_package_name
 
     def _compute_ventor_base_version(self):
         ventor_base_version = (
