@@ -58,7 +58,6 @@ class ResUsers(models.Model):
     def _compute_custom_package_name(self):
         custom_package_name = (
             self.env["ir.config_parameter"]
-            .sudo()
             .get_param("ventor_base.custom_package_name", "")
         )
         self.custom_package_name = custom_package_name
