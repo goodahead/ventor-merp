@@ -57,9 +57,9 @@ class ResUsers(models.Model):
 
     def _compute_custom_package_name(self):
         custom_package_name = (
-            self.env["res.config.settings"]
-            .default_get("custom_package_name")
-            .get("custom_package_name")
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("ventor_base.custom_package_name")
         )
         for user in self:
             if custom_package_name:
