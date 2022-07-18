@@ -15,6 +15,12 @@ class ResUsers(models.Model):
         help='List of all warehouses user has access to',
     )
 
+    custom_package_name = fields.Char(
+        string='Custom Build Name',
+        compute="_compute_custom_package_name",
+        compute_sudo=True,
+    )
+
     ventor_base_version = fields.Char(
         compute="_compute_ventor_base_version",
         compute_sudo=True,
@@ -48,6 +54,18 @@ class ResUsers(models.Model):
         type(self).SELF_READABLE_FIELDS = type(self).SELF_READABLE_FIELDS + readable_fields
         type(self).SELF_WRITEABLE_FIELDS = type(self).SELF_WRITEABLE_FIELDS + writable_fields
         return init_res
+
+    def _compute_custom_package_name(self):
+        custom_package_name = (
+            self.env["res.config.settings"]
+            .default_get("custom_package_name")
+            .get("custom_package_name")
+        )
+        for user in self:
+            if custom_package_name:
+                user.custom_package_name = custom_package_name
+            else:
+                user.custom_package_name = ""
 
     def _compute_ventor_base_version(self):
         ventor_base_version = (
