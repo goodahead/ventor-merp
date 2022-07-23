@@ -11,7 +11,10 @@
                 <tree editable="top">
                     <field name="name" readonly="1"/>
                     <field name="technical_name" readonly="1" groups="base.group_no_one"/>
-                    <field name="is_set"/>
+                    <field name="settings_dependency" invisible="1"/>
+                    <field name="value" domain="([('id', 'in', settings_dependency)])"/>
+                    <field name="setting_values" invisible="1"/>
+                    <field name="value_type" readonly="1" groups="base.group_no_one"/>
                     <field name="action_type" readonly="1" groups="base.group_no_one"/>
                     <field name="description" readonly="1"/>
                 </tree>
@@ -35,6 +38,15 @@
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
             <field name="domain">[('action_type', '=', 'batch_picking')]</field>
+        </record>
+
+        <record id='ventor_cluster_picking_action' model='ir.actions.act_window'>
+            <field name="name">Cluster Picking</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'cluster_picking')]</field>
         </record>
 
         <record id='ventor_internal_transfers_action' model='ir.actions.act_window'>
@@ -92,6 +104,11 @@
                   id="ventor_batch_picking_app_menu"
                   parent="ventor_base.ventor_settings_app_menu"
                   action="ventor_batch_picking_action"/>
+
+        <menuitem name="Cluster Picking"
+                  id="ventor_cluster_picking_app_menu"
+                  parent="ventor_base.ventor_settings_app_menu"
+                  action="ventor_cluster_picking_action"/>
 
         <menuitem name="Internal Transfers"
                   id="ventor_internal_transfers_app_menu"
