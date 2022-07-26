@@ -9,15 +9,6 @@ class VentorOptionSetting(models.Model):
     _description = 'Ventor Option Setting'
 
     name = fields.Char(required=True, index=True)
-    technical_name = fields.Char(required=True)
-    value = fields.Many2one('ventor.setting.value', string='Value', required=True)
-    setting_values = fields.One2many('ventor.setting.value', compute='_compute_setting_values')
-    value_type = fields.Selection(
-        [
-            ('bool', 'Boolean'),
-            ('select', 'Selection'),
-        ]
-    )
     action_type = fields.Selection(
         [
             ('warehouse_opration', 'Warehouse Opration'),
@@ -32,32 +23,27 @@ class VentorOptionSetting(models.Model):
         ], required=True
     )
     description = fields.Text()
+    is_readonly = fields.Boolean(default=False, readonly=True)
+    technical_name = fields.Char(required=True)
+    value = fields.Many2one('ventor.setting.value', string='Value', required=True)
+    value_type = fields.Selection(
+        [
+            ('bool', 'Boolean'),
+            ('select', 'Selection'),
+        ]
+    )
     settings_dependency = fields.Many2many(
         comodel_name='ventor.setting.value'
     )
 
     @api.onchange('value')
     def _onchange_value(self):
-        if self.value.value == 'False' and self.technical_name == 'confirm_source_location':
-            self.set_change_source_location()
-        if self.value.value == 'False' and self.technical_name == 'manage_packages':
-            self.set_related_package_fields()
-
-    @api.depends('value')
-    def _compute_setting_values(self):
-        for record in self:
-            if record.value_type == 'bool':
-                record.setting_values = self.env['ventor.setting.value'].search(
-                    [
-                        ('key', '=', record.value_type)
-                    ]).ids
-            elif record.value_type == 'select':
-                record.setting_values = self.env['ventor.setting.value'].search(
-                    [
-                        ('key', '=', record.technical_name)
-                    ]).ids
-            else:
-                record.setting_values = False
+        if self.technical_name == 'confirm_source_location':
+            self._set_change_source_location()
+        if self.technical_name == 'manage_packages':
+            self._set_related_package_fields()
+        if self.technical_name == 'add_boxes_before_cluster':
+            self._set_add_boxes_before_cluster()
 
     def get_general_settings(self):
         action_types = [
@@ -74,48 +60,80 @@ class VentorOptionSetting(models.Model):
         settings = {}
         for action_type in action_types:
             settings[action_type] = {
-                set.technical_name: self.set_value(set.value.value)
+                set.technical_name: self.set_value(set.value.setting_value)
                 for set in ventor_option_settings.filtered(lambda r: r.action_type == action_type)
             }
         return settings
 
-    def set_change_source_location(self):
+    def _set_add_boxes_before_cluster(self):
+        multiple_boxes_for_one_transfer = self.env['ventor.option.setting'].search(
+            [
+                ('action_type', '=', self.action_type),
+                ('technical_name', '=', 'multiple_boxes_for_one_transfer'),
+            ]
+        )
+        if self.value.setting_value == 'True':
+            multiple_boxes_for_one_transfer.is_readonly = True
+            multiple_boxes_for_one_transfer.value = self.env.ref('ventor_base.bool_false')
+        else:
+            multiple_boxes_for_one_transfer.is_readonly = False
+            
+    def _set_change_source_location(self):
         change_source_location = self.env['ventor.option.setting'].search(
             [
                 ('action_type', '=', self.action_type),
                 ('technical_name', '=', 'change_source_location'),
             ]
         )
-        if change_source_location.value.value == 'True':
-            change_source_location.value = self.env.ref('ventor_base.bool_false').id
+        if self.value.setting_value == 'True':
+            change_source_location.is_readonly = False
+        else:
+            change_source_location.value = self.env.ref('ventor_base.bool_false')
+            change_source_location.is_readonly = True
 
-    def set_related_package_fields(self):
-        confirm_source_package = self.env['ventor.option.setting'].search(
-            [
-                ('action_type', '=', self.action_type),
-                ('technical_name', '=', 'confirm_source_package'),
-            ]
-        )
-        scan_destination_package = self.env['ventor.option.setting'].search(
-            [
-                ('action_type', '=', self.action_type),
-                ('technical_name', '=', 'scan_destination_package'),
-            ]
-        )
-        confirm_source_package.value = scan_destination_package.value = self.env.ref('ventor_base.bool_false').id
+    def _set_related_package_fields(self):
+        for item in self:
+            confirm_source_package = self.env['ventor.option.setting'].search(
+                [
+                    ('action_type', '=', item.action_type),
+                    ('technical_name', '=', 'confirm_source_package'),
+                ]
+            )
+            scan_destination_package = self.env['ventor.option.setting'].search(
+                [
+                    ('action_type', '=', item.action_type),
+                    ('technical_name', '=', 'scan_destination_package'),
+                ]
+            )
+            if item.value.setting_value == 'True':
+                confirm_source_package.is_readonly = scan_destination_package.is_readonly = False
+            else:
+                confirm_source_package.value = scan_destination_package.value = self.env.ref('ventor_base.bool_false')
+                confirm_source_package.is_readonly = scan_destination_package.is_readonly = True
 
-    def set_value(self, value):
-        if value.lower() == 'true':
+    def set_ventor_packages_fields(self, group_stock_tracking_lot):
+        self.is_readonly = not group_stock_tracking_lot
+        if not group_stock_tracking_lot:
+            self.value = self.env.ref('ventor_base.bool_false')
+            self.filtered(
+                lambda x: x.action_type in ('batch_picking', 'cluster_picking')
+            )._set_related_package_fields()
+        else:
+            self.filtered(lambda x: x.action_type == 'putaway').value = self.env.ref('ventor_base.bool_true')
+            self.filtered(lambda x: x.action_type in ('batch_picking', 'cluster_picking'))._set_related_package_fields()
+
+    def set_value(self, setting_value):
+        if setting_value.lower() == 'true':
             return True
-        elif value.lower() == 'false':
+        elif setting_value.lower() == 'false':
             return False
-        return value
+        return setting_value
 
 
 class VentorSettingValue(models.Model):
     _name = 'ventor.setting.value'
     _description = 'Ventor Setting Value'
-    _rec_name = 'value'
+    _rec_name = 'setting_value'
 
-    key = fields.Char()
-    value = fields.Char()
+    setting_type = fields.Char()
+    setting_value = fields.Char()

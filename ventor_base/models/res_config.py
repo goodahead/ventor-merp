@@ -73,6 +73,14 @@ class VentorConfigSettings(models.TransientModel):
             and not self.group_stock_production_lot
         ):
             operation_type_ids.apply_default_lots = False
+        if group_stock_production_lot != self.group_stock_production_lot:
+            ventor_apply_default_lots = self.env['ventor.option.setting'].search(
+                [
+                    ('technical_name', '=', 'apply_default_lots'),
+                ]
+            )
+            ventor_apply_default_lots.value = self.env.ref('ventor_base.bool_false')
+            ventor_apply_default_lots.is_readonly = False if self.group_stock_production_lot else True
 
     def _set_packages_fields(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
@@ -85,13 +93,31 @@ class VentorConfigSettings(models.TransientModel):
                 operation_type_ids.show_put_in_pack_button = self.group_stock_tracking_lot
                 operation_type_ids.scan_destination_package = self.group_stock_tracking_lot
                 operation_type_ids.confirm_source_package = self.group_stock_tracking_lot
-
+            
+            ventor_packages_settings = self.env['ventor.option.setting'].search(
+                [
+                    ('technical_name', '=', 'manage_packages'),
+                ]
+            )
+            ventor_packages_settings.set_ventor_packages_fields(self.group_stock_tracking_lot)
+                
     def _set_manage_product_owner(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
         group_stock_tracking_owner = previous_group.get('group_stock_tracking_owner')
 
         if group_stock_tracking_owner != self.group_stock_tracking_owner:
             operation_type_ids.manage_product_owner = self.group_stock_tracking_owner
+
+            ventor_owner_settings = self.env['ventor.option.setting'].search(
+                [
+                    ('technical_name', '=', 'manage_product_owner'),
+                ]
+            )
+            ventor_owner_settings.is_readonly = False if self.group_stock_tracking_owner else True
+
+            if not self.group_stock_tracking_owner:
+                ventor_owner_settings.value = self.env.ref('ventor_base.bool_false')
+
 
     def set_values(self):
         previous_group = self.default_get(
