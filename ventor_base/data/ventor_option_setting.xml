@@ -57,7 +57,6 @@
             <field name="name">Change source location</field>
             <field name="technical_name">change_source_location</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">batch_picking</field>
@@ -78,7 +77,6 @@
             <field name="name">Show next product</field>
             <field name="technical_name">show_next_product</field>
             <field name="value" ref="ventor_base.bool_true"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">batch_picking</field>
@@ -120,7 +118,6 @@
             <field name="technical_name">manage_packages</field>
             <field name="value" ref="ventor_base.bool_false"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="value_type">bool</field>
             <field name="action_type">batch_picking</field>
             <field name="description">Scan source (destination) packages right after scanning source (destination) location. Use it if you move from one package to another or pick items from packages or pallets. Works only if package management settings is active on Odoo side</field>
@@ -130,7 +127,6 @@
             <field name="name">Confirm source package</field>
             <field name="technical_name">confirm_source_package</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">batch_picking</field>
@@ -141,7 +137,6 @@
             <field name="name">Force destination package scan</field>
             <field name="technical_name">scan_destination_package</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">batch_picking</field>
@@ -152,7 +147,6 @@
             <field name="name">Show Product Owner field</field>
             <field name="technical_name">manage_product_owner</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">batch_picking</field>
@@ -173,7 +167,6 @@
             <field name="name">Apply default lots and serials</field>
             <field name="technical_name">apply_default_lots</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">batch_picking</field>
@@ -267,7 +260,6 @@
             <field name="name">Change source location</field>
             <field name="technical_name">change_source_location</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
@@ -288,7 +280,6 @@
             <field name="name">Show next product</field>
             <field name="technical_name">show_next_product</field>
             <field name="value" ref="ventor_base.bool_true"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
@@ -309,8 +300,7 @@
             <field name="name">Change destination location</field>
             <field name="technical_name">change_destination_location</field>
             <field name="value" ref="ventor_base.bool_true"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
-            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
             <field name="description">If this setting is active a user can change destination location while receiving to be placed at any available location</field>
@@ -330,7 +320,6 @@
             <field name="name">Show packages fields</field>
             <field name="technical_name">manage_packages</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
@@ -341,7 +330,6 @@
             <field name="name">Confirm source package</field>
             <field name="technical_name">confirm_source_package</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
@@ -352,7 +340,6 @@
             <field name="name">Force destination package scan</field>
             <field name="technical_name">scan_destination_package</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
@@ -363,7 +350,6 @@
             <field name="name">Show Product Owner field</field>
             <field name="technical_name">manage_product_owner</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
@@ -384,7 +370,6 @@
             <field name="name">Apply default lots and serials</field>
             <field name="technical_name">apply_default_lots</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
@@ -487,7 +472,6 @@
             <field name="name">Multiple boxes for one transfer</field>
             <field name="technical_name">multiple_boxes_for_one_transfer</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
@@ -499,7 +483,6 @@
             <field name="name">Show packages fields</field>
             <field name="technical_name">manage_packages</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">internal_transfers</field>
@@ -570,7 +553,6 @@
             <field name="name">Show Product Owner field</field>
             <field name="technical_name">manage_product_owner</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">internal_transfers</field>
@@ -592,7 +574,6 @@
             <field name="name">Show packages fields</field>
             <field name="technical_name">manage_packages</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">putaway</field>
@@ -634,7 +615,6 @@
             <field name="name">Show packages fields</field>
             <field name="technical_name">manage_packages</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">instant_inventory</field>
@@ -645,7 +625,6 @@
             <field name="name">Show Product Owner field</field>
             <field name="technical_name">manage_product_owner</field>
             <field name="value" ref="ventor_base.bool_false"/>
-            <field name="is_readonly" eval="[(6, 0, True)]"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">instant_inventory</field>

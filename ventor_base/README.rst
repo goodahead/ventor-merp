@@ -6,12 +6,13 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-15.0.1.5.0 (2022-06-30)
+15.0.1.5.0 (2022-07-30)
 ***********************
 * Added Ventor Settings menu with submenu:
     Warehouse Opration
     Package Management
     Batch Picking
+    Cluster Picking
     Internal Transfers
     Putaway
     Instant Inventory

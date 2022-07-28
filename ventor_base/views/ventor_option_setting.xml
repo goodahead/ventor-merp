@@ -12,8 +12,7 @@
                     <field name="name" readonly="1"/>
                     <field name="technical_name" readonly="1" groups="base.group_no_one"/>
                     <field name="settings_dependency" invisible="1"/>
-                    <field name="value" domain="([('id', 'in', settings_dependency)])"/>
-                    <field name="is_readonly" groups="base.group_no_one"/>
+                    <field name="value" domain="([('id', 'in', settings_dependency)])" attrs="{'readonly': [('technical_name','=','show_next_product')]}" options="{'no_create': True, 'no_open': True}"/>
                     <field name="value_type" readonly="1" groups="base.group_no_one"/>
                     <field name="action_type" readonly="1" groups="base.group_no_one"/>
                     <field name="description" readonly="1"/>
@@ -28,7 +27,7 @@
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'package_management'), ('is_readonly', '=', False)]</field>
+            <field name="domain">[('action_type', '=', 'package_management')]</field>
         </record>
 
         <record id='ventor_batch_picking_action' model='ir.actions.act_window'>
@@ -37,7 +36,7 @@
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'batch_picking'), ('is_readonly', '=', False)]</field>
+            <field name="domain">[('action_type', '=', 'batch_picking')]</field>
         </record>
 
         <record id='ventor_cluster_picking_action' model='ir.actions.act_window'>
@@ -46,7 +45,7 @@
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'cluster_picking'), ('is_readonly', '=', False)]</field>
+            <field name="domain">[('action_type', '=', 'cluster_picking')]</field>
         </record>
 
         <record id='ventor_internal_transfers_action' model='ir.actions.act_window'>
@@ -55,7 +54,7 @@
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'internal_transfers'), ('is_readonly', '=', False)]</field>
+            <field name="domain">[('action_type', '=', 'internal_transfers')]</field>
         </record>
 
         <record id='ventor_putaway_action' model='ir.actions.act_window'>
@@ -64,7 +63,7 @@
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'putaway'), ('is_readonly', '=', False)]</field>
+            <field name="domain">[('action_type', '=', 'putaway')]</field>
         </record>
 
         <record id='ventor_instant_inventory_action' model='ir.actions.act_window'>
@@ -73,7 +72,7 @@
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'instant_inventory'), ('is_readonly', '=', False)]</field>
+            <field name="domain">[('action_type', '=', 'instant_inventory')]</field>
         </record>
 
         <record id='ventor_inventory_adjustments_action' model='ir.actions.act_window'>
@@ -82,7 +81,7 @@
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'inventory_adjustments'), ('is_readonly', '=', False)]</field>
+            <field name="domain">[('action_type', '=', 'inventory_adjustments')]</field>
         </record>
 
         <record id='ventor_quick_info_action' model='ir.actions.act_window'>
@@ -91,7 +90,7 @@
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'quick_info'), ('is_readonly', '=', False)]</field>
+            <field name="domain">[('action_type', '=', 'quick_info')]</field>
         </record>
 
 <!-- Menus -->

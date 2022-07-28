@@ -25,42 +25,29 @@ def _post_init_hook(cr, registry):
         """
     )
 
-    users = users_model.with_context(active_test=False).search([
+    users = users_model.with_context(active_test=False).search(
+        [
             ('allowed_warehouse_ids', '=', False),
             ('share', '=', False)
-            ])
-    warehouses = env["stock.warehouse"].with_context(active_test=False).search([])
+        ]
+    )
+    warehouses = env['stock.warehouse'].with_context(active_test=False).search([])
     for user in users:
         user.allowed_warehouse_ids = [(6, 0, warehouses.ids)]
 
-    group_settings = env["res.config.settings"].default_get(
+    group_settings = env['res.config.settings'].default_get(
         [
-            "group_stock_production_lot",
-            "group_stock_tracking_lot",
-            "group_stock_tracking_owner"
+            'group_stock_tracking_lot',
         ]
     )
 
-    if group_settings.get("group_stock_production_lot"):
-        ventor_apply_default_lots = env['ventor.option.setting'].search(
-            [
-                ('technical_name', '=', 'apply_default_lots'),
-            ]
-        )
-        ventor_apply_default_lots.is_readonly = False
-
-    if group_settings.get("group_stock_tracking_lot"):
-        ventor_apply_default_lots = env['ventor.option.setting'].search(
+    if group_settings.get('group_stock_tracking_lot'):
+        putaway_manage_packages = env['ventor.option.setting'].search(
             [
                 ('technical_name', '=', 'manage_packages'),
+                ('action_type', '=', 'putaway'),
             ]
         )
-        ventor_apply_default_lots. set_ventor_packages_fields(group_settings.get("group_stock_tracking_lot"))
-
-    if group_settings.get("group_stock_tracking_owner"):
-        ventor_apply_default_lots = env['ventor.option.setting'].search(
-            [
-                ('technical_name', '=', 'manage_product_owner'),
-            ]
-        )
-        ventor_apply_default_lots.is_readonly = False
+        putaway_manage_packages.with_context(
+            enable_putaway_manage_packages=True
+        ).set_related_package_fields(group_settings.get('group_stock_tracking_lot'))

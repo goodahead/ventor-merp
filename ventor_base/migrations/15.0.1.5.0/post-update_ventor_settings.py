@@ -5,34 +5,19 @@ def migrate(cr, version):
 
     env = api.Environment(cr, SUPERUSER_ID, {})
 
-    group_settings = env["res.config.settings"].default_get(
+    group_settings = env['res.config.settings'].default_get(
         [
-            "group_stock_production_lot",
-            "group_stock_tracking_lot",
-            "group_stock_tracking_owner"
+            'group_stock_tracking_lot',
         ]
     )
 
-    if group_settings.get("group_stock_production_lot"):
-        ventor_apply_default_lots = env['ventor.option.setting'].search(
-            [
-                ('technical_name', '=', 'apply_default_lots'),
-            ]
-        )
-        ventor_apply_default_lots.is_readonly = False
-
-    if group_settings.get("group_stock_tracking_lot"):
-        ventor_apply_default_lots = env['ventor.option.setting'].search(
+    if group_settings.get('group_stock_tracking_lot'):
+        putaway_manage_packages = env['ventor.option.setting'].search(
             [
                 ('technical_name', '=', 'manage_packages'),
+                ('action_type', '=', 'putaway'),
             ]
         )
-        ventor_apply_default_lots. set_ventor_packages_fields(group_settings.get("group_stock_tracking_lot"))
-
-    if group_settings.get("group_stock_tracking_owner"):
-        ventor_apply_default_lots = env['ventor.option.setting'].search(
-            [
-                ('technical_name', '=', 'manage_product_owner'),
-            ]
-        )
-        ventor_apply_default_lots.is_readonly = False
+        putaway_manage_packages.with_context(
+            enable_putaway_manage_packages=True
+        ).set_related_package_fields(group_settings.get('group_stock_tracking_lot'))

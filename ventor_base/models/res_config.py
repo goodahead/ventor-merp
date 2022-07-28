@@ -73,14 +73,14 @@ class VentorConfigSettings(models.TransientModel):
             and not self.group_stock_production_lot
         ):
             operation_type_ids.apply_default_lots = False
-        if group_stock_production_lot != self.group_stock_production_lot:
             ventor_apply_default_lots = self.env['ventor.option.setting'].search(
                 [
                     ('technical_name', '=', 'apply_default_lots'),
                 ]
             )
-            ventor_apply_default_lots.value = self.env.ref('ventor_base.bool_false')
-            ventor_apply_default_lots.is_readonly = False if self.group_stock_production_lot else True
+            ventor_apply_default_lots.with_context(
+                disable_apply_default_lots=True
+            ).set_apply_default_lots_fields(self.group_stock_production_lot)
 
     def _set_packages_fields(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
@@ -93,14 +93,31 @@ class VentorConfigSettings(models.TransientModel):
                 operation_type_ids.show_put_in_pack_button = self.group_stock_tracking_lot
                 operation_type_ids.scan_destination_package = self.group_stock_tracking_lot
                 operation_type_ids.confirm_source_package = self.group_stock_tracking_lot
-            
-            ventor_packages_settings = self.env['ventor.option.setting'].search(
-                [
-                    ('technical_name', '=', 'manage_packages'),
-                ]
-            )
-            ventor_packages_settings.set_ventor_packages_fields(self.group_stock_tracking_lot)
-                
+
+                ventor_packages_settings = self.env['ventor.option.setting'].search(
+                    [
+                        (
+                            'technical_name',
+                            'in',
+                            ('confirm_source_package', 'scan_destination_package', 'manage_packages'),
+                        ),
+                    ]
+                )
+                ventor_packages_settings.with_context(
+                    disable_package_fields=True
+                ).set_related_package_fields(self.group_stock_tracking_lot)
+            if self.group_stock_tracking_lot:
+                putaway_manage_packages = self.env['ventor.option.setting'].search(
+                    [
+                        ('technical_name', '=', 'manage_packages'),
+                        ('action_type', '=', 'putaway'),
+                    ]
+                )
+                putaway_manage_packages.with_context(
+                    enable_putaway_manage_packages=True
+                ).set_related_package_fields(self.group_stock_tracking_lot)
+
+
     def _set_manage_product_owner(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
         group_stock_tracking_owner = previous_group.get('group_stock_tracking_owner')
@@ -108,16 +125,15 @@ class VentorConfigSettings(models.TransientModel):
         if group_stock_tracking_owner != self.group_stock_tracking_owner:
             operation_type_ids.manage_product_owner = self.group_stock_tracking_owner
 
-            ventor_owner_settings = self.env['ventor.option.setting'].search(
-                [
-                    ('technical_name', '=', 'manage_product_owner'),
-                ]
-            )
-            ventor_owner_settings.is_readonly = False if self.group_stock_tracking_owner else True
-
             if not self.group_stock_tracking_owner:
-                ventor_owner_settings.value = self.env.ref('ventor_base.bool_false')
-
+                ventor_owner_settings = self.env['ventor.option.setting'].search(
+                    [
+                        ('technical_name', '=', 'manage_product_owner'),
+                    ]
+                )
+                ventor_owner_settings.with_context(
+                    disable_manage_product_owner=True
+                ).set_manage_product_owner_fields(self.group_stock_tracking_owner)
 
     def set_values(self):
         previous_group = self.default_get(
