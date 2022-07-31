@@ -40,9 +40,9 @@ class VentorOptionSetting(models.Model):
         if self.technical_name in ('confirm_source_location', 'change_source_location'):
             self._set_change_source_location()
         elif self.technical_name in ('add_boxes_before_cluster', 'multiple_boxes_for_one_transfer'):
-            self._set_add_boxes_before_cluster()
+            return self._set_add_boxes_before_cluster()
         elif self.technical_name in ('manage_packages', 'confirm_source_package', 'scan_destination_package'):
-            self.set_related_package_fields(self._get_group_settings('group_stock_tracking_lot'))
+            return self.set_related_package_fields(self._get_group_settings('group_stock_tracking_lot'))
         elif self.technical_name in ('manage_product_owner'):
             self.set_manage_product_owner_fields(self._get_group_settings('group_stock_tracking_owner'))
         elif self.technical_name in ('apply_default_lots'):
@@ -56,6 +56,12 @@ class VentorOptionSetting(models.Model):
                 'group_stock_production_lot',
             ]
         ).get(key)
+
+    def _get_warning(self, message):
+        return {'warning': {
+                'title': 'Another Settings were changed automatically!',
+                'message': message,
+            }}
 
     def get_general_settings(self):
         action_types = [
@@ -93,6 +99,11 @@ class VentorOptionSetting(models.Model):
             )
             if multiple_boxes_for_one_transfer.value == self.env.ref('ventor_base.bool_true'):
                 multiple_boxes_for_one_transfer.value = self.env.ref('ventor_base.bool_false')
+                return self._get_warning(
+                    'Because you changed "Add boxes before cluster" to True, '
+                    'automatically the following settings were also changed: '
+                    '\n- "Multiple boxes for one transfer" was changed to False'
+                )
         elif self.technical_name == 'multiple_boxes_for_one_transfer' and self.value == self.env.ref('ventor_base.bool_true'):
             add_boxes_before_cluster = self.env['ventor.option.setting'].search(
                 [
@@ -112,6 +123,11 @@ class VentorOptionSetting(models.Model):
                 ]
             )
             change_source_location.value = self.env.ref('ventor_base.bool_false')
+            return self._get_warning(
+                'Because you changed "​Confirm source location" to False, '
+                'automatically the following settings were also changed: '
+                '\n- "Change source location" was changed to False'
+            )
         elif self.technical_name == 'change_source_location' and self.value == self.env.ref('ventor_base.bool_true'):
             confirm_source_location = self.env['ventor.option.setting'].search(
                 [
@@ -150,6 +166,12 @@ class VentorOptionSetting(models.Model):
                     ]
                 )
                 relate_manage_packages_fields.value = self.env.ref('ventor_base.bool_false')
+                return self._get_warning(
+                    'Because you changed "Show packages fields" to False, '
+                    'automatically the following settings were also changed: '
+                    '\n- "Confirm source package" was changed to False'
+                    '\n- "Force destination package scan" was changed to False'
+                )
             if manage_packages.value.setting_value == 'False' and self.technical_name != 'manage_packages':
                 self.value = self.env.ref('ventor_base.bool_false')
     
