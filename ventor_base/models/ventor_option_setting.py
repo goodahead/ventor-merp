@@ -38,7 +38,7 @@ class VentorOptionSetting(models.Model):
     @api.onchange('value')
     def _onchange_value(self):
         if self.technical_name in ('confirm_source_location', 'change_source_location'):
-            self._set_change_source_location()
+            return self._set_change_source_location()
         elif self.technical_name in ('add_boxes_before_cluster', 'multiple_boxes_for_one_transfer'):
             return self._set_add_boxes_before_cluster()
         elif self.technical_name in ('manage_packages', 'confirm_source_package', 'scan_destination_package'):
