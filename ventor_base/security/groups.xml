@@ -133,7 +133,7 @@
         <field name="comment">The group allows Inventory/User to validate inventory</field>
     </record>
 
-    <record id="merp_user_app_settinds" model="res.groups">
+    <record id="merp_user_app_settings" model="res.groups">
         <field name="name">Use User Ventor Settings</field>
         <field name="category_id" ref="module_category_merp_access_application"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
