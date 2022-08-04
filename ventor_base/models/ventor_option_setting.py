@@ -63,7 +63,7 @@ class VentorOptionSetting(models.Model):
     def _get_warning(self, message):
         return {'warning': {
                 'title': _('Another Settings were changed automatically!'),
-                'message': _(message),
+                'message': message,
             }}
 
     def get_general_settings(self):
@@ -102,11 +102,11 @@ class VentorOptionSetting(models.Model):
             )
             if multiple_boxes_for_one_transfer.value == self.env.ref('ventor_base.bool_true'):
                 multiple_boxes_for_one_transfer.value = self.env.ref('ventor_base.bool_false')
-                return self._get_warning(
+                return self._get_warning(_(
                     'Because you changed "Add boxes before cluster" to True, '
                     'automatically the following settings were also changed: '
                     '\n- "Multiple boxes for one transfer" was changed to False'
-                )
+                ))
         elif self.technical_name == 'multiple_boxes_for_one_transfer' and self.value == self.env.ref('ventor_base.bool_true'):
             add_boxes_before_cluster = self.env['ventor.option.setting'].search(
                 [
@@ -126,11 +126,11 @@ class VentorOptionSetting(models.Model):
                 ]
             )
             change_source_location.value = self.env.ref('ventor_base.bool_false')
-            return self._get_warning(
+            return self._get_warning(_(
                 'Because you changed "​Confirm source location" to False, '
                 'automatically the following settings were also changed: '
                 '\n- "Change source location" was changed to False'
-            )
+            ))
         elif self.technical_name == 'change_source_location' and self.value == self.env.ref('ventor_base.bool_true'):
             confirm_source_location = self.env['ventor.option.setting'].search(
                 [
@@ -151,11 +151,11 @@ class VentorOptionSetting(models.Model):
             )
             if hold_destination_location.value == self.env.ref('ventor_base.bool_true'):
                 hold_destination_location.value = self.env.ref('ventor_base.bool_false')
-                return self._get_warning(
+                return self._get_warning(_(
                     'Because you changed "Move multiple items" to True, '
                     'automatically the following settings were also changed: '
                     '\n- "Hold destination location" was changed to False'
-                )
+                ))
         elif self.technical_name == 'hold_destination_location' and self.value == self.env.ref('ventor_base.bool_true'):
             move_multiple_products = self.env['ventor.option.setting'].search(
                 [
@@ -194,12 +194,12 @@ class VentorOptionSetting(models.Model):
                     ]
                 )
                 relate_manage_packages_fields.value = self.env.ref('ventor_base.bool_false')
-                return self._get_warning(
+                return self._get_warning(_(
                     'Because you changed "Show packages fields" to False, '
                     'automatically the following settings were also changed: '
                     '\n- "Confirm source package" was changed to False'
                     '\n- "Force destination package scan" was changed to False'
-                )
+                ))
             if manage_packages.value.setting_value == 'False' and self.technical_name != 'manage_packages':
                 self.value = self.env.ref('ventor_base.bool_false')
     
