@@ -24,7 +24,12 @@ class VentorOptionSetting(models.Model):
     )
     description = fields.Text()
     technical_name = fields.Char(required=True)
-    value = fields.Many2one('ventor.setting.value', string='Value', required=True)
+    value = fields.Many2one(
+        'ventor.setting.value',
+        string='Value',
+        required=True,
+        domain="[('id', 'in', settings_dependency)]",
+    )
     value_type = fields.Selection(
         [
             ('bool', 'Boolean'),
@@ -42,11 +47,13 @@ class VentorOptionSetting(models.Model):
         elif self.technical_name in ('add_boxes_before_cluster', 'multiple_boxes_for_one_transfer'):
             return self._set_add_boxes_before_cluster()
         elif self.technical_name in ('manage_packages', 'confirm_source_package', 'scan_destination_package'):
-            return self.set_related_package_fields(self._get_group_settings('group_stock_tracking_lot'))
+            return self.set_related_package_fields(self._get_group_settings_value('stock.group_tracking_lot'))
         elif self.technical_name in ('manage_product_owner'):
-            self.set_manage_product_owner_fields(self._get_group_settings('group_stock_tracking_owner'))
+            self.set_manage_product_owner_fields(self._get_group_settings_value('stock.group_tracking_owner'))
         elif self.technical_name in ('apply_default_lots'):
-            self.set_apply_default_lots_fields(self._get_group_settings('group_stock_production_lot'))
+            self.set_apply_default_lots_fields(self._get_group_settings_value('stock.group_production_lot'))
+        elif self.technical_name in ('move_multiple_products', 'hold_destination_location'):
+            return self.set_hold_destination_location_fields()
 
     def _get_group_settings(self, key):
         return self.env['res.config.settings'].default_get(
@@ -57,10 +64,15 @@ class VentorOptionSetting(models.Model):
             ]
         ).get(key)
 
+    def _get_group_settings_value(self, key):
+        internal_user_groups = self.env.ref('base.group_user').implied_ids
+        group = self.env.ref(key)
+        return group in internal_user_groups
+
     def _get_warning(self, message):
         return {'warning': {
-                'title': 'Another Settings were changed automatically!',
-                'message': message,
+                'title': _('Another Settings were changed automatically!'),
+                'message': _(message),
             }}
 
     def get_general_settings(self):
@@ -78,7 +90,7 @@ class VentorOptionSetting(models.Model):
         settings = {}
         for action_type in action_types:
             settings[action_type] = {
-                set.technical_name: self.set_value(set.value.setting_value)
+                set.technical_name: self.get_normalized_value(set.value.setting_value)
                 for set in ventor_option_settings.filtered(lambda r: r.action_type == action_type)
             }
         return settings
@@ -138,6 +150,31 @@ class VentorOptionSetting(models.Model):
             if confirm_source_location.value == self.env.ref('ventor_base.bool_false'):
                 self.value = self.env.ref('ventor_base.bool_false')
 
+    def set_hold_destination_location_fields(self):
+        if self.technical_name == 'move_multiple_products' and self.value == self.env.ref('ventor_base.bool_true'):
+            hold_destination_location = self.env['ventor.option.setting'].search(
+                [
+                    ('action_type', '=', self.action_type),
+                    ('technical_name', '=', 'hold_destination_location'),
+                ]
+            )
+            if hold_destination_location.value == self.env.ref('ventor_base.bool_true'):
+                hold_destination_location.value = self.env.ref('ventor_base.bool_false')
+                return self._get_warning(
+                    'Because you changed "Move multiple items" to True, '
+                    'automatically the following settings were also changed: '
+                    '\n- "Hold destination location" was changed to False'
+                )
+        elif self.technical_name == 'hold_destination_location' and self.value == self.env.ref('ventor_base.bool_true'):
+            move_multiple_products = self.env['ventor.option.setting'].search(
+                [
+                    ('action_type', '=', self.action_type),
+                    ('technical_name', '=', 'move_multiple_products'),
+                ]
+            )
+            if move_multiple_products.value == self.env.ref('ventor_base.bool_true'):
+                self.value = self.env.ref('ventor_base.bool_false')
+
     def set_manage_product_owner_fields(self, group_stock_tracking_owner):
         if self.env.context.get('disable_manage_product_owner'):
             self.value = self.env.ref('ventor_base.bool_false')
@@ -175,7 +212,7 @@ class VentorOptionSetting(models.Model):
             if manage_packages.value.setting_value == 'False' and self.technical_name != 'manage_packages':
                 self.value = self.env.ref('ventor_base.bool_false')
     
-    def set_value(self, setting_value):
+    def get_normalized_value(self, setting_value):
         if setting_value.lower() == 'true':
             return True
         elif setting_value.lower() == 'false':

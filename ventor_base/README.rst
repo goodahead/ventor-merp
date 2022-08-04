@@ -6,7 +6,7 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-15.0.1.5.0 (2022-07-30)
+15.0.1.5.0 (2022-08-05)
 ***********************
 * Added Ventor Settings menu with submenu:
     Warehouse Opration

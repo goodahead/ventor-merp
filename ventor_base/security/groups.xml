@@ -96,7 +96,7 @@
     </record>
 
     <record id="merp_menu_allow_changing_settings" model="res.groups">
-        <field name="name">Settings: Allow changing settings</field>
+        <field name="name">Settings: Allow changing settings in Ventor app</field>
         <field name="category_id" ref="module_category_merp_access_application"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
@@ -133,8 +133,8 @@
         <field name="comment">The group allows Inventory/User to validate inventory</field>
     </record>
 
-    <record id="merp_user_app_settings" model="res.groups">
-        <field name="name">Using User Ventor Settings</field>
+    <record id="merp_allow_changing_ventor_settings_in_odoo" model="res.groups">
+        <field name="name">Settings: Allow changing Ventor settings in Odoo</field>
         <field name="category_id" ref="module_category_merp_access_application"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
@@ -184,7 +184,8 @@
                           (4, ref('merp_menu_create_purchase_order')),
                           (4, ref('merp_menu_allow_update_product_on_hand')),
                           (4, ref('merp_debug')),
-                          (4, ref('merp_picking_wave_allow_done'))]"/>
+                          (4, ref('merp_picking_wave_allow_done')),
+                          (4, ref('merp_allow_changing_ventor_settings_in_odoo'))]"/>
             <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
     </data>
