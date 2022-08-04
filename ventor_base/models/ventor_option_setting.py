@@ -55,15 +55,6 @@ class VentorOptionSetting(models.Model):
         elif self.technical_name in ('move_multiple_products', 'hold_destination_location'):
             return self.set_hold_destination_location_fields()
 
-    def _get_group_settings(self, key):
-        return self.env['res.config.settings'].default_get(
-            [
-                'group_stock_tracking_lot',
-                'group_stock_tracking_owner',
-                'group_stock_production_lot',
-            ]
-        ).get(key)
-
     def _get_group_settings_value(self, key):
         internal_user_groups = self.env.ref('base.group_user').implied_ids
         group = self.env.ref(key)
