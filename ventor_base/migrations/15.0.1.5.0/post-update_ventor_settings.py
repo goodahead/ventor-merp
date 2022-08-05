@@ -23,6 +23,8 @@ def migrate(cr, version):
         ).set_related_package_fields(group_settings.get('group_stock_tracking_lot'))
 
     ventor_roles_administrator = env.ref('ventor_base.ventor_role_admin')
-    ventor_roles_administrator.write({
-            'implied_ids': [(3, env.ref('ventor_base.merp_manage_ventor_configuration_app').id)],
-        })
+    ventor_roles_administrator.write(
+        {
+            'implied_ids': [(4, env.ref('ventor_base.merp_manage_ventor_configuration_app').id)],
+        }
+    )
