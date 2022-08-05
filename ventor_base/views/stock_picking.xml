@@ -107,7 +107,7 @@
         <menuitem name="Ventor Configuration"
                   id="ventor_app_base_menu"
                   web_icon="ventor_base,static/description/icon.png"
-                  groups="merp_allow_changing_ventor_settings_in_odoo"/>
+                  groups="merp_manage_ventor_configuration_app"/>
 
         <menuitem id="ventor_app_settings"
                   name="Settings"

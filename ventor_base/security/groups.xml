@@ -96,7 +96,10 @@
     </record>
 
     <record id="merp_menu_allow_changing_settings" model="res.groups">
-        <field name="name">Settings: Allow changing settings in Ventor app</field>
+        <field name="name">Use local user device settings</field>
+        <field name="comment">If on user uses local device settings that keeps from the user settings. 
+                              User ignores the global settings from Odoo. 
+                              User is not be able to change settings on the device</field>
         <field name="category_id" ref="module_category_merp_access_application"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
@@ -133,8 +136,9 @@
         <field name="comment">The group allows Inventory/User to validate inventory</field>
     </record>
 
-    <record id="merp_allow_changing_ventor_settings_in_odoo" model="res.groups">
-        <field name="name">Settings: Allow changing Ventor settings in Odoo</field>
+    <record id="merp_manage_ventor_configuration_app" model="res.groups">
+        <field name="name">Manage Ventor Configuration app</field>
+        <field name="comment">Completely hiding Ventor Configuration menu from the user</field>
         <field name="category_id" ref="module_category_merp_access_application"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
@@ -185,7 +189,7 @@
                           (4, ref('merp_menu_allow_update_product_on_hand')),
                           (4, ref('merp_debug')),
                           (4, ref('merp_picking_wave_allow_done')),
-                          (4, ref('merp_allow_changing_ventor_settings_in_odoo'))]"/>
+                          (4, ref('merp_manage_ventor_configuration_app'))]"/>
             <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
     </data>
