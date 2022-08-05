@@ -62,7 +62,10 @@ class ResUsers(models.Model):
         settings = []
 
         for stock_picking_type in self.env['stock.picking.type'].search([]):
-            settings.append(stock_picking_type.get_warehouse_operation_settings())
+            stock_picking_type_settings = stock_picking_type.get_warehouse_operation_settings()
+            if stock_picking_type.code != 'outgoing':
+                stock_picking_type_settings['settings'].pop('check_shipping_information')
+            settings.append(stock_picking_type_settings)
 
         ventor_option_settings = self.env['ventor.option.setting'].sudo().get_general_settings()
         obj = {'operation_types': settings}
