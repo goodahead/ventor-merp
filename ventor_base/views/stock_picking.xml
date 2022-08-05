@@ -114,7 +114,7 @@
                   parent="ventor_app_base_menu"
                   action="ventor_configs_action"/>
 
-        <menuitem name="Ventor Settings"
+        <menuitem name="Global Ventor Settings"
                   id="ventor_settings_app_menu"
                   parent="ventor_app_base_menu"/>
 
