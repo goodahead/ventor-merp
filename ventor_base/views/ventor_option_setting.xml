@@ -75,15 +75,6 @@
             <field name="domain">[('action_type', '=', 'instant_inventory')]</field>
         </record>
 
-        <record id='ventor_inventory_adjustments_action' model='ir.actions.act_window'>
-            <field name="name">Inventory Adjustments</field>
-            <field name="res_model">ventor.option.setting</field>
-            <field name="view_mode">tree</field>
-            <field name="usage">menu</field>
-            <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'inventory_adjustments')]</field>
-        </record>
-
         <record id='ventor_quick_info_action' model='ir.actions.act_window'>
             <field name="name">Quick info</field>
             <field name="res_model">ventor.option.setting</field>
@@ -123,11 +114,6 @@
                   id="ventor_instant_inventory_app_menu"
                   parent="ventor_base.ventor_settings_app_menu"
                   action="ventor_instant_inventory_action"/>
-
-        <menuitem name="Inventory Adjustments"
-                  id="ventor_inventory_adjustments_app_menu"
-                  parent="ventor_base.ventor_settings_app_menu"
-                  action="ventor_inventory_adjustments_action"/>
 
         <menuitem name="Quick info"
                   id="ventor_quick_info_app_menu"

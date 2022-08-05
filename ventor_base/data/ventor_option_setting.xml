@@ -631,47 +631,6 @@
             <field name="description">Allow scan product owner. You can specify product owner while moving items. Working only with "Consignment" setting on Odoo side</field>
         </record>
 
-        <!-- Inventory Adjustments -->
-        <record id="show_all_line" model="ventor.option.setting">
-            <field name="name">Show all products</field>
-            <field name="technical_name">show_all_line</field>
-            <field name="value" ref="ventor_base.bool_true"/>
-            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
-            <field name="value_type">bool</field>
-            <field name="action_type">inventory_adjustments</field>
-            <field name="description">Make active if you want to see all the lines of products while inventory</field>
-        </record>
-
-        <record id="confirm_lot" model="ventor.option.setting">
-            <field name="name">Confirm Serials/Lot</field>
-            <field name="technical_name">confirm_lot</field>
-            <field name="value" ref="ventor_base.bool_false"/>
-            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
-            <field name="value_type">bool</field>
-            <field name="action_type">inventory_adjustments</field>
-            <field name="description">User has to confirm lot or serial number while inventory</field>
-        </record>
-
-        <record id="blind_inventory" model="ventor.option.setting">
-            <field name="name">Hide theoretical qty</field>
-            <field name="technical_name">blind_inventory</field>
-            <field name="value" ref="ventor_base.bool_false"/>
-            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
-            <field name="value_type">bool</field>
-            <field name="action_type">inventory_adjustments</field>
-            <field name="description">Do not let the user see the theoretical quantity</field>
-        </record>
-
-        <record id="set_qty_to_zero" model="ventor.option.setting">
-            <field name="name">Set QTY to zero</field>
-            <field name="technical_name">set_qty_to_zero</field>
-            <field name="value" ref="ventor_base.bool_true"/>
-            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
-            <field name="value_type">bool</field>
-            <field name="action_type">inventory_adjustments</field>
-            <field name="description">Set QTY to zero</field>
-        </record>
-
         <!-- Quick info -->
         <record id="grouping_quants" model="ventor.option.setting">
             <field name="name">Group quants</field>
