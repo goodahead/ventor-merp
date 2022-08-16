@@ -16,11 +16,12 @@ Change Log
         Warehouse Opration
         Package Management
         Batch Picking
+        Cluster Picking
         Internal Transfers
         Putaway
         Instant Inventory
         Inventory Adjustments
-        Quick Info
+        Quick Info  
 
 * 14.0.1.4.0 (2022-06-08)
     - Added group 'Validate Inventory'
