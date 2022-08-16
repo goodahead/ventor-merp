@@ -117,7 +117,6 @@ class VentorConfigSettings(models.TransientModel):
                     enable_putaway_manage_packages=True
                 ).set_related_package_fields(self.group_stock_tracking_lot)
 
-
     def _set_manage_product_owner(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
         group_stock_tracking_owner = previous_group.get('group_stock_tracking_owner')

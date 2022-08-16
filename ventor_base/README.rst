@@ -16,7 +16,6 @@ Changelog
     Internal Transfers
     Putaway
     Instant Inventory
-    Inventory Adjustments
     Quick Info
 
 15.0.1.4.0 (2022-06-08)
