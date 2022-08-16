@@ -16,6 +16,7 @@ Change Log
         Warehouse Opration
         Package Management
         Batch Picking
+        Cluster Picking
         Internal Transfers
         Putaway
         Instant Inventory

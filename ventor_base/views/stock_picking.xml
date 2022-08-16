@@ -115,14 +115,14 @@
         <menuitem name="Ventor Configuration"
                   id="ventor_app_base_menu"
                   web_icon="ventor_base,static/description/icon.png"
-                  groups="ventor_role_admin"/>
+                  groups="merp_manage_ventor_configuration_app"/>
 
         <menuitem id="ventor_app_settings"
                   name="Settings"
                   parent="ventor_app_base_menu"
                   action="ventor_configs_action"/>
 
-        <menuitem name="Ventor Settings"
+        <menuitem name="Global Ventor Settings"
                   id="ventor_settings_app_menu"
                   parent="ventor_app_base_menu"/>
 

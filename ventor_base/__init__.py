@@ -35,16 +35,37 @@ def _post_init_hook(cr, registry):
         """
     )
 
-    users = users_model.with_context(active_test=False).search([
+    users = users_model.with_context(active_test=False).search(
+        [
             ('allowed_warehouse_ids', '=', False),
             ('share', '=', False)
-            ])
+        ]
+    )
     warehouses = env["stock.warehouse"].with_context(active_test=False).search([])
     for user in users:
         user.allowed_warehouse_ids = [(6, 0, warehouses.ids)]
 
     # Update warehouse_id for all locations
-    all_locations = env['stock.location'].with_context(active_test=False).search([
+    all_locations = env['stock.location'].with_context(active_test=False).search(
+        [
             ('warehouse_id', '=', False),
-            ])
+        ]
+    )
     all_locations.action_update_warehouse()
+
+    group_settings = env['res.config.settings'].default_get(
+        [
+            'group_stock_tracking_lot',
+        ]
+    )
+
+    if group_settings.get('group_stock_tracking_lot'):
+        putaway_manage_packages = env['ventor.option.setting'].search(
+            [
+                ('technical_name', '=', 'manage_packages'),
+                ('action_type', '=', 'putaway'),
+            ]
+        )
+        putaway_manage_packages.with_context(
+            enable_putaway_manage_packages=True
+        ).set_related_package_fields(group_settings.get('group_stock_tracking_lot'))
