@@ -93,6 +93,11 @@ class StockPickingType(models.Model):
              "The dot next to the field gets yellow color means user has to confirm it"
     )
 
+    hide_qty_to_receive = fields.Boolean(
+        string="Hide QTYs to receive",
+        help="Setting’s description: User will not see how many QTYs they need to receive."
+    )
+
     is_consignment_enabled = fields.Boolean(
         compute="_compute_is_consignment_enabled"
     )
