@@ -27,25 +27,13 @@ def migrate(cr, version):
         {
             'implied_ids': [
                 (4, env.ref('ventor_base.merp_manage_ventor_configuration_app').id),
+                (4, env.ref('ventor_base.merp_manage_local_user_device_settings').id)
             ],
         }
     )
-
-    merp_use_local_user_device_settings = env.ref('ventor_base.merp_use_local_user_device_settings')
-    ventor_roles_manager = env.ref('ventor_base.ventor_role_wh_manager')
-    ventor_roles_manager.write(
+    ventor_roles_worker = env.ref('ventor_base.ventor_role_wh_worker')
+    ventor_roles_worker.write(
         {
-            'implied_ids': [
-                (2, env.ref('ventor_base.merp_menu_allow_changing_settings').id),
-                (4, env.ref('ventor_base.merp_menu_manage_local_user_device_settings').id)
-            ],
-        }
-    )
-    users = env['res.users'].with_context(active_test=False).search([('share', '=', False)]).ids
-    merp_use_local_user_device_settings.write(
-        {
-            'users': [
-                (6, 0, users)
-            ]
+            'implied_ids': [(4, env.ref('ventor_base.merp_menu_allow_changing_settings').id)],
         }
     )
