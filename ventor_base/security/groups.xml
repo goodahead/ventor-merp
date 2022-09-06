@@ -146,14 +146,6 @@
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
-    <record id="merp_manage_local_user_device_settings" model="res.groups">
-        <field name="name">Manage Local User Device Settings</field>
-        <field name="comment">Enable to allow to define local Ventor settings 
-                              from Ventor application interface.</field>
-        <field name="category_id" ref="module_category_merp_access_application"/>
-        <field name="users" eval="[(4, ref('base.user_root'))]"/>
-    </record>
-
     <record id="stock.group_stock_manager" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('ventor_base.merp_user_validate_inventory_adjustment'))]"/>
     </record>
@@ -186,7 +178,8 @@
                    (4, ref('merp_package_management')),
                    (4, ref('merp_external_management')),
                    (4, ref('merp_putaway')),
-                   (4, ref('merp_menu_manufacturing'))]"/>
+                   (4, ref('merp_menu_manufacturing')),
+                   (4, ref('merp_menu_allow_changing_settings'))]"/>
         </record>
 
         <record id="ventor_role_admin" model="res.groups">
@@ -199,8 +192,7 @@
                           (4, ref('merp_menu_allow_update_product_on_hand')),
                           (4, ref('merp_debug')),
                           (4, ref('merp_picking_wave_allow_done')),
-                          (4, ref('merp_manage_ventor_configuration_app')),
-                          (4, ref('merp_manage_local_user_device_settings'))]"/>
+                          (4, ref('merp_manage_ventor_configuration_app'))]"/>
             <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
     </data>

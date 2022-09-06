@@ -25,15 +25,6 @@ def migrate(cr, version):
     ventor_roles_administrator = env.ref('ventor_base.ventor_role_admin')
     ventor_roles_administrator.write(
         {
-            'implied_ids': [
-                (4, env.ref('ventor_base.merp_manage_ventor_configuration_app').id),
-                (4, env.ref('ventor_base.merp_manage_local_user_device_settings').id)
-            ],
-        }
-    )
-    ventor_roles_worker = env.ref('ventor_base.ventor_role_wh_worker')
-    ventor_roles_worker.write(
-        {
-            'implied_ids': [(4, env.ref('ventor_base.merp_menu_allow_changing_settings').id)],
+            'implied_ids': [(4, env.ref('ventor_base.merp_manage_ventor_configuration_app').id)],
         }
     )
