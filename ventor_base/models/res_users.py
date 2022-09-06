@@ -78,6 +78,8 @@ class ResUsers(models.Model):
             stock_picking_type_settings = stock_picking_type.get_warehouse_operation_settings()
             if stock_picking_type.code != 'outgoing':
                 stock_picking_type_settings['settings'].pop('check_shipping_information')
+            if stock_picking_type.code != 'incoming':
+                stock_picking_type_settings['settings'].pop('hide_qty_to_receive')
             settings.append(stock_picking_type_settings)
 
         ventor_option_settings = self.env['ventor.option.setting'].sudo().get_general_settings()

@@ -277,5 +277,6 @@ class StockPickingType(models.Model):
                 "scan_destination_package": self.scan_destination_package,
                 "confirm_source_package": self.confirm_source_package,
                 "check_shipping_information": self.check_shipping_information,
+                "hide_qty_to_receive": self.hide_qty_to_receive,
             }
         }
