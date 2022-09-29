@@ -104,7 +104,7 @@
     </record>
 
     <record id="merp_menu_use_local_user_device_settings" model="res.groups">
-        <field name="name">Use local user device settings</field>
+        <field name="name">Use Local User Device Settings</field>
         <field name="comment">If it's checked, the manual settings (defined on device by this user) 
                               will be used instead Global Ventor Settings in Odoo. 
                               If it's unchecked the user will not be able to modify settings on the 
