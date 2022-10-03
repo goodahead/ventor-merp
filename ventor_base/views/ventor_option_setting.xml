@@ -84,6 +84,15 @@
             <field name="domain">[('action_type', '=', 'quick_info')]</field>
         </record>
 
+        <record id='ventor_scrap_management_action' model='ir.actions.act_window'>
+            <field name="name">Scrap Management</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'scrap_management')]</field>
+        </record>
+
 <!-- Menus -->
         <menuitem name="Package Management"
                   id="ventor_package_management_app_menu"
@@ -119,5 +128,10 @@
                   id="ventor_quick_info_app_menu"
                   parent="ventor_base.ventor_settings_app_menu"
                   action="ventor_quick_info_action"/>
+                
+        <menuitem name="Scrap Management"
+                  id="ventor_scrap_management_app_menu"
+                  parent="ventor_base.ventor_settings_app_menu"
+                  action="ventor_scrap_management_action"/>
     </data>
 </odoo>

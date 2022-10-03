@@ -20,6 +20,7 @@ class VentorOptionSetting(models.Model):
             ('instant_inventory', 'Instant Inventory'),
             ('inventory_adjustments', 'Inventory Adjustments'),
             ('quick_info', 'Quick Info'),
+            ('scrap_management', 'Scrap Management'),
         ], required=True
     )
     description = fields.Text()
@@ -76,6 +77,7 @@ class VentorOptionSetting(models.Model):
             'instant_inventory',
             'inventory_adjustments',
             'quick_info',
+            'scrap_management',
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
         settings = {}
@@ -167,17 +169,11 @@ class VentorOptionSetting(models.Model):
                 self.value = self.env.ref('ventor_base.bool_false')
 
     def set_manage_product_owner_fields(self, group_stock_tracking_owner):
-        if self.env.context.get('disable_manage_product_owner'):
-            self.value = self.env.ref('ventor_base.bool_false')
-        elif not group_stock_tracking_owner and self.value == self.env.ref('ventor_base.bool_true'):
+        if not group_stock_tracking_owner and self.value == self.env.ref('ventor_base.bool_true'):
             self.value = self.env.ref('ventor_base.bool_false')
     
     def set_related_package_fields(self, group_stock_tracking_lot):
-        if self.env.context.get('enable_putaway_manage_packages'):
-            self.value = self.env.ref('ventor_base.bool_true')
-        elif self.env.context.get('disable_package_fields'):
-            self.value = self.env.ref('ventor_base.bool_false')
-        elif not group_stock_tracking_lot:
+        if not group_stock_tracking_lot:
             self.value = self.env.ref('ventor_base.bool_false')
         elif group_stock_tracking_lot:
             manage_packages = self.env['ventor.option.setting'].search(

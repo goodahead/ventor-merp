@@ -42,12 +42,17 @@ def _post_init_hook(cr, registry):
     )
 
     if group_settings.get('group_stock_tracking_lot'):
-        putaway_manage_packages = env['ventor.option.setting'].search(
+        ventor_packages_settings = env['ventor.option.setting'].search(
             [
                 ('technical_name', '=', 'manage_packages'),
-                ('action_type', '=', 'putaway'),
             ]
         )
-        putaway_manage_packages.with_context(
-            enable_putaway_manage_packages=True
-        ).set_related_package_fields(group_settings.get('group_stock_tracking_lot'))
+        ventor_packages_settings.value = env.ref('ventor_base.bool_true')
+
+    if group_settings.get('group_stock_tracking_owner'):
+        ventor_owner_settings = env['ventor.option.setting'].search(
+            [
+                ('technical_name', '=', 'manage_product_owner'),
+            ]
+        )
+        ventor_owner_settings.value = env.ref('ventor_base.bool_true')
