@@ -39,18 +39,18 @@ def migrate(cr, version):
         ])
 
     for user in users:
-        if not user.has_group("ventor_base.ventor_role_wh_manager") and user.has_group(
-                "ventor_base.ventor_role_wh_worker"
+        if not user.has_group('ventor_base.ventor_role_wh_manager') and user.has_group(
+                'ventor_base.ventor_role_wh_worker'
         ):
             user.write(
                 {
-                    'groups_id': [(3, env.ref("ventor_base.merp_menu_allow_changing_settings").id)]
+                    'groups_id': [(3, env.ref('ventor_base.merp_menu_allow_changing_settings').id)]
                 }
             )
         if user.ventor_user_settings:
             user.write(
                 {
-                    'groups_id': [(4, env.ref("ventor_base.merp_menu_use_local_user_device_settings").id)]
+                    'groups_id': [(4, env.ref('ventor_base.merp_menu_use_local_user_device_settings').id)]
                 }
             )
 
@@ -58,6 +58,14 @@ def migrate(cr, version):
     ventor_roles_warehouse_manager = env.ref('ventor_base.ventor_role_wh_manager')
     ventor_roles_warehouse_manager.write(
         {
-            'implied_ids': [(4, env.ref("ventor_base.merp_scrap_management").id)]
+            'implied_ids': [(4, env.ref('ventor_base.merp_scrap_management').id)]
+        }
+    )
+
+    #Adding the new group Cluster Picking Menu to Warehouse worker
+    ventor_roles_warehouse_worker = env.ref('ventor_base.ventor_role_wh_worker')
+    ventor_roles_warehouse_worker.write(
+        {
+            'implied_ids': [(4, env.ref('ventor_base.merp_cluster_picking_menu').id)]
         }
     )
