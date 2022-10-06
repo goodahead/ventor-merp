@@ -12,7 +12,7 @@ class StockPackOperation(models.Model):
         res = True
         if hasattr(super(StockPackOperation, self), '_compute_operation_valid'):
             res &= super(StockPackOperation, self)._compute_operation_valid()
-        res &= self.qty_done != self.product_qty
+        res &= self.qty_done != self.reserved_qty
         return res
 
     def _get_operation_attr(self, attr, flag):
