@@ -20,6 +20,7 @@ class VentorOptionSetting(models.Model):
             ('instant_inventory', 'Instant Inventory'),
             ('inventory_adjustments', 'Inventory Adjustments'),
             ('quick_info', 'Quick Info'),
+            ('scrap_management', 'Scrap Management'),
         ], required=True
     )
     description = fields.Text()
@@ -76,6 +77,7 @@ class VentorOptionSetting(models.Model):
             'instant_inventory',
             'inventory_adjustments',
             'quick_info',
+            'scrap_management',
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
         settings = {}
@@ -167,17 +169,11 @@ class VentorOptionSetting(models.Model):
                 self.value = self.env.ref('ventor_base.bool_false')
 
     def set_manage_product_owner_fields(self, group_stock_tracking_owner):
-        if self.env.context.get('disable_manage_product_owner'):
-            self.value = self.env.ref('ventor_base.bool_false')
-        elif not group_stock_tracking_owner and self.value == self.env.ref('ventor_base.bool_true'):
+        if not group_stock_tracking_owner and self.value == self.env.ref('ventor_base.bool_true'):
             self.value = self.env.ref('ventor_base.bool_false')
     
     def set_related_package_fields(self, group_stock_tracking_lot):
-        if self.env.context.get('enable_putaway_manage_packages'):
-            self.value = self.env.ref('ventor_base.bool_true')
-        elif self.env.context.get('disable_package_fields'):
-            self.value = self.env.ref('ventor_base.bool_false')
-        elif not group_stock_tracking_lot:
+        if not group_stock_tracking_lot:
             self.value = self.env.ref('ventor_base.bool_false')
         elif group_stock_tracking_lot:
             manage_packages = self.env['ventor.option.setting'].search(
@@ -194,12 +190,13 @@ class VentorOptionSetting(models.Model):
                     ]
                 )
                 relate_manage_packages_fields.value = self.env.ref('ventor_base.bool_false')
-                return self._get_warning(_(
-                    'Because you changed "Show packages fields" to False, '
-                    'automatically the following settings were also changed: '
-                    '\n- "Confirm source package" was changed to False'
-                    '\n- "Force destination package scan" was changed to False'
-                ))
+                if self.action_type in ('batch_picking', 'cluster_picking'):
+                    return self._get_warning(_(
+                        'Because you changed "Show packages fields" to False, '
+                        'automatically the following settings were also changed: '
+                        '\n- "Confirm source package" was changed to False'
+                        '\n- "Force destination package scan" was changed to False'
+                    ))
             if manage_packages.value.setting_value == 'False' and self.technical_name != 'manage_packages':
                 self.value = self.env.ref('ventor_base.bool_false')
     
