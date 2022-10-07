@@ -107,15 +107,12 @@ class VentorConfigSettings(models.TransientModel):
                     disable_package_fields=True
                 ).set_related_package_fields(self.group_stock_tracking_lot)
             if self.group_stock_tracking_lot:
-                putaway_manage_packages = self.env['ventor.option.setting'].search(
+                ventor_packages_settings = self.env['ventor.option.setting'].search(
                     [
                         ('technical_name', '=', 'manage_packages'),
-                        ('action_type', '=', 'putaway'),
                     ]
                 )
-                putaway_manage_packages.with_context(
-                    enable_putaway_manage_packages=True
-                ).set_related_package_fields(self.group_stock_tracking_lot)
+                ventor_packages_settings.value = self.env.ref('ventor_base.bool_true')
 
     def _set_manage_product_owner(self, previous_group):
         operation_type_ids = self.env['stock.picking.type'].search([])
@@ -124,15 +121,12 @@ class VentorConfigSettings(models.TransientModel):
         if group_stock_tracking_owner != self.group_stock_tracking_owner:
             operation_type_ids.manage_product_owner = self.group_stock_tracking_owner
 
-            if not self.group_stock_tracking_owner:
-                ventor_owner_settings = self.env['ventor.option.setting'].search(
-                    [
-                        ('technical_name', '=', 'manage_product_owner'),
-                    ]
-                )
-                ventor_owner_settings.with_context(
-                    disable_manage_product_owner=True
-                ).set_manage_product_owner_fields(self.group_stock_tracking_owner)
+            ventor_owner_settings = self.env['ventor.option.setting'].search(
+                [
+                    ('technical_name', '=', 'manage_product_owner'),
+                ]
+            )
+            ventor_owner_settings.value = self.env.ref('ventor_base.bool_true') if self.group_stock_tracking_owner else self.env.ref('ventor_base.bool_false')
 
     def set_values(self):
         previous_group = self.default_get(

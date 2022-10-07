@@ -12,15 +12,20 @@ def migrate(cr, version):
     )
 
     if group_settings.get('group_stock_tracking_lot'):
-        putaway_manage_packages = env['ventor.option.setting'].search(
+        ventor_packages_settings = env['ventor.option.setting'].search(
             [
                 ('technical_name', '=', 'manage_packages'),
-                ('action_type', '=', 'putaway'),
             ]
         )
-        putaway_manage_packages.with_context(
-            enable_putaway_manage_packages=True
-        ).set_related_package_fields(group_settings.get('group_stock_tracking_lot'))
+        ventor_packages_settings.value = env.ref('ventor_base.bool_true')
+
+    if group_settings.get('group_stock_tracking_owner'):
+        ventor_owner_settings = env['ventor.option.setting'].search(
+            [
+                ('technical_name', '=', 'manage_product_owner'),
+            ]
+        )
+        ventor_owner_settings.value = env.ref('ventor_base.bool_true')
 
     ventor_roles_administrator = env.ref('ventor_base.ventor_role_admin')
     ventor_roles_administrator.write(
@@ -34,17 +39,33 @@ def migrate(cr, version):
         ])
 
     for user in users:
-        if not user.has_group("ventor_base.ventor_role_wh_manager") and user.has_group(
-                "ventor_base.ventor_role_wh_worker"
+        if not user.has_group('ventor_base.ventor_role_wh_manager') and user.has_group(
+                'ventor_base.ventor_role_wh_worker'
         ):
             user.write(
                 {
-                    'groups_id': [(3, env.ref("ventor_base.merp_menu_allow_changing_settings").id)]
+                    'groups_id': [(3, env.ref('ventor_base.merp_menu_allow_changing_settings').id)]
                 }
             )
         if user.ventor_user_settings:
             user.write(
                 {
-                    'groups_id': [(4, env.ref("ventor_base.merp_menu_use_local_user_device_settings").id)]
+                    'groups_id': [(4, env.ref('ventor_base.merp_menu_use_local_user_device_settings').id)]
                 }
             )
+
+    #Adding the new group Scrap Management to Warehouse manager
+    ventor_roles_warehouse_manager = env.ref('ventor_base.ventor_role_wh_manager')
+    ventor_roles_warehouse_manager.write(
+        {
+            'implied_ids': [(4, env.ref('ventor_base.merp_scrap_management').id)]
+        }
+    )
+
+    #Adding the new group Cluster Picking Menu to Warehouse worker
+    ventor_roles_warehouse_worker = env.ref('ventor_base.ventor_role_wh_worker')
+    ventor_roles_warehouse_worker.write(
+        {
+            'implied_ids': [(4, env.ref('ventor_base.merp_cluster_picking_menu').id)]
+        }
+    )
