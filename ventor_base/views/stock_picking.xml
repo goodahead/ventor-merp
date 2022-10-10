@@ -122,7 +122,8 @@
         <menuitem id="ventor_app_settings"
                   name="Settings"
                   parent="ventor_app_base_menu"
-                  action="ventor_configs_action"/>
+                  action="ventor_configs_action"
+                  groups="merp_manage_ventor_configuration_app"/>
 
         <menuitem name="Global Ventor Settings"
                   id="ventor_settings_app_menu"
