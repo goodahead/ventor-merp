@@ -10,7 +10,7 @@ Change Log
 
 |
 
-* 15.0.1.5.0 (2022-08-05)
+* 15.0.1.5.0 (2022-10-10)
     - Added the setting 'Start inventory with 1' to Instant Inventory
     - Added the setting 'Hide Qty to receive ' to  Types of Operations is Receipt
     - Added ability to check Custom Build Name for all devices from Odoo side value
