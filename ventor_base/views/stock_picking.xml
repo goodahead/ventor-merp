@@ -37,6 +37,7 @@
                     <field name="show_put_in_pack_button" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
                     <field name="code" invisible='1'/>
                     <field name="check_shipping_information" attrs="{'readonly': [('code','!=','outgoing')]}"/>
+                    <field name="hide_qty_to_receive" attrs="{'readonly': [('code','!=','incoming')]}"/>
                 </tree>
             </field>
         </record>
@@ -79,6 +80,7 @@
                             <field name="show_print_attachment_button"/>
                             <field name="show_put_in_pack_button" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
                             <field name="check_shipping_information" attrs="{'invisible': [('code','!=','outgoing')]}"/>
+                            <field name="hide_qty_to_receive" attrs="{'invisible': [('code','!=','incoming')]}"/>
                         </group>
                     </group>
                 </xpath>
@@ -95,7 +97,7 @@
 
 <!-- Actions-->
         <record id='ventor_stock_picking_action' model='ir.actions.act_window'>
-            <field name="name">Operation Types</field>
+            <field name="name">Warehouse Operations</field>
             <field name="res_model">stock.picking.type</field>
             <field name="view_mode">tree,form</field>
             <field name="usage">menu</field>
@@ -115,22 +117,25 @@
         <menuitem name="Ventor Configuration"
                   id="ventor_app_base_menu"
                   web_icon="ventor_base,static/description/icon.png"
-                  groups="ventor_role_admin"/>
+                  groups="merp_manage_ventor_configuration_app"/>
 
         <menuitem id="ventor_app_settings"
                   name="Settings"
                   parent="ventor_app_base_menu"
                   action="ventor_configs_action"/>
 
-        <menuitem name="Operation Types"
-                  id="ventor_app_operation_app_menu"
-                  parent="ventor_app_base_menu"
+        <menuitem name="Global Ventor Settings"
+                  id="ventor_settings_app_menu"
+                  parent="ventor_app_base_menu"/>
+
+        <menuitem name="Warehouse Operations"
+                  id="ventor_wh_operations_app_menu"
+                  parent="ventor_settings_app_menu"
                   action="ventor_stock_picking_action"/>
 
         <menuitem name="User Settings"
                   id="ventor_app_user_settings_menu"
                   parent="ventor_app_base_menu"
                   action="base.action_res_users"/>
-
     </data>
 </odoo>

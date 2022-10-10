@@ -81,6 +81,18 @@
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
+    <record id="merp_scrap_management" model="res.groups">
+        <field name="name">Scrap Management</field>
+        <field name="category_id" ref="module_category_merp_menu_application"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <record id="merp_cluster_picking_menu" model="res.groups">
+        <field name="name">Cluster Picking Menu</field>
+        <field name="category_id" ref="module_category_merp_menu_application"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
     <!-- Ventor Access Rights -->
     <record model="ir.module.category" id="module_category_merp_access_application">
         <field name="name">Ventor Access Rights</field>
@@ -96,7 +108,19 @@
     </record>
 
     <record id="merp_menu_allow_changing_settings" model="res.groups">
-        <field name="name">Settings: Allow changing settings</field>
+        <field name="name">Manage Local User Device Settings</field>
+        <field name="comment">Enable to allow to define local Ventor settings 
+                              from Ventor application interface.</field>
+        <field name="category_id" ref="module_category_merp_access_application"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+        <record id="merp_menu_use_local_user_device_settings" model="res.groups">
+        <field name="name">Use Local User Device Settings</field>
+        <field name="comment">If it's checked, the manual settings (defined on device by this user) 
+                              will be used instead Global Ventor Settings in Odoo. 
+                              If it's unchecked the user will not be able to modify settings on the 
+                              device manually. Global Ventor Settings will be used instead.</field>
         <field name="category_id" ref="module_category_merp_access_application"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
@@ -133,6 +157,15 @@
         <field name="comment">The group allows Inventory/User to validate inventory</field>
     </record>
 
+    <record id="merp_manage_ventor_configuration_app" model="res.groups">
+        <field name="name">Manage Ventor Configuration app</field>
+        <field name="comment">Enable to see new root menu "Ventor Configuration" 
+                              that will allow to define global Ventor settings 
+                              from the Odoo interface.</field>
+        <field name="category_id" ref="module_category_merp_access_application"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
     <record id="stock.group_stock_manager" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('ventor_base.merp_user_validate_inventory_adjustment'))]"/>
     </record>
@@ -150,7 +183,8 @@
             <field name="category_id" ref="module_category_ventor_roles"/>
             <field name="implied_ids"
                    eval="[(4, ref('merp_menu_warehouse_operations')),
-                   (4, ref('merp_menu_picking_wave'))]"/>
+                   (4, ref('merp_menu_picking_wave')),
+                   (4, ref('merp_cluster_picking_menu'))]"/>
         </record>
 
         <record id="ventor_role_wh_manager" model="res.groups">
@@ -166,6 +200,7 @@
                    (4, ref('merp_external_management')),
                    (4, ref('merp_putaway')),
                    (4, ref('merp_menu_manufacturing')),
+                   (4, ref('merp_scrap_management')),
                    (4, ref('merp_menu_allow_changing_settings'))]"/>
         </record>
 
@@ -178,7 +213,8 @@
                           (4, ref('merp_menu_create_purchase_order')),
                           (4, ref('merp_menu_allow_update_product_on_hand')),
                           (4, ref('merp_debug')),
-                          (4, ref('merp_picking_wave_allow_done'))]"/>
+                          (4, ref('merp_picking_wave_allow_done')),
+                          (4, ref('merp_manage_ventor_configuration_app'))]"/>
             <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
     </data>

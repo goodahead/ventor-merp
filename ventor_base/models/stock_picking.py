@@ -93,6 +93,11 @@ class StockPickingType(models.Model):
              "The dot next to the field gets yellow color means user has to confirm it"
     )
 
+    hide_qty_to_receive = fields.Boolean(
+        string="Hide QTYs to receive",
+        help="Setting’s description: User will not see how many QTYs they need to receive."
+    )
+
     is_consignment_enabled = fields.Boolean(
         compute="_compute_is_consignment_enabled"
     )
@@ -246,7 +251,7 @@ class StockPickingType(models.Model):
                         stock_picking_type.confirm_source_package = False
         return res
 
-    def get_ventor_settings(self):
+    def get_warehouse_operation_settings(self):
         return {
             "id": self.id,
             "name": self.name,
@@ -272,5 +277,6 @@ class StockPickingType(models.Model):
                 "scan_destination_package": self.scan_destination_package,
                 "confirm_source_package": self.confirm_source_package,
                 "check_shipping_information": self.check_shipping_information,
+                "hide_qty_to_receive": self.hide_qty_to_receive,
             }
         }

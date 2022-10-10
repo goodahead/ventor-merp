@@ -8,3 +8,4 @@ from . import res_config
 from . import res_users
 from . import stock_inventory
 from . import stock_warehouse
+from . import ventor_option_setting
