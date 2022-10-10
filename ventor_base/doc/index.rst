@@ -16,15 +16,15 @@ Change Log
     - Added ability to check Custom Build Name for all devices from Odoo side value
     - Added Ventor Settings menu with submenu:
 
-        Warehouse Opration
-        Package Management
-        Batch Picking
-        Cluster Picking
-        Internal Transfers
-        Putaway
-        Instant Inventory
-        Inventory Adjustments
-        Quick Info   
+        - Warehouse Opration
+        - Package Management
+        - Batch Picking
+        - Cluster Picking
+        - Internal Transfers
+        - Putaway
+        - Instant Inventory
+        - Inventory Adjustments
+        - Quick Info   
 
 * 14.0.1.4.0 (2022-06-08)
     - Added group 'Validate Inventory'
