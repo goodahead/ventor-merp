@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 14.0.1.0.2 (2022-10-10)
+    - The module has been translated into Polish
+
 * 14.0.1.0.1 (2021-06-16)
     - Changing of checking for uniqueness barcodes only by active products
 
