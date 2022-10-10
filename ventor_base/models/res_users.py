@@ -15,6 +15,12 @@ class ResUsers(models.Model):
         help='List of all warehouses user has access to',
     )
 
+    custom_package_name = fields.Char(
+        string='Custom Build Name',
+        compute="_compute_custom_package_name",
+        compute_sudo=True,
+    )
+
     ventor_base_version = fields.Char(
         compute="_compute_ventor_base_version",
         compute_sudo=True,
@@ -49,6 +55,13 @@ class ResUsers(models.Model):
         type(self).SELF_WRITEABLE_FIELDS = type(self).SELF_WRITEABLE_FIELDS + writable_fields
         return init_res
 
+    def _compute_custom_package_name(self):
+        custom_package_name = (
+            self.env["ir.config_parameter"]
+            .get_param("ventor_base.custom_package_name", "")
+        )
+        self.custom_package_name = custom_package_name
+
     def _compute_ventor_base_version(self):
         ventor_base_version = (
             self.env["ir.module.module"]
@@ -65,10 +78,19 @@ class ResUsers(models.Model):
         settings = []
 
         for stock_picking_type in self.env['stock.picking.type'].search([]):
-            settings.append(stock_picking_type.get_ventor_settings())
+            stock_picking_type_settings = stock_picking_type.get_warehouse_operation_settings()
+            if stock_picking_type.code != 'outgoing':
+                stock_picking_type_settings['settings'].pop('check_shipping_information')
+            if stock_picking_type.code != 'incoming':
+                stock_picking_type_settings['settings'].pop('hide_qty_to_receive')
+            settings.append(stock_picking_type_settings)
+
+        ventor_option_settings = self.env['ventor.option.setting'].sudo().get_general_settings()
+        obj = {'operation_types': settings}
+        obj.update(ventor_option_settings)
 
         self.ventor_global_settings = json.dumps(
-            obj={'operation_types': settings},
+            obj=obj,
             indent='    ',
             sort_keys=True
         )
