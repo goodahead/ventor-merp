@@ -6,8 +6,12 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-14.0.1.5.0 (2022-06-30)
+14.0.1.5.0 (2022-10-10)
 ***********************
+
+* Added the setting 'Start inventory with 1' to Instant Inventory
+* Added the setting 'Hide Qty to receive ' to  Types of Operations is Receipt
+* Added ability to check Custom Build Name for all devices from Odoo side value
 * Added Ventor Settings menu with submenu:
     Warehouse Opration
     Package Management
@@ -18,6 +22,7 @@ Changelog
     Instant Inventory
     Inventory Adjustments
     Quick Info
+    Scrap Management
 
 14.0.1.4.0 (2022-06-08)
 ***********************
