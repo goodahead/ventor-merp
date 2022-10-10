@@ -6,6 +6,11 @@ This module allows to define multiple additional barcodes for products and to se
 Changelog
 ---------
 
+13.0.1.2.2 (2022-10-10)
+***********************
+
+* The module has been translated into Polish
+
 13.0.1.2.1 (2021-06-16)
 ***********************
 
