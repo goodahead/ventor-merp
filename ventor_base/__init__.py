@@ -70,6 +70,7 @@ def _post_init_hook(cr, registry):
             ],
             "value_type": "select",
             "action_type": "internal_transfers",
-            "description": "Save transfer after exit"
+            "description": "Choose the action on the transfer after exit the menu."
+                           " You can save it or cancel without dialog screen"
         }
     )
