@@ -1,5 +1,9 @@
 from odoo import fields, models, api, _
 
+import logging
+
+_logger = logging.getLogger(__file__)
+
 
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
@@ -280,3 +284,21 @@ class StockPickingType(models.Model):
                 "hide_qty_to_receive": self.hide_qty_to_receive,
             }
         }
+
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+
+    def get_stock_picking_info(self, **kwargs):
+        result = {}
+        picking = self.browse(kwargs.get('picking').get("id"))
+        if picking:
+            models = {
+                "stock.picking": picking,
+                "stock.move": picking.move_ids_without_package,
+                "stock.move.line": picking.move_line_ids_without_package
+            }
+            for item in models:
+                result[item] = models[item].read(fields=kwargs['picking'][item]['fields'])
+        return result

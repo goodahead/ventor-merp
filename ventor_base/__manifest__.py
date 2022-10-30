@@ -20,7 +20,7 @@
         'security/ir.model.access.csv',
         'data/ventor_setting.xml',
         'data/ventor_option_setting.xml',
-        'views/res_config.xml',
+        # 'views/res_config.xml',
         'views/res_users.xml',
         'views/stock_location.xml',
         'views/stock_picking.xml',
