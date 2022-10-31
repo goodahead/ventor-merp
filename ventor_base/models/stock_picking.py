@@ -4,6 +4,11 @@ from odoo import fields, models, api, _
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
+    allow_creating_new_packages = fields.Boolean(
+        string="Allow creating new packages",
+        help="User can create new packages by scanning a new barcode or create it manually"
+    )
+
     apply_default_lots = fields.Boolean(
         string="Apply default lots and serials",
         help="If it's on, you don't need to scan lot number to confirm it. "
@@ -258,6 +263,7 @@ class StockPickingType(models.Model):
             "wh_code": self.warehouse_id.code,
             "wh_name": self.warehouse_id.name,
             "settings": {
+                "allow_creating_new_packages": self.allow_creating_new_packages,
                 "confirm_source_location": self.confirm_source_location,
                 "change_source_location": self.change_source_location,
                 "show_next_product": self.show_next_product,
