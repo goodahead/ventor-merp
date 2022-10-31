@@ -287,7 +287,7 @@ class StockPicking(models.Model):
 
     def get_stock_picking_info(self, **kwargs):
         result = {}
-        picking = self.search([("id", "=", kwargs.get('picking').get("id"))])
+        picking = self.search([("id", "=", kwargs.get("picking").get("id"))])
         if not picking:
             return result
         models = {
@@ -296,5 +296,5 @@ class StockPicking(models.Model):
             "stock.move.line": picking.move_line_ids_without_package
         }
         for item in models:
-            result[item] = models[item].read(fields=kwargs['picking'][item]['fields'])
+            result[item] = models[item].read(fields=kwargs["picking"][item]["fields"])
         return result
