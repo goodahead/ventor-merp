@@ -93,13 +93,19 @@ class VentorConfigSettings(models.TransientModel):
                 operation_type_ids.show_put_in_pack_button = self.group_stock_tracking_lot
                 operation_type_ids.scan_destination_package = self.group_stock_tracking_lot
                 operation_type_ids.confirm_source_package = self.group_stock_tracking_lot
+                operation_type_ids.allow_creating_new_packages = self.group_stock_tracking_lot
 
                 ventor_packages_settings = self.env['ventor.option.setting'].search(
                     [
                         (
                             'technical_name',
                             'in',
-                            ('confirm_source_package', 'scan_destination_package', 'manage_packages'),
+                            (
+                                'confirm_source_package',
+                                'scan_destination_package',
+                                'manage_packages',
+                                'allow_creating_new_packages',
+                            ),
                         ),
                     ]
                 )

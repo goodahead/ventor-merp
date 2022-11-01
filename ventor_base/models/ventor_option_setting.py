@@ -47,7 +47,12 @@ class VentorOptionSetting(models.Model):
             return self._set_change_source_location()
         elif self.technical_name in ('add_boxes_before_cluster', 'multiple_boxes_for_one_transfer'):
             return self._set_add_boxes_before_cluster()
-        elif self.technical_name in ('manage_packages', 'confirm_source_package', 'scan_destination_package'):
+        elif self.technical_name in (
+            'manage_packages',
+            'confirm_source_package',
+            'scan_destination_package',
+            'allow_creating_new_packages'
+        ):
             return self.set_related_package_fields(self._get_group_settings_value('stock.group_tracking_lot'))
         elif self.technical_name in ('manage_product_owner'):
             self.set_manage_product_owner_fields(self._get_group_settings_value('stock.group_tracking_owner'))
