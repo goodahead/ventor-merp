@@ -559,6 +559,22 @@
             <field name="description">Allow scan product owner. You can specify product owner while moving items. Working only with "Consignment" setting on Odoo side</field>
         </record>
 
+        <record id="save_transfer_after_exit" model="ventor.option.setting">
+            <field name="name">Save transfer after exit</field>
+            <field name="technical_name">save_transfer_after_exit</field>
+            <field name="value" ref="ventor_base.ask_me_every_time"/>
+            <field name="settings_dependency" eval="[
+                (6, 0, [
+                        ref('ventor_base.ask_me_every_time'),
+                        ref('ventor_base.save_transfer'),
+                        ref('ventor_base.cancel_transfer')
+                ])
+            ]"/>
+            <field name="value_type">select</field>
+            <field name="action_type">internal_transfers</field>
+            <field name="description">Choose the action on the transfer after exit the menu. You can save it or cancel without dialog screen</field>
+        </record>
+
         <!-- Putaway -->
         <record id="set_auto_validate" model="ventor.option.setting">
             <field name="name">Move all items automatically</field>

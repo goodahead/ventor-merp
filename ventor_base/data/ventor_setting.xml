@@ -39,4 +39,14 @@
         <field name="setting_type">behavior_on_split_operation</field>
         <field name="setting_value">Ask Me Every Time</field>
     </record>
+
+    <record id="save_transfer" model="ventor.setting.value">
+        <field name="setting_type">save_transfer_after_exit</field>
+        <field name="setting_value">Save transfer</field>
+    </record>
+
+    <record id="cancel_transfer" model="ventor.setting.value">
+        <field name="setting_type">save_transfer_after_exit</field>
+        <field name="setting_value">Cancel transfer</field>
+    </record>
 </odoo>
