@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="handling_transfer_wizard_view_form" model="ir.ui.view">
+        <field name="name">handling.transfer.wizard.view.form</field>
+        <field name="model">handling.transfer.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+              <group>
+                <group string="string1">
+                    <field name="pallet_id" string="Pallets" options="{'no_create': True, 'no_open': True}" domain="[('is_pallet', '=', True)]"/>
+                </group>
+                <group string="string2">
+                    <field name="destination_location_id" string="Destination Location" options="{'no_create': True, 'no_open': True}"/>
+                </group>
+              </group>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="handling_transfer_action" model="ir.actions.act_window">
+        <field name="name">Pallets Transfer</field>
+        <field name="res_model">handling.transfer.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="ventor_base.handling_transfer_wizard_view_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_handling_transfer" name="Handling Transfer" action="ventor_base.handling_transfer_action" parent="stock.menu_stock_root" sequence="99"/>
+
+    <record id="import_products_order_all_wh" model="ir.ui.menu">
+        <field name="name">Creating Pallets Transfer</field>
+        <field name="sequence" eval="1"/>
+        <field name="action" ref="ventor_base.handling_transfer_action"/>
+        <field name="parent_id" ref="menu_handling_transfer"/>
+    </record>
+</odoo>
