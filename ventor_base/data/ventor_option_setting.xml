@@ -593,7 +593,8 @@
             <field name="value_type">select</field>
             <field name="action_type">internal_transfers</field>
             <field name="description">Choose the action on the transfer after exit the menu. You can save it or cancel without dialog screen</field>
-            
+        </record>
+
         <record id="allow_creating_new_packages_internal_transfers" model="ventor.option.setting">
             <field name="name">Allow creating new packages </field>
             <field name="technical_name">allow_creating_new_packages</field>
