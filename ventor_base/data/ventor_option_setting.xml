@@ -245,6 +245,16 @@
             <field name="description">Showing the Put in pack button in the toolbar instead of keeping it in the hidden menu</field>
         </record>
 
+        <record id="allow_creating_new_packages" model="ventor.option.setting">
+            <field name="name">Allow creating new packages </field>
+            <field name="technical_name">allow_creating_new_packages</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">batch_picking</field>
+            <field name="description">User can create new packages by scanning a new barcode or create it manually</field>
+        </record>
+
         <!-- Cluster picking -->
         <record id="confirm_source_location_cluster_picking" model="ventor.option.setting">
             <field name="name">Confirm source location</field>
@@ -478,6 +488,16 @@
             <field name="description">One transfer can be picked in multiple boxes</field>
         </record>
 
+        <record id="allow_creating_new_packages_cluster_picking" model="ventor.option.setting">
+            <field name="name">Allow creating new packages </field>
+            <field name="technical_name">allow_creating_new_packages</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">cluster_picking</field>
+            <field name="description">User can create new packages by scanning a new barcode or create it manually</field>
+        </record>
+
         <!-- Internal transfers -->
         <record id="manage_packages_int_transfers" model="ventor.option.setting">
             <field name="name">Show packages fields</field>
@@ -575,6 +595,16 @@
             <field name="description">Choose the action on the transfer after exit the menu. You can save it or cancel without dialog screen</field>
         </record>
 
+        <record id="allow_creating_new_packages_internal_transfers" model="ventor.option.setting">
+            <field name="name">Allow creating new packages </field>
+            <field name="technical_name">allow_creating_new_packages</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">internal_transfers</field>
+            <field name="description">User can create new packages by scanning a new barcode or create it manually</field>
+        </record>
+
         <!-- Putaway -->
         <record id="set_auto_validate" model="ventor.option.setting">
             <field name="name">Move all items automatically</field>
@@ -655,6 +685,16 @@
             <field name="value_type">bool</field>
             <field name="action_type">instant_inventory</field>
             <field name="description">Allow scan product owner. You can specify product owner while moving items. Working only with "Consignment" setting on Odoo side</field>
+        </record>
+
+        <record id="allow_creating_new_packages_instant_inventory" model="ventor.option.setting">
+            <field name="name">Allow creating new packages </field>
+            <field name="technical_name">allow_creating_new_packages</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">instant_inventory</field>
+            <field name="description">User can create new packages by scanning a new barcode or create it manually</field>
         </record>
 
         <!-- Inventory Adjustments -->
