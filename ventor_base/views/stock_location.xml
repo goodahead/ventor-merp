@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='return_location']" position="after">
                 <field name="is_pallet" attrs="{'invisible': [('usage', '!=', 'internal')]}"/>
+                <field name="barcode"/>
             </xpath>
         </field>
     </record>
