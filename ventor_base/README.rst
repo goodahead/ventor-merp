@@ -6,11 +6,12 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-15.0.1.6.0 (2022-11-04)
+15.0.1.6.0 (2022-11-18)
 ***********************
 
 * Added the setting 'Save transfer after exit' to the Internal Transfers menu
 * Added the setting 'Allow creating new packages' to menus Instant Inventory, Batch Picking, Cluster Picking, Internal Transfers, and all Operation Types
+* Added the ability to move pallets
 
 15.0.1.5.0 (2022-10-10)
 ***********************
