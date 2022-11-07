@@ -10,7 +10,7 @@ class PalletTransfer(models.Model):
     _description = "All Pallet Transfers"
 
     name = fields.Char(
-        string="Pallet Name",
+        string="Transfer Name",
         required=True,
         default=lambda self: self.env["ir.sequence"].next_by_code("pallet.transfer")
     )
