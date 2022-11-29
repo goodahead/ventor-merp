@@ -254,6 +254,8 @@ class StockPickingType(models.Model):
                         stock_picking_type.scan_destination_package = False
                     if stock_picking_type.confirm_source_package:
                         stock_picking_type.confirm_source_package = False
+                    if stock_picking_type.allow_creating_new_packages:
+                        stock_picking_type.allow_creating_new_packages = False
 
         return res
 
