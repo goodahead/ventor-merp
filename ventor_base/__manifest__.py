@@ -20,6 +20,7 @@
         'security/ir.model.access.csv',
         'data/ventor_setting.xml',
         'data/ventor_option_setting.xml',
+        'data/ventor_sequence_data.xml',
         'views/res_config.xml',
         'views/res_users.xml',
         'views/stock_location.xml',
@@ -27,6 +28,7 @@
         'views/stock_quant.xml',
         'views/stock_warehouse.xml',
         'views/ventor_option_setting.xml',
+        'views/pallet_transfer.xml',
     ],
     'post_init_hook': '_post_init_hook',
     'assets': {
