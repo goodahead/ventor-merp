@@ -94,7 +94,7 @@
         <field name="name">All Pallet Transfers</field>
         <field name="res_model">pallet.transfer</field>
         <field name="usage">menu</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree</field>
         <field name="view_id" ref="ventor_base.ventor_base_pallet_transfer_tree"/>
         <field name="target">current</field>
     </record>
