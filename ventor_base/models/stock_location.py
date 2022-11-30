@@ -10,6 +10,7 @@ class StockLocation(models.Model):
     _inherit = "stock.location"
 
     warehouse_id = fields.Many2one("stock.warehouse", "Warehouse", copy=False)
+    is_pallet = fields.Boolean(string="Is Pallet")
 
     @api.model
     def create(self, vals):
