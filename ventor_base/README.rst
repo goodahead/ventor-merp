@@ -11,6 +11,7 @@ Changelog
 
 * Added the setting 'Save transfer after exit' to the Internal Transfers menu
 * Added the setting 'Allow creating new packages' to menus Instant Inventory, Batch Picking, Cluster Picking, Internal Transfers, and all Operation Types
+* Added the ability to move pallets
 
 13.0.1.5.0 (2022-10-10)
 ***********************
