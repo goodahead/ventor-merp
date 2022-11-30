@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 14.0.1.6.0 (2022-11-18)
+    - Added the ability to move pallets
+
 * 14.0.1.5.0 (2022-10-10)
     - Added the setting 'Start inventory with 1' to Instant Inventory
     - Added the setting 'Hide Qty to receive ' to  Types of Operations is Receipt
