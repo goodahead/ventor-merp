@@ -15,15 +15,13 @@ class PalletTransfer(models.Model):
         default=lambda self: self.env["ir.sequence"].next_by_code("pallet.transfer")
     )
     pallet_name = fields.Char(string="Pallet Name")
-    pallet_id = fields.Many2one("stock.location", string="Pallets")
-    source_location_id = fields.Many2one("stock.location", string="Source Location")
+    pallet_id = fields.Many2one("stock.location", string="Pallet")
     destination_location_id = fields.Many2one("stock.location", string="Destination Location")
 
     def update_value(self):
         self.write(
             {
                 "pallet_name": self.pallet_id.name,
-                "source_location_id": self.pallet_id.location_id,
             }
         )
         self.pallet_id.location_id = self.destination_location_id
