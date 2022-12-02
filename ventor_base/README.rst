@@ -6,7 +6,7 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-13.0.1.6.0 (2022-11-18)
+13.0.1.6.0 (2022-12-02)
 ***********************
 
 * Added the ability to move pallets
