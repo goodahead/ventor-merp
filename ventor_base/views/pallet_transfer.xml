@@ -11,10 +11,12 @@
                 <field name="pallet_id"
                        required="1"
                        options="{'no_create': True, 'no_open': True}"
+                       attrs="{'readonly': [('id', '!=', False)]}"
                        domain="[('is_pallet', '=', True)]"/>
                 <field name="destination_location_id"
                        required="1"
                        options="{'no_create': True, 'no_open': True}"
+                       attrs="{'readonly': [('id', '!=', False)]}"
                        domain="[('is_pallet', '!=', True), ('usage', '=', 'internal')]"/>
             </tree>
         </field>
