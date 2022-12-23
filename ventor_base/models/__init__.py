@@ -10,3 +10,4 @@ from . import res_users
 from . import stock_inventory
 from . import stock_warehouse
 from . import ventor_option_setting
+from . import pallet_transfer
