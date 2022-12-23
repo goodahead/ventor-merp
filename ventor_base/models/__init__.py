@@ -4,6 +4,7 @@
 from . import stock_location
 from . import stock_picking
 from . import stock_quant
+from . import pallet_transfer
 from . import res_company
 from . import res_config
 from . import res_users
