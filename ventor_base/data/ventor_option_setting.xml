@@ -576,7 +576,7 @@
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">internal_transfers</field>
-            <field name="description">If it is active, you xan select only lots from source location</field>
+            <field name="description">If it is active, you can select only lots from source location</field>
         </record>
 
         <record id="manage_product_owner_int_transfers" model="ventor.option.setting">
