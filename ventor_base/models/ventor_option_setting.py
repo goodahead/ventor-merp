@@ -47,7 +47,12 @@ class VentorOptionSetting(models.Model):
             return self._set_change_source_location()
         elif self.technical_name in ('add_boxes_before_cluster', 'multiple_boxes_for_one_transfer'):
             return self._set_add_boxes_before_cluster()
-        elif self.technical_name in ('manage_packages', 'confirm_source_package', 'scan_destination_package'):
+        elif self.technical_name in (
+            'manage_packages',
+            'confirm_source_package',
+            'scan_destination_package',
+            'allow_creating_new_packages',
+        ):
             return self.set_related_package_fields(self._get_group_settings_value('stock.group_tracking_lot'))
         elif self.technical_name in ('manage_product_owner'):
             self.set_manage_product_owner_fields(self._get_group_settings_value('stock.group_tracking_owner'))
@@ -201,11 +206,16 @@ class VentorOptionSetting(models.Model):
                 self.value = self.env.ref('ventor_base.bool_false')
     
     def get_normalized_value(self, setting_value):
-        if setting_value.lower() == 'true':
-            return True
-        elif setting_value.lower() == 'false':
-            return False
-        return setting_value
+        normalized_settings = {
+            "True": "true",
+            "False": "false",
+            "Always Create Backorder": "always_create_backorder",
+            "Never Create Backorder": "never_create_backorder",
+            "Always Split the Line": "always_split_line",
+            "Always Move Less Items": "always_move_less_items",
+            "Ask Me Every Time": "ask_me_every_time",
+        }
+        return normalized_settings.get(setting_value)
 
 
 class VentorSettingValue(models.Model):

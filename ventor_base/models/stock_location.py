@@ -11,3 +11,4 @@ class StockLocation(models.Model):
 
     # store attribute for Group By 'Warehouse', locations tree view
     warehouse_id = fields.Many2one(store=True)
+    is_pallet = fields.Boolean(string="Is Pallet")
