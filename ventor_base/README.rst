@@ -6,7 +6,7 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-14.0.1.6.0 (2022-12-02)
+14.0.1.6.0 (2022-12-23)
 ***********************
 
 * Added the setting 'Save transfer after exit' to the Internal Transfers menu
