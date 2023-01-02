@@ -173,6 +173,13 @@
         <field name="comment">Allow Pallet Transfer from one location to another one</field>
     </record>
 
+    <record id="merp_add_up_or_replace_qty_sansar" model="res.groups">
+        <field name="name">Add Up or Replace Qty</field>
+        <field name="category_id" ref="module_category_merp_access_application"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="comment">If active user can decide to add up products to the theoretical qty or replace it</field>
+    </record>
+
     <record id="stock.group_stock_manager" model="res.groups">
         <field name="implied_ids" eval="[
         (4, ref('ventor_base.merp_user_validate_inventory_adjustment')),

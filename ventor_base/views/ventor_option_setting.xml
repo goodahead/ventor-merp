@@ -93,6 +93,15 @@
             <field name="domain">[('action_type', '=', 'scrap_management')]</field>
         </record>
 
+        <record id='ventor_sansar_inventory_adjustments_action' model='ir.actions.act_window'>
+            <field name="name">Inventory Adjustments</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'inventory_adjustments')]</field>
+        </record>
+
 <!-- Menus -->
         <menuitem name="Package Management"
                   id="ventor_package_management_app_menu"
@@ -133,5 +142,10 @@
                   id="ventor_scrap_management_app_menu"
                   parent="ventor_base.ventor_settings_app_menu"
                   action="ventor_scrap_management_action"/>
+
+        <menuitem name="Inventory Adjustments"
+            id="ventor_sansar_inventory_adjustments_menu"
+            parent="ventor_base.ventor_settings_app_menu"
+            action="ventor_sansar_inventory_adjustments_action"/>
     </data>
 </odoo>
