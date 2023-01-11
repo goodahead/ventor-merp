@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+15.0.1.6.1 (2023-01-11)
+***********************
+
+* Added the 'Batch picking: Default sorting' setting to user
+
 15.0.1.6.0 (2022-12-23)
 ***********************
 

@@ -33,6 +33,11 @@
                         </p>
                     </div>
                 </xpath>
+                <xpath expr="//div[@class='text-danger']" position="after">
+                    <group string="Batch picking: Default sorting">
+                        <field name="batch_picking_sorting" options="{'no_create': True}"/>
+                    </group>
+                </xpath>
             </data>
         </field>
     </record>

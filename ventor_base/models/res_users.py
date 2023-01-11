@@ -15,6 +15,15 @@ class ResUsers(models.Model):
         help='List of all warehouses user has access to',
     )
 
+    batch_picking_sorting = fields.Selection(
+        [
+            ('my_running', 'My Running'),
+            ('all', 'All'),
+            ('running', 'Running'),
+            ('draft', 'Draft'),
+        ],
+        string='Batch picking: Default sorting', default='my_running')
+
     custom_package_name = fields.Char(
         string='Custom Build Name',
         compute="_compute_custom_package_name",
