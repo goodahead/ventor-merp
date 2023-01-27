@@ -51,7 +51,8 @@ class VentorOptionSetting(models.Model):
             'manage_packages',
             'confirm_source_package',
             'scan_destination_package',
-            'allow_creating_new_packages'
+            'allow_creating_new_packages',
+            'pack_all_items',
         ):
             return self.set_related_package_fields(self._get_group_settings_value('stock.group_tracking_lot'))
         elif self.technical_name in ('manage_product_owner'):
