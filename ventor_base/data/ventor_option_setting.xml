@@ -49,7 +49,7 @@
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">package_management</field>
-            <field name="description">User has to add to packs all items from the order</field>
+            <field name="description">User has to add all items from the order to the packages</field>
         </record>
 
         <!-- Batch picking -->
