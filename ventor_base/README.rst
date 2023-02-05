@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+15.0.1.7.0 (2023-02-xx)
+***********************
+
+* Added 'Order Recheck' menu
+
 15.0.1.6.0 (2022-12-23)
 ***********************
 
