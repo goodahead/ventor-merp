@@ -93,6 +93,12 @@
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
 
+    <record id="merp_order_recheck_menu" model="res.groups">
+        <field name="name">Order Recheck menu</field>
+        <field name="category_id" ref="module_category_merp_menu_application"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
     <!-- Ventor Access Rights -->
     <record model="ir.module.category" id="module_category_merp_access_application">
         <field name="name">Ventor Access Rights</field>
@@ -193,7 +199,8 @@
             <field name="implied_ids"
                    eval="[(4, ref('merp_menu_warehouse_operations')),
                    (4, ref('merp_menu_picking_wave')),
-                   (4, ref('merp_cluster_picking_menu'))]"/>
+                   (4, ref('merp_cluster_picking_menu')),
+                   (4, ref('merp_order_recheck_menu'))]"/>
         </record>
 
         <record id="ventor_role_wh_manager" model="res.groups">
