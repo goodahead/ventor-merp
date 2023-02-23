@@ -10,7 +10,7 @@ Change Log
 
 |
 
-* 15.0.1.7.0 (2023-02-xx)
+* 15.0.1.7.0 (2023-02-23)
     - Added RFID menu
     - Added the barcode of the Sale order name to the Picking Operations report for outgoing transfers
     - Added 'Order Recheck' menu
