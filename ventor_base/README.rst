@@ -6,7 +6,7 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
-16.0.1.2.0 (2023-02-xx)
+16.0.1.2.0 (2023-02-23)
 ***********************
 
 * Added RFID menu
