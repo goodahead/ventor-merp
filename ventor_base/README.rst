@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+16.0.1.3.0 (2023-xx-xx)
+***********************
+
+* Added the setting 'Pack all items' to the Package Management menu
+
 16.0.1.2.0 (2023-03-06)
 ***********************
 
