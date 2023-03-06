@@ -60,6 +60,19 @@
                                 <label for="force_lot_validation_on_inventory_adjustment"/>
                             </div>
                         </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <div>
+                                    <field name="barcode_on_picking_document"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="barcode_on_picking_document"/>
+                                <div class="text-muted">
+                                    Showing a barcode of the related sales order on all printed picking documents
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <h2>Additional Customisation</h2>
                     <div class="row mt16 o_settings_container">

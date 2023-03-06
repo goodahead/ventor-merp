@@ -16,6 +16,11 @@ LOGOTYPE_H = 500
 class Company(models.Model):
     _inherit = 'res.company'
 
+    barcode_on_picking_document = fields.Boolean(
+        string='Show Sales Order Barcode on Picking document',
+        help='Showing a barcode of the related sales order on all printed picking documents',
+    )
+
     force_lot_validation_on_inventory_adjustment = fields.Boolean(
         string='Force Lot Validation on Inventory Adjustment',
     )
