@@ -53,6 +53,7 @@ class VentorOptionSetting(models.Model):
             'scan_destination_package',
             'allow_creating_new_packages',
             'pack_all_items',
+            'allow_validate_less',
         ):
             return self.set_related_package_fields(self._get_group_settings_value('stock.group_tracking_lot'))
         elif self.technical_name in ('manage_product_owner'):
@@ -72,6 +73,14 @@ class VentorOptionSetting(models.Model):
                 'title': _('Another Settings were changed automatically!'),
                 'message': message,
             }}
+
+    def get_setting_field(self, technical_name):
+        return self.env['ventor.option.setting'].search(
+            [
+                ('action_type', '=', self.action_type),
+                ('technical_name', '=', technical_name),
+            ]
+        )
 
     def get_general_settings(self):
         action_types = [
@@ -94,6 +103,21 @@ class VentorOptionSetting(models.Model):
             }
         return settings
 
+    def set_allow_validate_less(self):
+        if self.technical_name == 'allow_validate_less':
+            pack_all_items = self.get_setting_field('pack_all_items')
+            if pack_all_items.value == self.env.ref('ventor_base.bool_true'):
+                self.value = self.env.ref('ventor_base.bool_false')
+        elif self.technical_name == 'pack_all_items':
+            allow_validate_less = self.get_setting_field('allow_validate_less')
+            if allow_validate_less.value == self.env.ref('ventor_base.bool_true'):
+                allow_validate_less.value = self.env.ref('ventor_base.bool_false')
+                return self._get_warning(_(
+                    'Because you changed "Force Pack" to True, '
+                    'automatically the following settings were also changed: '
+                    '\n- "Validate uncompleted packing" was changed to False'
+                ))
+
     def set_apply_default_lots_fields(self, group_stock_production_lot):
         if self.env.context.get('disable_apply_default_lots'):
             self.value = self.env.ref('ventor_base.bool_false')
@@ -102,12 +126,7 @@ class VentorOptionSetting(models.Model):
 
     def _set_add_boxes_before_cluster(self):
         if self.technical_name == 'add_boxes_before_cluster' and self.value == self.env.ref('ventor_base.bool_true'):
-            multiple_boxes_for_one_transfer = self.env['ventor.option.setting'].search(
-                [
-                    ('action_type', '=', self.action_type),
-                    ('technical_name', '=', 'multiple_boxes_for_one_transfer'),
-                ]
-            )
+            multiple_boxes_for_one_transfer = self.get_setting_field('multiple_boxes_for_one_transfer')
             if multiple_boxes_for_one_transfer.value == self.env.ref('ventor_base.bool_true'):
                 multiple_boxes_for_one_transfer.value = self.env.ref('ventor_base.bool_false')
                 return self._get_warning(_(
@@ -116,23 +135,13 @@ class VentorOptionSetting(models.Model):
                     '\n- "Multiple boxes for one transfer" was changed to False'
                 ))
         elif self.technical_name == 'multiple_boxes_for_one_transfer' and self.value == self.env.ref('ventor_base.bool_true'):
-            add_boxes_before_cluster = self.env['ventor.option.setting'].search(
-                [
-                    ('action_type', '=', self.action_type),
-                    ('technical_name', '=', 'add_boxes_before_cluster'),
-                ]
-            )
+            add_boxes_before_cluster = self.get_setting_field('add_boxes_before_cluster')
             if add_boxes_before_cluster.value == self.env.ref('ventor_base.bool_true'):
                 self.value = self.env.ref('ventor_base.bool_false')
-    
+
     def _set_change_source_location(self):
         if self.technical_name == 'confirm_source_location' and self.value == self.env.ref('ventor_base.bool_false'):
-            change_source_location = self.env['ventor.option.setting'].search(
-                [
-                    ('action_type', '=', self.action_type),
-                    ('technical_name', '=', 'change_source_location'),
-                ]
-            )
+            change_source_location = self.get_setting_field('change_source_location')
             change_source_location.value = self.env.ref('ventor_base.bool_false')
             return self._get_warning(_(
                 'Because you changed "​Confirm source location" to False, '
@@ -140,23 +149,13 @@ class VentorOptionSetting(models.Model):
                 '\n- "Change source location" was changed to False'
             ))
         elif self.technical_name == 'change_source_location' and self.value == self.env.ref('ventor_base.bool_true'):
-            confirm_source_location = self.env['ventor.option.setting'].search(
-                [
-                    ('action_type', '=', self.action_type),
-                    ('technical_name', '=', 'confirm_source_location'),
-                ]
-            )
+            confirm_source_location = self.get_setting_field('confirm_source_location')
             if confirm_source_location.value == self.env.ref('ventor_base.bool_false'):
                 self.value = self.env.ref('ventor_base.bool_false')
 
     def set_hold_destination_location_fields(self):
         if self.technical_name == 'move_multiple_products' and self.value == self.env.ref('ventor_base.bool_true'):
-            hold_destination_location = self.env['ventor.option.setting'].search(
-                [
-                    ('action_type', '=', self.action_type),
-                    ('technical_name', '=', 'hold_destination_location'),
-                ]
-            )
+            hold_destination_location = self.get_setting_field('hold_destination_location')
             if hold_destination_location.value == self.env.ref('ventor_base.bool_true'):
                 hold_destination_location.value = self.env.ref('ventor_base.bool_false')
                 return self._get_warning(_(
@@ -165,29 +164,19 @@ class VentorOptionSetting(models.Model):
                     '\n- "Hold destination location" was changed to False'
                 ))
         elif self.technical_name == 'hold_destination_location' and self.value == self.env.ref('ventor_base.bool_true'):
-            move_multiple_products = self.env['ventor.option.setting'].search(
-                [
-                    ('action_type', '=', self.action_type),
-                    ('technical_name', '=', 'move_multiple_products'),
-                ]
-            )
+            move_multiple_products = self.get_setting_field('move_multiple_products')
             if move_multiple_products.value == self.env.ref('ventor_base.bool_true'):
                 self.value = self.env.ref('ventor_base.bool_false')
 
     def set_manage_product_owner_fields(self, group_stock_tracking_owner):
         if not group_stock_tracking_owner and self.value == self.env.ref('ventor_base.bool_true'):
             self.value = self.env.ref('ventor_base.bool_false')
-    
+
     def set_related_package_fields(self, group_stock_tracking_lot):
         if not group_stock_tracking_lot:
             self.value = self.env.ref('ventor_base.bool_false')
         elif group_stock_tracking_lot:
-            manage_packages = self.env['ventor.option.setting'].search(
-                [
-                    ('action_type', '=', self.action_type),
-                    ('technical_name', '=', 'manage_packages'),
-                ]
-            )
+            manage_packages = self.get_setting_field('manage_packages')
             if self.value.setting_value == 'False' and self.technical_name == 'manage_packages':
                 relate_manage_packages_fields = self.env['ventor.option.setting'].search(
                     [
@@ -205,16 +194,18 @@ class VentorOptionSetting(models.Model):
                     ))
             if manage_packages.value.setting_value == 'False' and self.technical_name != 'manage_packages':
                 self.value = self.env.ref('ventor_base.bool_false')
-    
+            if self.value.setting_value == 'True' and self.technical_name in ('pack_all_items', 'allow_validate_less'):
+                return self.set_allow_validate_less()
+
     def get_normalized_value(self, setting_value):
         normalized_settings = {
-            "True": "true",
-            "False": "false",
-            "Always Create Backorder": "always_create_backorder",
-            "Never Create Backorder": "never_create_backorder",
-            "Always Split the Line": "always_split_line",
-            "Always Move Less Items": "always_move_less_items",
-            "Ask Me Every Time": "ask_me_every_time",
+            'True': 'true',
+            'False': 'false',
+            'Always Create Backorder': 'always_create_backorder',
+            'Never Create Backorder': 'never_create_backorder',
+            'Always Split the Line': 'always_split_line',
+            'Always Move Less Items': 'always_move_less_items',
+            'Ask Me Every Time': 'ask_me_every_time',
         }
         return normalized_settings.get(setting_value)
 
