@@ -102,6 +102,24 @@
             <field name="domain">[('action_type', '=', 'scrap_management')]</field>
         </record>
 
+        <record id='ventor_create_so_action' model='ir.actions.act_window'>
+            <field name="name">Create SO</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'create_so')]</field>
+        </record>
+
+        <record id='ventor_create_po_action' model='ir.actions.act_window'>
+            <field name="name">Create PO</field>
+            <field name="res_model">ventor.option.setting</field>
+            <field name="view_mode">tree</field>
+            <field name="usage">menu</field>
+            <field name="view_id" ref="ventor_settings_tree_view"/>
+            <field name="domain">[('action_type', '=', 'create_po')]</field>
+        </record>
+
 <!-- Menus -->
         <menuitem name="Package Management"
                   id="ventor_package_management_app_menu"
@@ -147,5 +165,15 @@
                   id="ventor_scrap_management_app_menu"
                   parent="ventor_base.ventor_settings_app_menu"
                   action="ventor_scrap_management_action"/>
+
+        <menuitem name="Create SO"
+                  id="ventor_create_so_app_menu"
+                  parent="ventor_base.ventor_settings_app_menu"
+                  action="ventor_create_so_action"/>
+
+        <menuitem name="Create PO"
+                  id="ventor_create_po_app_menu"
+                  parent="ventor_base.ventor_settings_app_menu"
+                  action="ventor_create_po_action"/>
     </data>
 </odoo>
