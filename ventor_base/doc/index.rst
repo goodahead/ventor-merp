@@ -10,6 +10,10 @@ Change Log
 
 |
 
+* 15.0.1.8.0 (2023-xx-xx)
+    - Added the setting 'Show quantity dialog first' to the Create SO menu
+    - Added the setting 'Show quantity dialog first' to the Create PO menu
+
 * 15.0.1.7.0 (2023-03-06)
     - Added RFID menu
     - Added the barcode of the Sale order name to the Picking Operations report for outgoing transfers
