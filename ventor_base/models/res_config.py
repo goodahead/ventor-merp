@@ -30,6 +30,12 @@ class VentorConfigSettings(models.TransientModel):
         store=False,
     )
 
+    barcode_on_picking_document = fields.Boolean(
+        string='Show Sales Order Barcode on Picking document',
+        readonly=False,
+        related='company_id.barcode_on_picking_document',
+    )
+
     force_lot_validation_on_inventory_adjustment = fields.Boolean(
         string='Force Lot Validation on Inventory Adjustment',
         readonly=False,

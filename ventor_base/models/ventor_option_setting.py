@@ -21,6 +21,8 @@ class VentorOptionSetting(models.Model):
             ('inventory_adjustments', 'Inventory Adjustments'),
             ('quick_info', 'Quick Info'),
             ('scrap_management', 'Scrap Management'),
+            ('create_so', 'Create SO'),
+            ('create_po', 'Create PO'),
         ], required=True
     )
     description = fields.Text()
@@ -93,6 +95,8 @@ class VentorOptionSetting(models.Model):
             'inventory_adjustments',
             'quick_info',
             'scrap_management',
+            'create_so',
+            'create_po',
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
         settings = {}

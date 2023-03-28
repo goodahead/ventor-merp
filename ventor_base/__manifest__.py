@@ -21,6 +21,7 @@
         'data/ventor_setting.xml',
         'data/ventor_option_setting.xml',
         'data/ventor_sequence_data.xml',
+        'report/report_stockpicking_operations.xml',
         'views/pallet_transfer.xml',
         'views/res_config.xml',
         'views/res_users.xml',
