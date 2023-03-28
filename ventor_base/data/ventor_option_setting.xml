@@ -779,5 +779,27 @@
             <field name="action_type">scrap_management</field>
             <field name="description">Allow scanning  a product owner. You can specify owner while making inventory. Working only with active setting "Consignment" on Odoo side</field>
         </record>
+
+        <!-- Create SO -->
+        <record id="show_quantity_dialog_first_create_so" model="ventor.option.setting">
+            <field name="name">Show quantity dialog first</field>
+            <field name="technical_name">show_quantity_dialog_first_so</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">create_so</field>
+            <field name="description">You can edit qty and taxes every time you scan the product</field>
+        </record>
+
+        <!-- Create PO -->
+        <record id="show_quantity_dialog_first_create_po" model="ventor.option.setting">
+            <field name="name">Show quantity dialog first</field>
+            <field name="technical_name">show_quantity_dialog_first_po</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">create_po</field>
+            <field name="description">You can edit qty and taxes every time you scan the product</field>
+        </record>
     </data>
 </odoo>
