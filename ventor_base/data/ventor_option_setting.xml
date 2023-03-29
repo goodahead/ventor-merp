@@ -13,13 +13,13 @@
         </record>
 
         <record id="allow_validate_less" model="ventor.option.setting">
-            <field name="name">Validate uncompleted packing</field>
+            <field name="name">Validate uncompleted orders</field>
             <field name="technical_name">allow_validate_less</field>
             <field name="value" ref="ventor_base.bool_true"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">package_management</field>
-            <field name="description">Validating is possible even if not all items were packed</field>
+            <field name="description">User will be able to validate the order even if not all items were found</field>
         </record>
 
         <record id="allow_manual_editing" model="ventor.option.setting">
@@ -43,13 +43,13 @@
         </record>
 
         <record id="pack_all_items" model="ventor.option.setting">
-            <field name="name">Pack all items</field>
+            <field name="name">Force pack</field>
             <field name="technical_name">pack_all_items</field>
             <field name="value" ref="ventor_base.bool_false"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">package_management</field>
-            <field name="description">User has to add all items from the order to the packages</field>
+            <field name="description">Force all products to be packed</field>
         </record>
 
         <!-- Batch picking -->
