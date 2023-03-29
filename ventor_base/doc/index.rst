@@ -39,14 +39,14 @@ Change Log
         - Putaway
         - Instant Inventory
         - Inventory Adjustments
-        - Quick Info   
+        - Quick Info
 
 * 14.0.1.4.0 (2022-06-08)
     - Added group 'Validate Inventory'
     - Added warning note in user settings about field 'Allowed Warehouses'
     - Fixed uploading Custom Mobile Logo
     - Renamed name of fields in Ventor Configuration:
-    
+
         - Apply default lots -> Apply default lots and serials
         - Transfer more items -> Move more than planned
         - Autocomplete the item quantity field -> Autocomplete item quantity
