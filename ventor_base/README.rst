@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+15.0.1.8.0 (2023-xx-xx)
+***********************
+
+* Added Wave Picking Menu
+
 15.0.1.7.0 (2023-03-06)
 ***********************
 
