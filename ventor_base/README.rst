@@ -11,7 +11,7 @@ Changelog
 
 * Added the setting 'Force pack' to the Package Management menu
 * Added the setting 'Show quantity dialog first' to the Create SO menu
-* Added the setting 'Show quantity dialog first' to the Create PO menu
+* Added Wave Picking Menu
 
 15.0.1.7.0 (2023-03-06)
 ***********************
