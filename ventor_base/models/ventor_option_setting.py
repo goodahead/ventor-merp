@@ -14,6 +14,7 @@ class VentorOptionSetting(models.Model):
             ('warehouse_opration', 'Warehouse Opration'),
             ('package_management', 'Package Management'),
             ('batch_picking', 'Batch Picking'),
+            ('wave_picking', 'Wave Picking'),
             ('cluster_picking', 'Cluster Picking'),
             ('internal_transfers', 'Internal Transfers'),
             ('putaway', 'Putaway'),
@@ -76,6 +77,7 @@ class VentorOptionSetting(models.Model):
         action_types = [
             'package_management',
             'batch_picking',
+            'wave_picking',
             'cluster_picking',
             'internal_transfers',
             'putaway',
@@ -85,8 +87,11 @@ class VentorOptionSetting(models.Model):
             'scrap_management',
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
+
         settings = {}
         for action_type in action_types:
+            if action_type == 'wave_picking' and not self._get_group_settings_value('stock.group_stock_picking_wave'):
+                continue
             settings[action_type] = {
                 set.technical_name: self.get_normalized_value(set.value.setting_value)
                 for set in ventor_option_settings.filtered(lambda r: r.action_type == action_type)
@@ -123,7 +128,7 @@ class VentorOptionSetting(models.Model):
             )
             if add_boxes_before_cluster.value == self.env.ref('ventor_base.bool_true'):
                 self.value = self.env.ref('ventor_base.bool_false')
-    
+
     def _set_change_source_location(self):
         if self.technical_name == 'confirm_source_location' and self.value == self.env.ref('ventor_base.bool_false'):
             change_source_location = self.env['ventor.option.setting'].search(
@@ -176,7 +181,7 @@ class VentorOptionSetting(models.Model):
     def set_manage_product_owner_fields(self, group_stock_tracking_owner):
         if not group_stock_tracking_owner and self.value == self.env.ref('ventor_base.bool_true'):
             self.value = self.env.ref('ventor_base.bool_false')
-    
+
     def set_related_package_fields(self, group_stock_tracking_lot):
         if not group_stock_tracking_lot:
             self.value = self.env.ref('ventor_base.bool_false')
@@ -204,7 +209,7 @@ class VentorOptionSetting(models.Model):
                     ))
             if manage_packages.value.setting_value == 'False' and self.technical_name != 'manage_packages':
                 self.value = self.env.ref('ventor_base.bool_false')
-    
+
     def get_normalized_value(self, setting_value):
         normalized_settings = {
             "True": "true",
