@@ -28,7 +28,20 @@ class StockPickingMixin(models.AbstractModel):
             rechecked_list.append(rec)
         return rechecked_list
 
-    def _read_record(self, record_tuple):
+    @staticmethod
+    def _get_field(record, package_fields, operation_fields):
+        if record._name == 'stock.package_level':
+            return package_fields
+        return operation_fields
+
+    @staticmethod
+    def _get_full_list(stock_object, limit):
+        operations_to_pick = stock_object.operations_to_pick
+        if limit:
+            operations_to_pick = stock_object.operations_to_pick[:limit]
+        return [rec._get_operation_tuple() for rec in operations_to_pick]
+
+    def _read_record(self, record_tuple, package_fields, operation_fields):
         """
         record_tuple = (
             ('id', 100),
@@ -40,10 +53,10 @@ class StockPickingMixin(models.AbstractModel):
         """
         record_dict = dict(record_tuple)
         record = self.env[record_dict['_type']].browse(record_dict['id'])
-        record_dict.update(record.read()[0])
+        record_dict.update(record.read(self._get_field(record, package_fields, operation_fields))[0])
         return record_dict
 
-    def serialize_record_ventor(self, rec_id):
+    def serialize_record_ventor(self, rec_id, package_fields=[], operation_fields=[], limit=None):
         """Record serialization for the Ventor app."""
         filtered_list = []
         try:
@@ -54,7 +67,7 @@ class StockPickingMixin(models.AbstractModel):
             _logger.error(ex)
             return filtered_list
 
-        full_list = [rec._get_operation_tuple() for rec in stock_object.operations_to_pick]
+        full_list = self._get_full_list(stock_object, limit)
         [filtered_list.append(rec) for rec in full_list if rec not in filtered_list]
-        record_list = [self._read_record(rec) for rec in filtered_list]
+        record_list = [self._read_record(rec, package_fields, operation_fields) for rec in filtered_list]
         return self._recheck_record_list(record_list)
