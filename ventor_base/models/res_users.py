@@ -3,7 +3,7 @@
 
 import json
 
-from odoo import models, fields, api
+from odoo import api, models, fields
 
 
 class ResUsers(models.Model):
@@ -112,3 +112,14 @@ class ResUsers(models.Model):
         if result and 'allowed_warehouse_ids' in vals:
             self.env['ir.rule'].clear_cache()
         return result
+
+
+class Groups(models.Model):
+    _inherit = 'res.groups'
+
+    @api.model
+    def get_application_groups(self, domain):
+        #Overridden to hide menu display in Ventor when some settings are disabled in Odoo
+        if not self.user_has_groups('stock.group_stock_picking_wave'):
+            domain += [('id', '!=', self.env.ref('ventor_base.merp_wave_picking_menu').id)]
+        return super().get_application_groups(domain)
