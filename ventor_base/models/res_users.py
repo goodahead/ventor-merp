@@ -92,6 +92,14 @@ class ResUsers(models.Model):
             sort_keys=True
         )
 
+    def _update_group_picking_wave_menu(self, vals):
+        vals = self._remove_reified_groups(vals)
+        if 'groups_id' in vals:
+            group_stock_picking_wave = self.env.ref('stock.group_stock_picking_wave')
+            merp_wave_picking_menu = self.env.ref('ventor_base.merp_wave_picking_menu')
+            if group_stock_picking_wave not in self.groups_id and merp_wave_picking_menu in self.groups_id:
+                merp_wave_picking_menu.write({'users': [(3, self.id)]})
+
     @api.model
     def create(self, vals):
         result = super().create(vals)
@@ -106,14 +114,6 @@ class ResUsers(models.Model):
                 }
             )
         return result
-
-    def _update_group_picking_wave_menu(self, vals):
-        vals = self._remove_reified_groups(vals)
-        if 'groups_id' in vals:
-            group_stock_picking_wave = self.env.ref('stock.group_stock_picking_wave')
-            merp_wave_picking_menu = self.env.ref('ventor_base.merp_wave_picking_menu')
-            if group_stock_picking_wave not in self.groups_id and merp_wave_picking_menu in self.groups_id:
-                merp_wave_picking_menu.write({'users': [(3, self.id)]})
 
     def write(self, vals):
         result = super().write(vals)
