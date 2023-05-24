@@ -109,6 +109,8 @@
         <field name="name">Wave Picking Menu</field>
         <field name="category_id" ref="module_category_merp_menu_application"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        <field name="comment">Enables the display of the "Wave Picking Menu" in Ventor.
+                              To enable this setting, the "Use wave pickings" group must be enabled</field>
     </record>
 
     <!-- Ventor Access Rights -->

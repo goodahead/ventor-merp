@@ -92,6 +92,14 @@ class ResUsers(models.Model):
             sort_keys=True
         )
 
+    def _update_group_picking_wave_menu(self, vals):
+        vals = self._remove_reified_groups(vals)
+        if 'groups_id' in vals:
+            group_stock_picking_wave = self.env.ref('stock.group_stock_picking_wave')
+            merp_wave_picking_menu = self.env.ref('ventor_base.merp_wave_picking_menu')
+            if group_stock_picking_wave not in self.groups_id and merp_wave_picking_menu in self.groups_id:
+                merp_wave_picking_menu.write({'users': [(3, self.id)]})
+
     @api.model
     def create(self, vals):
         result = super().create(vals)
@@ -111,15 +119,5 @@ class ResUsers(models.Model):
         result = super().write(vals)
         if result and 'allowed_warehouse_ids' in vals:
             self.env['ir.rule'].clear_cache()
+        self._update_group_picking_wave_menu(vals)
         return result
-
-
-class Groups(models.Model):
-    _inherit = 'res.groups'
-
-    @api.model
-    def get_application_groups(self, domain):
-        #Overridden to hide menu display in Ventor when some settings are disabled in Odoo
-        if not self.user_has_groups('stock.group_stock_picking_wave'):
-            domain += [('id', '!=', self.env.ref('ventor_base.merp_wave_picking_menu').id)]
-        return super().get_application_groups(domain)

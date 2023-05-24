@@ -145,11 +145,11 @@ class VentorConfigSettings(models.TransientModel):
         group_stock_picking_wave = previous_group.get('group_stock_picking_wave')
 
         if group_stock_picking_wave != self.group_stock_picking_wave:
-            group_id = self.env.ref('ventor_base.merp_wave_picking_menu')
+            merp_wave_picking_menu = self.env.ref('ventor_base.merp_wave_picking_menu')
             users = self.env['res.users'].with_context(active_test=False).search([
                 ('share', '=', False)
             ])
-            group_id.write(
+            merp_wave_picking_menu.write(
                 {
                     'users': [(6, 0, users.ids)]
                     if self.group_stock_picking_wave
