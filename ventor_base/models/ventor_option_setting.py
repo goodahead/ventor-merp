@@ -14,6 +14,7 @@ class VentorOptionSetting(models.Model):
             ('warehouse_opration', 'Warehouse Opration'),
             ('package_management', 'Package Management'),
             ('batch_picking', 'Batch Picking'),
+            ('wave_picking', 'Wave Picking'),
             ('cluster_picking', 'Cluster Picking'),
             ('internal_transfers', 'Internal Transfers'),
             ('putaway', 'Putaway'),
@@ -88,6 +89,7 @@ class VentorOptionSetting(models.Model):
         action_types = [
             'package_management',
             'batch_picking',
+            'wave_picking',
             'cluster_picking',
             'internal_transfers',
             'putaway',
@@ -99,8 +101,11 @@ class VentorOptionSetting(models.Model):
             'create_po',
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
+
         settings = {}
         for action_type in action_types:
+            if action_type == 'wave_picking' and not self._get_group_settings_value('stock.group_stock_picking_wave'):
+                continue
             settings[action_type] = {
                 set.technical_name: self.get_normalized_value(set.value.setting_value)
                 for set in ventor_option_settings.filtered(lambda r: r.action_type == action_type)
