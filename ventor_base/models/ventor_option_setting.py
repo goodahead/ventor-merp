@@ -123,7 +123,7 @@ class VentorOptionSetting(models.Model):
             )
             if add_boxes_before_cluster.value == self.env.ref('ventor_base.bool_true'):
                 self.value = self.env.ref('ventor_base.bool_false')
-    
+
     def _set_change_source_location(self):
         if self.technical_name == 'confirm_source_location' and self.value == self.env.ref('ventor_base.bool_false'):
             change_source_location = self.env['ventor.option.setting'].search(
@@ -176,7 +176,7 @@ class VentorOptionSetting(models.Model):
     def set_manage_product_owner_fields(self, group_stock_tracking_owner):
         if not group_stock_tracking_owner and self.value == self.env.ref('ventor_base.bool_true'):
             self.value = self.env.ref('ventor_base.bool_false')
-    
+
     def set_related_package_fields(self, group_stock_tracking_lot):
         if not group_stock_tracking_lot:
             self.value = self.env.ref('ventor_base.bool_false')
@@ -204,7 +204,7 @@ class VentorOptionSetting(models.Model):
                     ))
             if manage_packages.value.setting_value == 'False' and self.technical_name != 'manage_packages':
                 self.value = self.env.ref('ventor_base.bool_false')
-    
+
     def get_normalized_value(self, setting_value):
         normalized_settings = {
             "True": "true",

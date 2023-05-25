@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+16.0.1.3.0 (2023-xx-xx)
+***********************
+
+* Renamed the "Force destination package scan“ setting to “Confirm destination package“
+
 16.0.1.2.0 (2023-03-06)
 ***********************
 
