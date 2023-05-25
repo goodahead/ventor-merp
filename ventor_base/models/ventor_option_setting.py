@@ -194,7 +194,7 @@ class VentorOptionSetting(models.Model):
                         'Because you changed "Show packages fields" to False, '
                         'automatically the following settings were also changed: '
                         '\n- "Confirm source package" was changed to False'
-                        '\n- "Force destination package scan" was changed to False'
+                        '\n- "Confirm destination package" was changed to False'
                     ))
             if manage_packages.value.setting_value == 'False' and self.technical_name != 'manage_packages':
                 self.value = self.env.ref('ventor_base.bool_false')
