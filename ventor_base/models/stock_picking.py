@@ -135,8 +135,9 @@ class StockPickingType(models.Model):
     )
 
     scan_destination_package = fields.Boolean(
-        string="Force destination package scan",
-        help="If this active user has to scan a destination package (pallet) all the time"
+        string="Confirm destination package",
+        help="User has to scan a barcode of destination package. The dot next to the field "
+             "gets yellow color means user has to confirm it"
     )
 
     show_next_product = fields.Boolean(

@@ -3,7 +3,7 @@
 
 {
     'name': 'Ventor Base',
-    'version': '14.0.1.8.0',
+    'version': '14.0.1.9.0', #change to 14.0.1.8.0 in release(check migration)
     'author': 'VentorTech',
     'website': 'https://ventor.tech/',
     'license': 'LGPL-3',
