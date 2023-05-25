@@ -9,6 +9,6 @@ def migrate(cr, version):
     allow_validate_less.write(
         {
             "name": "Validate uncompleted orders",
-            "description": "Validate uncompleted orders“, new description “User will be able to validate the order even if not all items were found"
+            "description": "User will be able to validate the order even if not all items were found"
         }
     )

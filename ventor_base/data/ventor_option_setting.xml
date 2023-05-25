@@ -367,13 +367,13 @@
         </record>
 
         <record id="scan_destination_package_wave_picking" model="ventor.option.setting">
-            <field name="name">Force destination package scan</field>
+            <field name="name">Confirm destination package</field>
             <field name="technical_name">scan_destination_package</field>
             <field name="value" ref="ventor_base.bool_false"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">wave_picking</field>
-            <field name="description">User has to scan a barcode of destination package</field>
+            <field name="description">User has to scan a barcode of destination package. The dot next to the field gets yellow color means user has to confirm it</field>
         </record>
 
         <record id="manage_product_owner_wave_picking" model="ventor.option.setting">
