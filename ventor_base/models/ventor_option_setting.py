@@ -104,8 +104,6 @@ class VentorOptionSetting(models.Model):
 
         settings = {}
         for action_type in action_types:
-            if action_type == 'wave_picking' and not self._get_group_settings_value('stock.group_stock_picking_wave'):
-                continue
             settings[action_type] = {
                 set.technical_name: self.get_normalized_value(set.value.setting_value)
                 for set in ventor_option_settings.filtered(lambda r: r.action_type == action_type)
