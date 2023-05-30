@@ -13,6 +13,7 @@ Changelog
 * Added the setting 'Show quantity dialog first' to the Create SO menu
 * Added Wave Picking Menu
 * Renamed the "Force destination package scan“ setting to “Confirm destination package“
+* Added setting “Use reusable packages“ to Cluster picking menu
 
 15.0.1.7.0 (2023-03-06)
 ***********************

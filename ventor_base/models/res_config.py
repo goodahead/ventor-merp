@@ -112,6 +112,7 @@ class VentorConfigSettings(models.TransientModel):
                                 'manage_packages',
                                 'allow_creating_new_packages',
                                 'pack_all_items',
+                                'use_reusable_packages',
                             ),
                         ),
                     ]
