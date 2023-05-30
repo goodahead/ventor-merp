@@ -65,14 +65,6 @@ class VentorOptionSetting(models.Model):
         elif self.technical_name in ('confirm_destination_location'):
             self._set_confirm_destination_location_cluster_picking_fields()
 
-    def get_setting(self, technical_name):
-        return self.env['ventor.option.setting'].search(
-            [
-                ('action_type', '=', self.action_type),
-                ('technical_name', '=', technical_name),
-            ]
-        )
-
     def _get_group_settings_value(self, key):
         internal_user_groups = self.env.ref('base.group_user').implied_ids
         group = self.env.ref(key)
@@ -83,6 +75,14 @@ class VentorOptionSetting(models.Model):
                 'title': _('Another Settings were changed automatically!'),
                 'message': message,
             }}
+
+    def get_setting_field(self, technical_name):
+        return self.env['ventor.option.setting'].search(
+            [
+                ('action_type', '=', self.action_type),
+                ('technical_name', '=', technical_name),
+            ]
+        )
 
     def get_general_settings(self):
         action_types = [
@@ -113,8 +113,8 @@ class VentorOptionSetting(models.Model):
 
     def _set_add_boxes_before_cluster(self):
         if self.technical_name == 'add_boxes_before_cluster' and self.value == self.env.ref('ventor_base.bool_true'):
-            multiple_boxes_for_one_transfer = self.get_setting('multiple_boxes_for_one_transfer')
-            use_reusable_packages = self.get_setting('use_reusable_packages')
+            multiple_boxes_for_one_transfer = self.get_setting_field('multiple_boxes_for_one_transfer')
+            use_reusable_packages = self.get_setting_field('use_reusable_packages')
             if multiple_boxes_for_one_transfer.value == self.env.ref('ventor_base.bool_true'):
                 multiple_boxes_for_one_transfer.value = self.env.ref('ventor_base.bool_false')
                 return self._get_warning(_(
@@ -125,13 +125,13 @@ class VentorOptionSetting(models.Model):
             if use_reusable_packages.value == self.env.ref('ventor_base.bool_true'):
                 self.value = self.env.ref('ventor_base.bool_false')
         elif self.technical_name == 'multiple_boxes_for_one_transfer' and self.value == self.env.ref('ventor_base.bool_true'):
-            add_boxes_before_cluster = self.get_setting('add_boxes_before_cluster')
+            add_boxes_before_cluster = self.get_setting_field('add_boxes_before_cluster')
             if add_boxes_before_cluster.value == self.env.ref('ventor_base.bool_true'):
                 self.value = self.env.ref('ventor_base.bool_false')
 
     def _set_change_source_location(self):
         if self.technical_name == 'confirm_source_location' and self.value == self.env.ref('ventor_base.bool_false'):
-            change_source_location = self.get_setting('change_source_location')
+            change_source_location = self.get_setting_field('change_source_location')
             change_source_location.value = self.env.ref('ventor_base.bool_false')
             return self._get_warning(_(
                 'Because you changed "​Confirm source location" to False, '
@@ -139,19 +139,19 @@ class VentorOptionSetting(models.Model):
                 '\n- "Change source location" was changed to False'
             ))
         elif self.technical_name == 'change_source_location' and self.value == self.env.ref('ventor_base.bool_true'):
-            confirm_source_location = self.get_setting('confirm_source_location')
+            confirm_source_location = self.get_setting_field('confirm_source_location')
             if confirm_source_location.value == self.env.ref('ventor_base.bool_false'):
                 self.value = self.env.ref('ventor_base.bool_false')
 
     def _set_confirm_destination_location_cluster_picking_fields(self):
         if self.value == self.env.ref('ventor_base.bool_true') and self.action_type == 'cluster_picking':
-            use_reusable_packages = self.get_setting('use_reusable_packages')
+            use_reusable_packages = self.get_setting_field('use_reusable_packages')
             if use_reusable_packages.value == self.env.ref('ventor_base.bool_true'):
                 self.value = self.env.ref('ventor_base.bool_false')
 
     def set_hold_destination_location_fields(self):
         if self.technical_name == 'move_multiple_products' and self.value == self.env.ref('ventor_base.bool_true'):
-            hold_destination_location = self.get_setting('hold_destination_location')
+            hold_destination_location = self.get_setting_field('hold_destination_location')
             if hold_destination_location.value == self.env.ref('ventor_base.bool_true'):
                 hold_destination_location.value = self.env.ref('ventor_base.bool_false')
                 return self._get_warning(_(
@@ -160,7 +160,7 @@ class VentorOptionSetting(models.Model):
                     '\n- "Hold destination location" was changed to False'
                 ))
         elif self.technical_name == 'hold_destination_location' and self.value == self.env.ref('ventor_base.bool_true'):
-            move_multiple_products = self.get_setting('move_multiple_products')
+            move_multiple_products = self.get_setting_field('move_multiple_products')
             if move_multiple_products.value == self.env.ref('ventor_base.bool_true'):
                 self.value = self.env.ref('ventor_base.bool_false')
 
@@ -172,7 +172,7 @@ class VentorOptionSetting(models.Model):
         if not group_stock_tracking_lot:
             self.value = self.env.ref('ventor_base.bool_false')
         elif group_stock_tracking_lot:
-            manage_packages = self.get_setting('manage_packages')
+            manage_packages = self.get_setting_field('manage_packages')
             if self.value.setting_value == 'False' and self.technical_name == 'manage_packages':
                 relate_manage_packages_fields = self.env['ventor.option.setting'].search(
                     [
@@ -191,7 +191,7 @@ class VentorOptionSetting(models.Model):
             if self.technical_name != 'manage_packages' and manage_packages.value == self.env.ref('ventor_base.bool_false'):
                 self.value = self.env.ref('ventor_base.bool_false')
             if self.technical_name == 'scan_destination_package' and self.value == self.env.ref('ventor_base.bool_false'):
-                use_reusable_packages = self.get_setting('use_reusable_packages')
+                use_reusable_packages = self.get_setting_field('use_reusable_packages')
                 if use_reusable_packages.value == self.env.ref('ventor_base.bool_true'):
                     self.value = self.env.ref('ventor_base.bool_true')
 
