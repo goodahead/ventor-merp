@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 16.0.1.3.0 (2023-xx-xx)
+    - Added setting “Use reusable packages“ to Cluster picking menu
+
 * 16.0.1.2.0 (2023-03-06)
     - Added RFID menu
     - Added the barcode of the Sale order name to the Picking Operations report for outgoing transfers
