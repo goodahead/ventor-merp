@@ -9,8 +9,7 @@ Changelog
 15.0.1.8.0 (2023-xx-xx)
 ***********************
 
-* Added the setting 'Show quantity dialog first' to the Create SO menu
-* Added the setting 'Show quantity dialog first' to the Create PO menu
+* Added the setting 'Show quantity dialog first' to the Create SO and Create PO menus
 
 15.0.1.7.0 (2023-03-06)
 ***********************
