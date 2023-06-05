@@ -123,7 +123,7 @@ class VentorOptionSetting(models.Model):
                 return self._get_warning(_(
                     'Because you changed "Force Pack" to True, '
                     'automatically the following settings were also changed: '
-                    '\n- "Validate uncompleted order" was changed to False'
+                    '\n- "Validate uncompleted orders" was changed to False'
                 ))
 
     def set_apply_default_lots_fields(self, group_stock_production_lot):
