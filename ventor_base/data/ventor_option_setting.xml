@@ -154,7 +154,7 @@
         </record>
 
         <record id="scan_destination_package_batch_picking" model="ventor.option.setting">
-            <field name="name">Force destination package scan</field>
+            <field name="name">Confirm destination package</field>
             <field name="technical_name">scan_destination_package</field>
             <field name="value" ref="ventor_base.bool_false"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
@@ -580,7 +580,7 @@
         </record>
 
         <record id="scan_destination_package_cluster_picking" model="ventor.option.setting">
-            <field name="name">Force destination package scan</field>
+            <field name="name">Confirm destination package</field>
             <field name="technical_name">scan_destination_package</field>
             <field name="value" ref="ventor_base.bool_false"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
