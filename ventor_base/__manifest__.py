@@ -3,7 +3,7 @@
 
 {
     'name': 'Ventor Base',
-    'version': '14.0.1.10.0', #change to 14.0.1.8.0 in release ang migration(check migration)
+    'version': '14.0.1.8.0',
     'author': 'VentorTech',
     'website': 'https://ventor.tech/',
     'license': 'LGPL-3',
