@@ -12,7 +12,7 @@ Change Log
 
 * 16.0.1.3.0 (2023-xx-xx)
     - Added the setting 'Force pack' to the Package Management menu
-    - Added the setting 'Show quantity dialog first' to the Create SO menu
+    - Added the setting 'Show quantity dialog first' to the Create SO and Create PO menus
     - Added Wave Picking Menu
     - Renamed the "Force destination package scan“ setting to “Confirm destination package“
     - Added setting “Use reusable packages“ to Cluster picking menu
