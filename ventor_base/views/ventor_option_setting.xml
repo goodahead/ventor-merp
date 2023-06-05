@@ -36,7 +36,7 @@
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
             <field name="view_id" ref="ventor_settings_tree_view"/>
-            <field name="domain">[('action_type', '=', 'batch_picking')]</field>
+            <field name="domain">[('action_type', '=', 'batch_picking'), ('technical_name', '!=', 'show_next_product')]</field>
         </record>
 
         <record id='ventor_cluster_picking_action' model='ir.actions.act_window'>
