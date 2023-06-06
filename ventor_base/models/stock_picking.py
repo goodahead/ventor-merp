@@ -192,13 +192,14 @@ class StockPickingType(models.Model):
         for item in self:
             item.is_stock_production_lot_enabled = group_production_lot in internal_user_groups
 
-    @api.model
-    def create(self, vals):
-        if 'code' in vals:
-            vals['show_next_product'] = vals['code'] != "incoming"
-            vals['change_destination_location'] = True
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if 'code' in vals:
+                vals['show_next_product'] = vals['code'] != "incoming"
+                vals['change_destination_location'] = True
 
-        return super(StockPickingType, self).create(vals)
+        return super(StockPickingType, self).create(vals_list)
 
     @api.onchange('confirm_source_location')
     def _onchange_confirm_source_location(self):

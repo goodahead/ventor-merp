@@ -92,9 +92,9 @@ class ResUsers(models.Model):
             sort_keys=True
         )
 
-    @api.model
-    def create(self, vals):
-        result = super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        result = super().create(vals_list)
         if not result.allowed_warehouse_ids:
             result.write(
                 {
