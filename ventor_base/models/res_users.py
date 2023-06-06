@@ -107,9 +107,9 @@ class ResUsers(models.Model):
             if group_stock_picking_wave not in self.groups_id and merp_wave_picking_menu in self.groups_id:
                 merp_wave_picking_menu.write({'users': [(3, self.id)]})
 
-    @api.model
-    def create(self, vals):
-        result = super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        result = super().create(vals_list)
         if not result.allowed_warehouse_ids:
             result.write(
                 {

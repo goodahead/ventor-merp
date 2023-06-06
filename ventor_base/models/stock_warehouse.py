@@ -11,9 +11,9 @@ class StockWarehouse(models.Model):
         string='Is Internal Warehouse',
     )
 
-    @api.model
-    def create(self, vals):
-        res = super(StockWarehouse, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        res = super(StockWarehouse, self).create(vals_list)
         res.update_users_calculated_warehouse()
         return res
 
