@@ -40,10 +40,6 @@ Change Log
 
 |
 
-* 1.0.4 (2023-xx-xx)
-    - Optimization of the serialize_record_ventor method
-    - Added reservation strategy "By Quantity Only"
-
 * 1.0.3 (2022-04-27)
     - Fixed reservation and removal strategy on ventor base module ignore force removal strategy on Product Category or/and Location 
 

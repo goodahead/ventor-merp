@@ -28,7 +28,6 @@ class Company(models.Model):
             ('base', 'By Picking Strategy'),
             ('quantity', 'By Quantity'),
             ('none', 'Default'),
-            ('min_max_quantity', 'By Quantity Only'),
         ],
         string='Reservation Strategy', default='base')
 

@@ -106,14 +106,3 @@ class StockQuant(models.Model):
                 queues[priority] |= location_quant
 
         return queues[True] + queues[False]
-
-    def _reorder_min_max_quantity(self, quants, product_id):
-        """ Reorders quants are reserved first in locations that have MIN/MAX of products
-            and only after that (if we have equal qty of products in different locations) 
-            based on removal priority
-        """
-        order = self.env.user.company_id.outgoing_routing_order
-
-        return quants.sorted(
-            key=lambda quants: (quants.available_quantity, quants.removal_prio), reverse=int(order)
-        )
