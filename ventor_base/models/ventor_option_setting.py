@@ -81,10 +81,12 @@ class VentorOptionSetting(models.Model):
             }}
 
     def get_setting_field(self, technical_name):
+        if not isinstance(technical_name, list):
+            technical_name = [technical_name]
         return self.env['ventor.option.setting'].search(
             [
                 ('action_type', '=', self.action_type),
-                ('technical_name', '=', technical_name),
+                ('technical_name', 'in', technical_name),
             ]
         )
 
@@ -195,10 +197,10 @@ class VentorOptionSetting(models.Model):
         elif group_stock_tracking_lot:
             manage_packages = self.get_setting_field('manage_packages')
             if self.value.setting_value == 'False' and self.technical_name == 'manage_packages':
-                relate_manage_packages_fields = self.env['ventor.option.setting'].search(
+                relate_manage_packages_fields = self.get_setting_field(
                     [
-                        ('action_type', '=', self.action_type),
-                        ('technical_name', 'in', ('confirm_source_package', 'scan_destination_package')),
+                        'confirm_source_package',
+                        'scan_destination_package',
                     ]
                 )
                 relate_manage_packages_fields.value = self.env.ref('ventor_base.bool_false')
@@ -222,18 +224,13 @@ class VentorOptionSetting(models.Model):
         if not group_stock_tracking_lot:
             self.value = self.env.ref('ventor_base.bool_false')
         elif self.value == self.env.ref('ventor_base.bool_true'):
-            related_settings_for_disabling = self.env['ventor.option.setting'].search(
+            related_settings_for_disabling = self.get_setting_field(
                 [
-                    ('action_type', '=', self.action_type),
-                    ('technical_name', 'in', ['confirm_destination_location', 'add_boxes_before_cluster']),
+                    'confirm_destination_location',
+                    'add_boxes_before_cluster',
                 ]
             )
-            related_settings_for_enabling = self.env['ventor.option.setting'].search(
-                [
-                    ('action_type', '=', self.action_type),
-                    ('technical_name', '=', 'scan_destination_package'),
-                ]
-            )
+            related_settings_for_enabling = self.get_setting_field('scan_destination_package')
             if related_settings_for_disabling:
                 related_settings_for_disabling.value = self.env.ref('ventor_base.bool_false')
             if related_settings_for_enabling:
