@@ -38,4 +38,8 @@ class StockWarehouse(models.Model):
 
             # Because access rights are using this field, we need to invalidate cache
             if modified_user_ids:
-                self.env['res.users'].invalidate_recordset(['allowed_warehouse_ids'], modified_user_ids)
+                self.env['res.users'].browse(modified_user_ids).invalidate_recordset(
+                    [
+                        'allowed_warehouse_ids',
+                    ]
+                )
