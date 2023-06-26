@@ -17,7 +17,7 @@ msgstr ""
 
 #. module: outgoing_routing
 #: model_terms:ir.ui.view,arch_db:outgoing_routing.view_stock_config_settings
-msgid "- quants are reserved according to Picking startegy (see above)"
+msgid "- quants are reserved according to Picking strategy (see above)"
 msgstr ""
 
 #. module: outgoing_routing
