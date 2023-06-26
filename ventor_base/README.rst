@@ -6,6 +6,14 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+14.0.1.8.0 (2023-xx-xx)
+***********************
+
+* Added the setting 'Force pack' to the Package Management menu
+* Added the setting 'Show quantity dialog first' to the Create SO and Create PO menus
+* Renamed the "Force destination package scan“ setting to “Confirm destination package“
+* Added setting “Use reusable packages“ to Cluster picking menu
+
 14.0.1.7.0 (2023-03-06)
 ***********************
 

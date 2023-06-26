@@ -10,6 +10,12 @@ Change Log
 
 |
 
+* 14.0.1.8.0 (2023-xx-xx)
+    - Added the setting 'Force pack' to the Package Management menu
+    - Added the setting 'Show quantity dialog first' to the Create SO and Create PO menus
+    - Renamed the "Force destination package scan“ setting to “Confirm destination package“
+    - Added setting “Use reusable packages“ to Cluster picking menu
+
 * 14.0.1.7.0 (2023-03-06)
     - Added RFID menu
     - Added the barcode of the Sale order name to the Picking Operations report for outgoing transfers
@@ -34,14 +40,14 @@ Change Log
         - Putaway
         - Instant Inventory
         - Inventory Adjustments
-        - Quick Info   
+        - Quick Info
 
 * 14.0.1.4.0 (2022-06-08)
     - Added group 'Validate Inventory'
     - Added warning note in user settings about field 'Allowed Warehouses'
     - Fixed uploading Custom Mobile Logo
     - Renamed name of fields in Ventor Configuration:
-    
+
         - Apply default lots -> Apply default lots and serials
         - Transfer more items -> Move more than planned
         - Autocomplete the item quantity field -> Autocomplete item quantity
