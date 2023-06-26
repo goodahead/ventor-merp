@@ -135,8 +135,9 @@ class StockPickingType(models.Model):
     )
 
     scan_destination_package = fields.Boolean(
-        string="Force destination package scan",
-        help="If this active user has to scan a destination package (pallet) all the time"
+        string="Confirm destination package",
+        help="User has to scan a barcode of destination package. The dot next to the field "
+             "gets yellow color means user has to confirm it"
     )
 
     show_next_product = fields.Boolean(
@@ -192,13 +193,14 @@ class StockPickingType(models.Model):
         for item in self:
             item.is_stock_production_lot_enabled = group_production_lot in internal_user_groups
 
-    @api.model
-    def create(self, vals):
-        if 'code' in vals:
-            vals['show_next_product'] = vals['code'] != "incoming"
-            vals['change_destination_location'] = True
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if 'code' in vals:
+                vals['show_next_product'] = vals['code'] != "incoming"
+                vals['change_destination_location'] = True
 
-        return super(StockPickingType, self).create(vals)
+        return super(StockPickingType, self).create(vals_list)
 
     @api.onchange('confirm_source_location')
     def _onchange_confirm_source_location(self):

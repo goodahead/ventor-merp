@@ -13,13 +13,13 @@
         </record>
 
         <record id="allow_validate_less" model="ventor.option.setting">
-            <field name="name">Validate uncompleted packing</field>
+            <field name="name">Validate uncompleted orders</field>
             <field name="technical_name">allow_validate_less</field>
             <field name="value" ref="ventor_base.bool_true"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">package_management</field>
-            <field name="description">Validating is possible even if not all items were packed</field>
+            <field name="description">User will be able to validate the order even if not all items were found</field>
         </record>
 
         <record id="allow_manual_editing" model="ventor.option.setting">
@@ -40,6 +40,16 @@
             <field name="value_type">bool</field>
             <field name="action_type">package_management</field>
             <field name="description">Create a package with default Odoo name (e.g 0000001) to put items there</field>
+        </record>
+
+        <record id="pack_all_items" model="ventor.option.setting">
+            <field name="name">Force pack</field>
+            <field name="technical_name">pack_all_items</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">package_management</field>
+            <field name="description">Force all products to be packed</field>
         </record>
 
         <!-- Batch picking -->
@@ -144,7 +154,7 @@
         </record>
 
         <record id="scan_destination_package_batch_picking" model="ventor.option.setting">
-            <field name="name">Force destination package scan</field>
+            <field name="name">Confirm destination package</field>
             <field name="technical_name">scan_destination_package</field>
             <field name="value" ref="ventor_base.bool_false"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
@@ -255,6 +265,219 @@
             <field name="description">Showing the Put in pack button in the toolbar instead of keeping it in the hidden menu</field>
         </record>
 
+        <!--Wave picking-->
+        <record id="confirm_source_location_wave_picking" model="ventor.option.setting">
+            <field name="name">Confirm source location</field>
+            <field name="technical_name">confirm_source_location</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">The dot next to the field gets yellow color means user have to confirm it. User has to scan a barcode of source location</field>
+        </record>
+
+        <record id="change_source_location_wave_picking" model="ventor.option.setting">
+            <field name="name">Change source location</field>
+            <field name="technical_name">change_source_location</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">User can change default source location to pick item from another location. Works only if "Confirm source location" setting is active</field>
+        </record>
+
+        <record id="confirm_product_wave_picking" model="ventor.option.setting">
+            <field name="name">Confirm product</field>
+            <field name="technical_name">confirm_product</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">The dot next to the field gets yellow color means user have to confirm it. User has to scan a barcode of product</field>
+        </record>
+
+        <record id="show_next_product_wave_picking" model="ventor.option.setting">
+            <field name="name">Show next product</field>
+            <field name="technical_name">show_next_product</field>
+            <field name="value" ref="ventor_base.bool_true"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description"></field>
+        </record>
+
+        <record id="confirm_destination_location_wave_picking" model="ventor.option.setting">
+            <field name="name">Confirm destination location</field>
+            <field name="technical_name">confirm_destination_location</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">The dot next to the field gets yellow color means user have to confirm it. User has to scan a barcode of destination location</field>
+        </record>
+
+        <record id="change_destination_location_wave_picking" model="ventor.option.setting">
+            <field name="name">Change destination location</field>
+            <field name="technical_name">change_destination_location</field>
+            <field name="value" ref="ventor_base.bool_true"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">If this setting is active a user can change destination location while receiving to be placed at any available location</field>
+        </record>
+
+        <record id="apply_quantity_automatically_wave_picking" model="ventor.option.setting">
+            <field name="name">Apply quantity automatically</field>
+            <field name="technical_name">apply_quantity_automatically</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Automatically validate the line after scanning a destination location. Warning: yoy have to insert QTY first before destination location</field>
+        </record>
+
+        <record id="manage_package_wave_picking" model="ventor.option.setting">
+            <field name="name">Show packages fields</field>
+            <field name="technical_name">manage_packages</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Scan source (destination) packages right after scanning source (destination) location. Use it if you move from one package to another or pick items from packages or pallets. Works only if package management settings is active on Odoo side</field>
+        </record>
+
+        <record id="allow_creating_new_packages_wave_picking" model="ventor.option.setting">
+            <field name="name">Allow creating new packages</field>
+            <field name="technical_name">allow_creating_new_packages</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">User can create new packages by scanning a new barcode or create it manually</field>
+        </record>
+
+        <record id="confirm_source_package_wave_picking" model="ventor.option.setting">
+            <field name="name">Confirm source package</field>
+            <field name="technical_name">confirm_source_package</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">User has to scan a barcode of source package. The dot next to the field gets yellow color means user has to confirm it</field>
+        </record>
+
+        <record id="scan_destination_package_wave_picking" model="ventor.option.setting">
+            <field name="name">Confirm destination package</field>
+            <field name="technical_name">scan_destination_package</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">User has to scan a barcode of destination package. The dot next to the field gets yellow color means user has to confirm it</field>
+        </record>
+
+        <record id="manage_product_owner_wave_picking" model="ventor.option.setting">
+            <field name="name">Show Product Owner field</field>
+            <field name="technical_name">manage_product_owner</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Allow scan product owner. You can specify product owner while moving items. Working only with "Consignment" setting on Odoo side</field>
+        </record>
+
+        <record id="validate_wave_picking" model="ventor.option.setting">
+            <field name="name">Validate Picking</field>
+            <field name="technical_name">validate_picking_batch</field>
+            <field name="value" ref="ventor_base.bool_true"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Validate Stock Picking automatically if it completely processed</field>
+        </record>
+
+        <record id="apply_default_lots_wave_picking" model="ventor.option.setting">
+            <field name="name">Apply default lots and serials</field>
+            <field name="technical_name">apply_default_lots</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">If it's on. you don't need to scan lot number to confirm it. On receipts the app will create default Odoo lots and apply them to the product. On delivery zone you don't need to confirm lots and they will be taken Odoo by default</field>
+        </record>
+
+        <record id="transfer_more_items_wave_picking" model="ventor.option.setting">
+            <field name="name">Move more than planned</field>
+            <field name="technical_name">transfer_more_items</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Allow moving more items than expected (for example kg of meat, etc)</field>
+        </record>
+
+        <record id="autocomplete_the_item_quantity_field_wave_picking" model="ventor.option.setting">
+            <field name="name">Autocomplete the item quantity</field>
+            <field name="technical_name">autocomplete_the_item_quantity_field</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Automatically insert expected quantity. No need to enter the quantity of goods using the keyboard or using scanning</field>
+        </record>
+
+        <record id="behavior_on_backorder_creation_wave_picking" model="ventor.option.setting">
+            <field name="name">Behavior on backorder creation</field>
+            <field name="technical_name">behavior_on_backorder_creation</field>
+            <field name="value" ref="ventor_base.ask_me_every_time"/>
+            <field name="settings_dependency" eval="[
+                (6, 0, [
+                        ref('ventor_base.always_create_backorder'),
+                        ref('ventor_base.never_create_backorder'),
+                        ref('ventor_base.ask_me_every_time')
+                ])
+            ]"/>
+            <field name="value_type">select</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Choose how to process backorders. You can always create backorders. always ignore backorders or choose it all the time (default)</field>
+        </record>
+
+        <record id="behavior_on_split_operation_wave_picking" model="ventor.option.setting">
+            <field name="name">Behavior on split operation</field>
+            <field name="technical_name">behavior_on_split_operation</field>
+            <field name="value" ref="ventor_base.ask_me_every_time"/>
+            <field name="settings_dependency" eval="[
+                (6, 0, [
+                        ref('ventor_base.always_create_backorder_split'),
+                        ref('ventor_base.never_create_backorder_split'),
+                        ref('ventor_base.ask_me_every_time_split')
+                ])
+            ]"/>
+            <field name="value_type">select</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Choose how to to process less product qty than initial. You can always split the line, always move less items or choose it all the time (default)</field>
+        </record>
+
+        <record id="show_print_attachment_button_wave_picking" model="ventor.option.setting">
+            <field name="name">Show Print attachments button</field>
+            <field name="technical_name">show_print_attachment_button</field>
+            <field name="value" ref="ventor_base.bool_true"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Showing the Print attachments button in the toolbar instead of keeping it in the hidden menu</field>
+        </record>
+
+        <record id="show_put_in_pack_button_wave_picking" model="ventor.option.setting">
+            <field name="name">Show "Put in pack" button</field>
+            <field name="technical_name">show_put_in_pack_button</field>
+            <field name="value" ref="ventor_base.bool_true"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">wave_picking</field>
+            <field name="description">Showing the Put in pack button in the toolbar instead of keeping it in the hidden menu</field>
+        </record>
+
         <!-- Cluster picking -->
         <record id="confirm_source_location_cluster_picking" model="ventor.option.setting">
             <field name="name">Confirm source location</field>
@@ -357,7 +580,7 @@
         </record>
 
         <record id="scan_destination_package_cluster_picking" model="ventor.option.setting">
-            <field name="name">Force destination package scan</field>
+            <field name="name">Confirm destination package</field>
             <field name="technical_name">scan_destination_package</field>
             <field name="value" ref="ventor_base.bool_false"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
@@ -496,6 +719,16 @@
             <field name="value_type">bool</field>
             <field name="action_type">cluster_picking</field>
             <field name="description">One transfer can be picked in multiple boxes</field>
+        </record>
+
+        <record id="use_reusable_packages" model="ventor.option.setting">
+            <field name="name">Use reusable packages</field>
+            <field name="technical_name">use_reusable_packages</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">cluster_picking</field>
+            <field name="description">Apply reusable packages as cluster boxes (same as Odoo does) instead of locations (default in Ventor)</field>
         </record>
 
         <!-- Internal transfers -->
@@ -727,6 +960,28 @@
             <field name="value_type">bool</field>
             <field name="action_type">scrap_management</field>
             <field name="description">Allow scanning  a product owner. You can specify owner while making inventory. Working only with active setting "Consignment" on Odoo side</field>
+        </record>
+
+        <!-- Create SO -->
+        <record id="show_quantity_dialog_first_create_so" model="ventor.option.setting">
+            <field name="name">Show quantity dialog first</field>
+            <field name="technical_name">show_quantity_dialog_first_so</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">create_so</field>
+            <field name="description">You can edit qty and taxes every time you scan the product</field>
+        </record>
+
+        <!-- Create PO -->
+        <record id="show_quantity_dialog_first_create_po" model="ventor.option.setting">
+            <field name="name">Show quantity dialog first</field>
+            <field name="technical_name">show_quantity_dialog_first_po</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">create_po</field>
+            <field name="description">You can edit qty and taxes every time you scan the product</field>
         </record>
     </data>
 </odoo>

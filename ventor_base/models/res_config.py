@@ -111,6 +111,8 @@ class VentorConfigSettings(models.TransientModel):
                                 'scan_destination_package',
                                 'manage_packages',
                                 'allow_creating_new_packages',
+                                'pack_all_items',
+                                'use_reusable_packages',
                             ),
                         ),
                     ]
@@ -140,12 +142,29 @@ class VentorConfigSettings(models.TransientModel):
             )
             ventor_owner_settings.value = self.env.ref('ventor_base.bool_true') if self.group_stock_tracking_owner else self.env.ref('ventor_base.bool_false')
 
+    def _update_display_wave_picking_menu(self, previous_group):
+        group_stock_picking_wave = previous_group.get('group_stock_picking_wave')
+
+        if group_stock_picking_wave != self.group_stock_picking_wave:
+            merp_wave_picking_menu = self.env.ref('ventor_base.merp_wave_picking_menu')
+            users = self.env['res.users'].with_context(active_test=False).search([
+                ('share', '=', False)
+            ])
+            merp_wave_picking_menu.write(
+                {
+                    'users': [(6, 0, users.ids)]
+                    if self.group_stock_picking_wave
+                    else [(5, 0, 0)],
+                }
+            )
+
     def set_values(self):
         previous_group = self.default_get(
             [
                 'group_stock_tracking_lot',
                 'group_stock_tracking_owner',
                 'group_stock_production_lot',
+                'group_stock_picking_wave',
             ]
         )
         res = super(VentorConfigSettings, self).set_values()
@@ -153,7 +172,11 @@ class VentorConfigSettings(models.TransientModel):
         view_with_barcode = self.env.ref('ventor_base.view_location_form_inherit_additional_barcode')
         view_with_barcode.active = self.add_barcode_on_view
 
+        # Updating the values of dependent fields
         self.sudo()._set_apply_default_lots(previous_group)
         self.sudo()._set_packages_fields(previous_group)
         self.sudo()._set_manage_product_owner(previous_group)
+
+        # Updating the menu display in Ventor for users
+        self.sudo()._update_display_wave_picking_menu(previous_group)
         return res

@@ -3,7 +3,7 @@
 
 import json
 
-from odoo import models, fields, api
+from odoo import api, models, fields
 
 
 class ResUsers(models.Model):
@@ -82,7 +82,8 @@ class ResUsers(models.Model):
                 stock_picking_type_settings['settings'].pop('hide_qty_to_receive')
             settings.append(stock_picking_type_settings)
 
-        ventor_option_settings = self.env['ventor.option.setting'].sudo().get_general_settings()
+        ventor_option_settings = self._get_ventor_option_settings()
+
         obj = {'operation_types': settings}
         obj.update(ventor_option_settings)
 
@@ -92,9 +93,23 @@ class ResUsers(models.Model):
             sort_keys=True
         )
 
-    @api.model
-    def create(self, vals):
-        result = super().create(vals)
+    def _get_ventor_option_settings(self):
+        ventor_option_settings = self.env['ventor.option.setting'].sudo().get_general_settings()
+        if self.env.ref('ventor_base.merp_wave_picking_menu') not in self.groups_id:
+            ventor_option_settings.pop('wave_picking')
+        return ventor_option_settings
+
+    def _update_group_picking_wave_menu(self, vals):
+        vals = self._remove_reified_groups(vals)
+        if 'groups_id' in vals:
+            group_stock_picking_wave = self.env.ref('stock.group_stock_picking_wave')
+            merp_wave_picking_menu = self.env.ref('ventor_base.merp_wave_picking_menu')
+            if group_stock_picking_wave not in self.groups_id and merp_wave_picking_menu in self.groups_id:
+                merp_wave_picking_menu.write({'users': [(3, self.id)]})
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        result = super().create(vals_list)
         if not result.allowed_warehouse_ids:
             result.write(
                 {
@@ -110,5 +125,6 @@ class ResUsers(models.Model):
     def write(self, vals):
         result = super().write(vals)
         if result and 'allowed_warehouse_ids' in vals:
-            self.env['ir.rule'].clear_cache()
+            self.env['ir.rule'].clear_caches()
+        self._update_group_picking_wave_menu(vals)
         return result
