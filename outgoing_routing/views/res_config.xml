@@ -17,11 +17,11 @@
                             <br/>Your current settings:
                         </div>
                         <div class="text-muted" attrs="{'invisible': ['|', ('module_outgoing_routing','=',False),
-                            '!', '&amp;', ('outgoing_routing_strategy', '=', 'location_id.name'), ('outgoing_routing_order', '=', '0')]}">
+                            '!', '&amp;', ('outgoing_routing_strategy', '=', 'location_id.display_name'), ('outgoing_routing_order', '=', '0')]}">
                             - the route is calculated from <b>location</b> '<b>A</b>' to '<b>Z</b>'
                         </div>
                         <div class="text-muted" attrs="{'invisible': ['|', ('module_outgoing_routing','=',False),
-                            '!', '&amp;', ('outgoing_routing_strategy', '=', 'location_id.name'), ('outgoing_routing_order', '=', '1')]}">
+                            '!', '&amp;', ('outgoing_routing_strategy', '=', 'location_id.display_name'), ('outgoing_routing_order', '=', '1')]}">
                             - the route is calculated from <b>location</b> '<b>Z</b>' to '<b>A</b>'
                         </div>
                         <div class="text-muted" attrs="{'invisible': ['|', ('module_outgoing_routing','=',False),

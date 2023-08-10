@@ -78,7 +78,7 @@ class StockQuant(models.Model):
     def _reorder_quantity(self, quants, product_id):
         """ Reorders quants by product quantity in locations and location priority
         """
-        default_route = 'name'  # i.e. location_id.name
+        default_route = 'display_name'  # i.e. location_id.display_name
 
         route = self.env.user.company_id.outgoing_routing_strategy
         order = self.env.user.company_id.outgoing_routing_order

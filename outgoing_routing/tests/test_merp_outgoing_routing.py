@@ -91,17 +91,17 @@ class TestMerpOutgoingRouting(TransactionCase):
         return self.env['product.product'].create(product_data)
 
     def test_sort_alphabet_a_z(self):
-        self.set_way_outgoing_routing('location_id.name', '0')
+        self.set_way_outgoing_routing('location_id.display_name', '0')
 
-        locations_name = self.stock_picking.mapped('operations_to_pick.location_id.name')
+        locations_name = self.stock_picking.mapped('operations_to_pick.location_id.display_name')
         self.assertEqual(locations_name[0], 'test_location_1')
         self.assertEqual(locations_name[1], 'test_location_2')
         self.assertEqual(locations_name[2], 'test_location_3')
 
     def test_sort_alphabet_z_a(self):
-        self.set_way_outgoing_routing('location_id.name', '1')
+        self.set_way_outgoing_routing('location_id.display_name', '1')
 
-        locations_name = self.stock_picking.mapped('operations_to_pick.location_id.name')
+        locations_name = self.stock_picking.mapped('operations_to_pick.location_id.display_name')
         self.assertEqual(locations_name[0], 'test_location_3')
         self.assertEqual(locations_name[1], 'test_location_2')
         self.assertEqual(locations_name[2], 'test_location_1')

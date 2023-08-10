@@ -11,10 +11,10 @@ class Company(models.Model):
         [
             # path should be valid for both stock pickings and quants
             ('location_id.removal_prio', 'Location removal priority'),
-            ('location_id.name', 'Location name'),
+            ('location_id.display_name', 'Location name'),
             ('product_id.name', 'Product name'),
         ],
-        string='Picking Strategy', default='location_id.name')
+        string='Picking Strategy', default='location_id.display_name')
 
     outgoing_routing_order = fields.Selection(
         [
