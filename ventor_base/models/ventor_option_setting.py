@@ -18,6 +18,7 @@ class VentorOptionSetting(models.Model):
             ('cluster_picking', 'Cluster Picking'),
             ('internal_transfers', 'Internal Transfers'),
             ('putaway', 'Putaway'),
+            ('inventory_adjustments', 'Adjustments'),
             ('instant_inventory', 'Instant Inventory'),
             ('inventory_adjustments', 'Inventory Adjustments'),
             ('quick_info', 'Quick Info'),
