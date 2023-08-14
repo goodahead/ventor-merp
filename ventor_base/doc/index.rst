@@ -10,12 +10,15 @@ Change Log
 
 |
 
+* 15.0.1.9.0 (2023-xx-xx)
+    - Added 'Hide product&quot;s quantity' and 'Hide Apply button' settings in the Inventory Adjustments menu
+
 * 15.0.1.8.0 (2023-06-26)
     - Added the setting 'Force pack' to the Package Management menu
     - Added the setting 'Show quantity dialog first' to the Create SO and Create PO menus
     - Added Wave Picking Menu
-    - Renamed the "Force destination package scan“ setting to “Confirm destination package“
-    - Added setting “Use reusable packages“ to Cluster picking menu
+    - Renamed the 'Force destination package scan' setting to 'Confirm destination package'
+    - Added setting 'Use reusable packages' to Cluster picking menu
 
 * 15.0.1.7.0 (2023-03-06)
     - Added RFID menu
@@ -56,8 +59,8 @@ Change Log
         - Manage product owner -> Show Product Owner field
     - Added the setting 'Confirm source package' to all Operation Types and dependency on the general 'Package' setting
     - Added 'Apply default lots and serials' dependency on the general 'Lots & Serial Numbers' setting
-    - Added automatic switch on the 'Show Put in pack button' setting in all menus to default if setting "Package" is switched on
-    - Added automatic switch on the 'Show Product Owner field“' setting in all menus to default if setting "Consignment" is switched on
+    - Added automatic switch on the 'Show Put in pack button' setting in all menus to default if setting 'Package' is switched on
+    - Added automatic switch on the 'Show Product Owner field“' setting in all menus to default if setting 'Consignment' is switched on
 
 * 15.0.1.3.9 (2022-04-27)
     - Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
