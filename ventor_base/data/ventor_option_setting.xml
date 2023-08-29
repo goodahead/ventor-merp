@@ -869,6 +869,27 @@
             <field name="description">Scan source (destination) packages right after scanning source (destination) location. Use it if you move from one package to another or pick items from packages or pallets. Works only if package management settings is active on Odoo side</field>
         </record>
 
+        <!-- Inventory Adjustments -->
+        <record id="hide_products_quantity" model="ventor.option.setting">
+            <field name="name">Hide product's quantity</field>
+            <field name="technical_name">hide_products_quantity</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">inventory_adjustments</field>
+            <field name="description">Prevent users from seeing on-hand quantity</field>
+        </record>
+
+        <record id="hide_apply_button" model="ventor.option.setting">
+            <field name="name">Hide Apply button</field>
+            <field name="technical_name">hide_apply_button</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">inventory_adjustments</field>
+            <field name="description">Prevent users from applying the line while inventory</field>
+        </record>
+
         <!-- Instant inventory -->
         <record id="hold_inventory_location" model="ventor.option.setting">
             <field name="name">Hold inventory location</field>
