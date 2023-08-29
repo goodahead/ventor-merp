@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+14.0.1.9.0 (2023-06-26)
+***********************
+
+* Added the setting 'Check shipping information' to the Package Management menu
+
 14.0.1.8.0 (2023-06-26)
 ***********************
 

@@ -11,6 +11,9 @@ Change Log
 |
 
 * 14.0.1.8.0 (2023-06-26)
+    - Added the setting 'Check shipping information' to the Package Management menu
+
+* 14.0.1.8.0 (2023-06-26)
     - Added the setting 'Force pack' to the Package Management menu
     - Added the setting 'Show quantity dialog first' to the Create SO and Create PO menus
     - Renamed the "Force destination package scan“ setting to “Confirm destination package“
