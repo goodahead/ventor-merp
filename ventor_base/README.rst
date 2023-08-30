@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+16.0.1.4.0 (2023-06-26)
+***********************
+
+* Added the setting 'Scan destination location once' to the Warehouse Operations menu
+
 16.0.1.3.0 (2023-06-26)
 ***********************
 
