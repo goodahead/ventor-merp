@@ -18,6 +18,7 @@
                     <field name="show_next_product"/>
                     <field name="confirm_destination_location"/>
                     <field name="change_destination_location"/>
+                    <field name="scan_destination_location_once"/>
                     <field name="apply_quantity_automatically"/>
                     <field name="is_package_tracking_enabled" invisible='1'/>
                     <field name="manage_packages" attrs="{'readonly': [('is_package_tracking_enabled','=',False)]}"/>
@@ -59,6 +60,7 @@
                             <field name="show_next_product"/>
                             <field name="confirm_destination_location"/>
                             <field name="change_destination_location"/>
+                            <field name="scan_destination_location_once"/>
                             <field name="apply_quantity_automatically"
                                    attrs="{'readonly':[('confirm_destination_location','!=',True)]}"/>
                             <field name="is_package_tracking_enabled" invisible='1'/>

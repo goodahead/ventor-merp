@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 14.0.1.9.0 (2023-xx-xx)
+    - Added the setting 'Scan destination location once' to the Warehouse Operations menu
+
 * 14.0.1.8.0 (2023-06-26)
     - Added the setting 'Force pack' to the Package Management menu
     - Added the setting 'Show quantity dialog first' to the Create SO and Create PO menus
