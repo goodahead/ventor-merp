@@ -134,8 +134,8 @@ class StockPickingType(models.Model):
              "Working only with 'Consignment' setting on Odoo side"
     )
 
-    scan_destination_once = fields.Boolean(
-        string="Scan destination once",
+    scan_destination_location_once = fields.Boolean(
+        string="Scan destination location once",
         help="Scan the destination location only once with the last item. "
              "The destination location will be applied to all lines."
     )
@@ -282,7 +282,7 @@ class StockPickingType(models.Model):
                 "confirm_destination_location": self.confirm_destination_location,
                 "apply_quantity_automatically": self.apply_quantity_automatically,
                 "change_destination_location": self.change_destination_location,
-                "scan_destination_once": self.scan_destination_once,
+                "scan_destination_location_once": self.scan_destination_location_once,
                 "autocomplete_the_item_quantity_field": self.autocomplete_the_item_quantity_field,
                 "show_print_attachment_button": self.show_print_attachment_button,
                 "show_put_in_pack_button": self.show_put_in_pack_button,
