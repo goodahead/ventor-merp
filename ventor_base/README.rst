@@ -11,7 +11,7 @@ Changelog
 
 * Added "Hide product's quantity" and "Hide Apply button" settings in the Inventory Adjustments menu
 * Added the setting 'Check shipping information' to the Package Management menu
-* Added the setting 'Scan destination once' to the Warehouse Operations menu
+* Added the setting 'Scan destination location once' to the Warehouse Operations menu
 
 15.0.1.8.0 (2023-06-26)
 ***********************
