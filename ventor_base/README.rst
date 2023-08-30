@@ -9,7 +9,7 @@ Changelog
 15.0.1.9.0 (2023-xx-xx)
 ***********************
 
-* Added the setting 'Scan destination once' to the Warehouse Operations menu
+* Added the setting 'Scan destination location once' to the Warehouse Operations menu
 
 15.0.1.8.0 (2023-06-26)
 ***********************
