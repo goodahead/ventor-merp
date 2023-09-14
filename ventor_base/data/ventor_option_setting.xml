@@ -877,7 +877,7 @@
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">inventory_adjustments</field>
-            <field name="description">Prevent users from applying the line while inventory</field>
+            <field name="description">Products quantity will be saved but not applied</field>
         </record>
 
         <!-- Instant inventory -->
