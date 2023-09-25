@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+16.0.1.4.0 (2023-xx-xx)
+***********************
+
+* Added the setting 'Prohibition on updating inventory' to the Instant Inventory menu
+
 16.0.1.3.0 (2023-06-26)
 ***********************
 
