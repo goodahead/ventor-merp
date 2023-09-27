@@ -15,7 +15,7 @@ class TestMerpProductBarcodeMulti(TransactionCase):
             'barcode': 'test003',
         })
         self.product_1.product_variant_ids[0].write({
-            'barcode_ids': [(0, 0, {'name': 'test001'})]
+            'barcode_ids': [(0, 0, {'name': 'test005'})]
         })
 
         self.product_2 = self.env['product.template'].create({
@@ -38,7 +38,7 @@ class TestMerpProductBarcodeMulti(TransactionCase):
         self.env.context = ctx
 
     def test_search_by_barcode_multi_product_1(self):
-        results = self.env['product.product']._name_search('test001')
+        results = self.env['product.product']._name_search('test005')
         p = self.env['product.product'].browse(results)
         self.assertEqual(p.name, 'product_1')
 
