@@ -11,6 +11,7 @@ Changelog
 
 * Added the setting 'Check shipping information' to the Package Management menu
 * Added the setting 'Scan destination location once' to the Warehouse Operations menu
+* Added the setting 'Prohibition on updating inventory' to the Instant Inventory menu
 
 14.0.1.8.0 (2023-06-26)
 ***********************
