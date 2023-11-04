@@ -99,7 +99,7 @@ class TestMerpQuantsLocationRouting(TransactionCase):
             'picking_type_id': picking_type.id,
             'location_id': location.id,
             'location_dest_id': location_dest.id,
-            'move_lines': [(0, 0, move_line_values)],
+            'move_ids': [(0, 0, move_line_values)],
         })
 
         return picking

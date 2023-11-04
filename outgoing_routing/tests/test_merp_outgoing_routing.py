@@ -48,7 +48,7 @@ class TestMerpOutgoingRouting(TransactionCase):
             'location_id': self.location_1.id,
             'date': datetime.now(),
             'location_dest_id': self.location_2.id,
-            'product_uom_qty': 20.0,
+            'reserved_uom_qty': 20.0,
             'product_uom_id': products[1].uom_id.id,
             'product_id': products[1].id
         })
@@ -58,7 +58,7 @@ class TestMerpOutgoingRouting(TransactionCase):
             'location_id': self.location_2.id,
             'date': datetime.now(),
             'location_dest_id': self.location_3.id,
-            'product_uom_qty': 25.0,
+            'reserved_uom_qty': 25.0,
             'product_uom_id': products[0].uom_id.id,
             'product_id': products[0].id
         })
@@ -68,7 +68,7 @@ class TestMerpOutgoingRouting(TransactionCase):
             'location_id': self.location_3.id,
             'date': datetime.now(),
             'location_dest_id': self.location_2.id,
-            'product_uom_qty': 15.0,
+            'reserved_uom_qty': 15.0,
             'product_uom_id': products[2].uom_id.id,
             'product_id': products[2].id
         })
@@ -78,7 +78,7 @@ class TestMerpOutgoingRouting(TransactionCase):
             'location_id': self.location_4.id,
             'date': datetime.now(),
             'location_dest_id': self.location_2.id,
-            'product_uom_qty': 10.0,
+            'reserved_uom_qty': 10.0,
             'product_uom_id': products[3].uom_id.id,
             'product_id': products[3].id
         })
