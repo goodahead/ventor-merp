@@ -15,6 +15,7 @@ Change Log
     - Added the setting "Scan destination location once" to the Warehouse Operations menu
     - Added the setting "Prohibition on updating inventory" to the Instant Inventory menu
     - Added "Hide product's quantity" and "Hide Apply button" settings in the Inventory Adjustments menu
+    - Fixed tests
 
 * 16.0.1.3.0 (2023-06-26)
     - Added the setting "Force pack" to the Package Management menu
