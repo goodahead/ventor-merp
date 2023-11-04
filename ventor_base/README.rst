@@ -6,13 +6,20 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+14.0.1.9.0 (2023-11-04)
+***********************
+
+* Added the setting 'Check shipping information' to the Package Management menu
+* Added the setting 'Scan destination location once' to the Warehouse Operations menu
+* Added the setting 'Prohibition on updating inventory' to the Instant Inventory menu
+
 14.0.1.8.0 (2023-06-26)
 ***********************
 
 * Added the setting 'Force pack' to the Package Management menu
 * Added the setting 'Show quantity dialog first' to the Create SO and Create PO menus
-* Renamed the "Force destination package scan“ setting to “Confirm destination package“
-* Added setting “Use reusable packages“ to Cluster picking menu
+* Renamed the 'Force destination package scan' setting to 'Confirm destination package'
+* Added setting 'Use reusable packages' to Cluster picking menu
 
 14.0.1.7.0 (2023-03-06)
 ***********************
@@ -61,15 +68,15 @@ Changelog
     Manage product owner -> Show Product Owner field
 * Added the setting 'Confirm source package' to all Operation Types and dependency on the general 'Package' setting
 * Added 'Apply default lots and serials' dependency on 'Lots & Serial Numbers'
-* Added automatic switch on the 'Show Put in pack button' setting in all menus to default if setting "Package" is switched on
-* Added automatic switch on the 'Show Product Owner field“' setting in all menus to default if setting "Consignment" is switched on
+* Added automatic switch on the 'Show Put in pack button' setting in all menus to default if setting 'Package' is switched on
+* Added automatic switch on the 'Show Product Owner field“' setting in all menus to default if setting 'Consignment' is switched on
 
 14.0.1.3.9 (2022-04-27)
 ***********************
 
 * Changed name of the group from 'Manufacturing Menu' to 'MO and WO management'
 * Added updating warehouse_id for all locations in post_hook ventor base
-* Added record rules 'See Stock Quant Package from allowed warehouses' and 
+* Added record rules 'See Stock Quant Package from allowed warehouses' and
   'See Stock Inventory Lines from allowed warehouses' for restricting access to warehouses for odoo users
 
 14.0.1.3.8 (2022-02-03)
