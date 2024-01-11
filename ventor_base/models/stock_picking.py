@@ -234,7 +234,7 @@ class StockPickingType(models.Model):
             return {
                 'warning': {
                     'title': _("Warning"),
-                    'message': _("'Autocomplete item quantity' is available only "
+                    'message': _("'Apply quantity automatically' is available only "
                                  "if 'Confirm destination location' is enabled")
                 }
             }
