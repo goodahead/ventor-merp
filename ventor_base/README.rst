@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+1.5.0 (2024-xx-xx)
+***********************
+
+* Added warning message when activating the Outgoing Routing checkbox and Picking and Reservation Strategy module not exist in server
+
 1.4.0 (2023-11-04)
 ***********************
 
