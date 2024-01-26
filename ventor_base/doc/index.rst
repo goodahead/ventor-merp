@@ -10,7 +10,7 @@ Change Log
 
 |
 
-* 1.5.0 (2024-xx-xx)
+* 1.5.0 (2024-01-26)
     - Added warning message when activating the Outgoing Routing checkbox and Picking and Reservation Strategy module not exist in server
 
 * 1.4.0 (2023-11-04)
