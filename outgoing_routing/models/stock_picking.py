@@ -25,7 +25,7 @@ class StockPicking(models.Model):
     @api.depends(
         'move_line_ids',
         'move_line_ids.location_id',
-        'move_line_ids.qty_done',
+        'move_line_ids.quantity',
     )
     def _compute_operations_to_pick(self):
         """

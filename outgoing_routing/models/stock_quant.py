@@ -31,7 +31,7 @@ class StockQuant(models.Model):
         self = self.with_context(reservation_strategy=self.env.user.company_id.stock_reservation_strategy, reservation_quantity=quantity)
         return super(StockQuant, self)._update_reserved_quantity(product_id, location_id, quantity, lot_id, package_id, owner_id, strict)
 
-    def _gather(self, product_id, location_id, lot_id=None, package_id=None, owner_id=None, strict=False):
+    def _gather(self, product_id, location_id, lot_id=None, package_id=None, owner_id=None, strict=False, qty=0):
         """ Gather (and reorder, if required) quants
         """
         context = dict(self.env.context)

@@ -40,7 +40,7 @@ class PickingWave(models.Model):
         'picking_ids',
         'picking_ids.move_line_ids',
         'picking_ids.move_line_ids.location_id',
-        'picking_ids.move_line_ids.qty_done',
+        'picking_ids.move_line_ids.quantity',
     )
     def _compute_operations_to_pick(self):
         strategy = self.env.user.company_id.outgoing_routing_strategy

@@ -16,8 +16,8 @@
                             <field name="owner_id" groups="stock.group_tracking_owner"/>
                             <field name="location_id" groups="stock.group_stock_multi_locations,stock.group_tracking_lot"/>
                             <field name="location_dest_id" groups="stock.group_stock_multi_locations,stock.group_tracking_lot"/>
-                            <field name="reserved_qty"/>
-                            <field name="qty_done"/>
+                            <field name="quantity_product_uom"/>
+                            <field name="quantity"/>
                         </tree>
                     </field>
                 </page>
@@ -31,8 +31,8 @@
                             <field name="owner_id" groups="stock.group_tracking_owner"/>
                             <field name="location_id" groups="stock.group_stock_multi_locations,stock.group_tracking_lot"/>
                             <field name="location_dest_id" groups="stock.group_stock_multi_locations,stock.group_tracking_lot"/>
-                            <field name="reserved_qty"/>
-                            <field name="qty_done"/>
+                            <field name="quantity_product_uom"/>
+                            <field name="quantity"/>
                         </tree>
                     </field>
                 </page>

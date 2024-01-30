@@ -6,7 +6,7 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='move_line_ids_without_package']/.." position="after">
+            <xpath expr="//field[@name='move_ids_without_package']/.." position="after">
                 <page string="To Process" name="operations_to_pick" groups="ventor_base.merp_debug">
                     <group>
                         <field name="routing_module_version" readonly="1"/>
@@ -20,8 +20,8 @@
                             <field name="owner_id" groups="stock.group_tracking_owner"/>
                             <field name="location_id" groups="stock.group_stock_multi_locations,stock.group_tracking_lot"/>
                             <field name="location_dest_id" groups="stock.group_stock_multi_locations,stock.group_tracking_lot"/>
-                            <field name="reserved_qty"/>
-                            <field name="qty_done"/>
+                            <field name="quantity_product_uom"/>
+                            <field name="quantity"/>
                         </tree>
                     </field>
                 </page>
