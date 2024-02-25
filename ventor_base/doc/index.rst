@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 14.0.1.10.0 (2024-xx-xx)
+    - Added the setting 'Check shipping information' to the Package Management menu
+
 * 14.0.1.9.0 (2023-11-04)
     - Added the setting 'Check shipping information' to the Package Management menu
     - Added the setting 'Scan destination location once' to the Warehouse Operations menu
