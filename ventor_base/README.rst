@@ -10,6 +10,7 @@ Changelog
 ***********************
 
 * Added warning message when activating the Outgoing Routing checkbox and Picking and Reservation Strategy module not exist in server
+* Removed the dependency between Force pack and Validate uncompleted orders settings
 
 15.0.1.9.0 (2023-11-04)
 ***********************
