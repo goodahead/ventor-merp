@@ -9,6 +9,11 @@ Changelog
 16.0.1.4.0 (2023-11-04)
 ***********************
 
+* Removed the dependency between Force pack and Validate uncompleted orders settings
+
+16.0.1.4.0 (2023-11-04)
+***********************
+
 * Added the setting "Check shipping information" to the Package Management menu
 * Added the setting "Scan destination location once" to the Warehouse Operations menu
 * Added the setting "Prohibition on updating inventory" to the Instant Inventory menu
