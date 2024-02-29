@@ -57,7 +57,8 @@ class VentorOptionSetting(models.Model):
             'allow_creating_new_packages',
             'pack_all_items',
         ):
-            return self.set_related_package_fields(self._get_group_settings_value('stock.group_tracking_lot'))
+            return self.with_context(display_warning=True).set_related_package_fields(
+                self._get_group_settings_value('stock.group_tracking_lot'))
         elif self.technical_name in ('manage_product_owner'):
             self.set_manage_product_owner_fields(self._get_group_settings_value('stock.group_tracking_owner'))
         elif self.technical_name in ('apply_default_lots'):
@@ -181,6 +182,12 @@ class VentorOptionSetting(models.Model):
     def set_related_package_fields(self, group_stock_tracking_lot):
         if not group_stock_tracking_lot:
             self.value = self.env.ref('ventor_base.bool_false')
+            if self.env.context.get("display_warning"):
+                return {'warning': {
+                    'title': _("Warning"),
+                    'message': _("To enable the '%s' setting, you must activate the use of packages in Odoo.",
+                                self.name),
+                }}
         elif group_stock_tracking_lot:
             manage_packages = self.get_setting_field('manage_packages')
             if self.value.setting_value == 'False' and self.technical_name == 'manage_packages':
