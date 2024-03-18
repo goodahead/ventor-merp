@@ -16,13 +16,19 @@ class StockQuant(models.Model):
     )
 
     @api.model
-    def _get_removal_strategy_order(self, removal_strategy):
+    def _get_removal_strategy_domain_order(self, domain, removal_strategy, qty):
         # THIS IS A OVERRIDE STANDARD METHOD
         strategy_order = self.env.user.company_id.outgoing_routing_order
 
         if removal_strategy == 'location_priority':
-            return 'removal_prio %s, id' % (['ASC', 'DESC'][int(strategy_order)])
-        return super(StockQuant, self)._get_removal_strategy_order(removal_strategy)
+            return domain,'removal_prio %s, id' % (['ASC', 'DESC'][int(strategy_order)])
+        return super(StockQuant, self)._get_removal_strategy_domain_order(domain, removal_strategy, qty)
+
+    def _get_removal_strategy_sort_key(self, removal_strategy):
+        key, reverse = super(StockQuant, self)._get_removal_strategy_sort_key(removal_strategy)
+        if removal_strategy == 'location_priority':
+            key = lambda q: (q.removal_prio, q.id)
+        return key, reverse
 
     @api.model
     def _update_reserved_quantity(self, product_id, location_id, quantity, lot_id=None, package_id=None, owner_id=None, strict=False):

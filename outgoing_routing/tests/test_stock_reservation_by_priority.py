@@ -88,22 +88,32 @@ class TestStockRouting(TransactionCase):
 
         self.quants = quant_1 + quant_2 + quant_3
 
+    def _update_quants_reservation(self, quants):
+        for quant, quantity in quants:
+            self.stock_quant_model._update_reserved_quantity(self.product_Z, quant.location_id, quantity)
+
     def test_stock_reservation_by_priority_case1(self):
-        quants = self.stock_quant_model._update_reserved_quantity(self.product_Z, self.stock_A, 10)
+        quants = self.stock_quant_model._get_reserve_quantity(self.product_Z, self.stock_A, 10)
+        self._update_quants_reservation(quants)
+
         for quant, quantity in quants:
             if quant.location_id == self.stock_A1: self.assertEqual(quant.reserved_quantity, 0.0, 'No products should be reserved in A-1 (prio:2)')
             if quant.location_id == self.stock_A2: self.assertEqual(quant.reserved_quantity, 0.0, 'No products should be reserved in A-2 (prio:3)')
             if quant.location_id == self.stock_A3: self.assertEqual(quant.reserved_quantity, 10.0, '10 products should be reserved in A-3 (prio:1)')
 
     def test_stock_reservation_by_priority_case2(self):
-        quants = self.stock_quant_model._update_reserved_quantity(self.product_Z, self.stock_A, 12)
+        quants = self.stock_quant_model._get_reserve_quantity(self.product_Z, self.stock_A, 12)
+        self._update_quants_reservation(quants)
+
         for quant, quantity in quants:
             if quant.location_id == self.stock_A1: self.assertEqual(quant.reserved_quantity, 2.0, '2 products should be reserved in A-1 (prio:2)')
             if quant.location_id == self.stock_A2: self.assertEqual(quant.reserved_quantity, 0.0, 'No products should be reserved in A-2 (prio:3)')
             if quant.location_id == self.stock_A3: self.assertEqual(quant.reserved_quantity, 10.0, '10 products should be reserved in A-3 (prio:1)')
 
     def test_stock_reservation_by_priority_case3(self):
-        quants = self.stock_quant_model._update_reserved_quantity(self.product_Z, self.stock_A, 22)
+        quants = self.stock_quant_model._get_reserve_quantity(self.product_Z, self.stock_A, 22)
+        self._update_quants_reservation(quants)
+
         for quant, quantity in quants:
             if quant.location_id == self.stock_A1: self.assertEqual(quant.reserved_quantity, 12.0, '12 products should be reserved in A-1 (prio:2)')
             if quant.location_id == self.stock_A2: self.assertEqual(quant.reserved_quantity, 0.0, 'No products should be reserved in A-2 (prio:3)')
