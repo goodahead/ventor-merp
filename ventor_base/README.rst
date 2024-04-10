@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+15.0.1.10.0 (2024-xx-xx)
+***********************
+
+* Added the setting "Show scrap button" to the Quick Info menu
+
 15.0.1.9.0 (2023-11-04)
 ***********************
 
