@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 1.6.0 (2024-xx-xx)
+    - Added the setting "Show scrap button" to the Quick Info menu
+
 * 1.5.0 (2024-01-26)
     - Added warning message when activating the Outgoing Routing checkbox and Picking and Reservation Strategy module not exist in server
 
