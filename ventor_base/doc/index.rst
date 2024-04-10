@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 16.0.1.5.0 (2024-xx-xx)
+    - Added the setting "Show scrap button" to the Quick Info menu
+
 * 16.0.1.4.0 (2023-11-04)
     - Added the setting "Check shipping information" to the Package Management menu
     - Added the setting "Scan destination location once" to the Warehouse Operations menu
