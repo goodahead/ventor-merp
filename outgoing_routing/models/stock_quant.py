@@ -31,7 +31,7 @@ class StockQuant(models.Model):
         return key, reverse
 
     @api.model
-    def _update_reserved_quantity(self, product_id, location_id, quantity, lot_id=None, package_id=None, owner_id=None, strict=False):
+    def _update_reserved_quantity(self, product_id, location_id, quantity, lot_id=None, package_id=None, owner_id=None, strict=True):
         """ Updates reserved quantity in quants
         """
         self = self.with_context(reservation_strategy=self.env.user.company_id.stock_reservation_strategy, reservation_quantity=quantity)
