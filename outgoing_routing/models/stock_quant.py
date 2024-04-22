@@ -41,7 +41,7 @@ class StockQuant(models.Model):
         """ Gather (and reorder, if required) quants
         """
         context = dict(self.env.context)
-        quants = super(StockQuant, self)._gather(product_id, location_id, lot_id=lot_id, package_id=package_id, owner_id=owner_id, strict=strict)
+        quants = super(StockQuant, self)._gather(product_id, location_id, lot_id=lot_id, package_id=package_id, owner_id=owner_id, strict=strict, qty=qty)
 
         if self._context.get('skip_ventor_reordering') or (product_id.categ_id and product_id.categ_id.removal_strategy_id)\
                 or location_id.removal_strategy_id:
