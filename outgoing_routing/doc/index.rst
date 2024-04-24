@@ -38,5 +38,5 @@ Change Log
 
 |
 
-* 1.1.0 (2024-xx-xx)
+* 1.1.0 (2024-11-04)
     - Fixed tests
