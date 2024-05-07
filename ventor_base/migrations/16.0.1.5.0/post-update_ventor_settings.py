@@ -16,10 +16,11 @@ def migrate(cr, version):
     ]
 
     ventor_groups_ids = env['res.groups'].search([('category_id', 'in', all_ventor_categories)])
+    value = [(3, user.id) for user in external_users]
 
     for group in ventor_groups_ids:
         group.write(
             {
-                'users': [(3, user.id) for user in external_users]
+                'users': value,
             }
         )
