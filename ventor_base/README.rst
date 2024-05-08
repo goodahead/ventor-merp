@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+14.0.1.10.0 (2024-05-08)
+***********************
+
+* Removed the dependency between Force pack and Validate uncompleted orders settings
+
 14.0.1.9.0 (2023-11-04)
 ***********************
 
