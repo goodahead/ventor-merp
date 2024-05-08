@@ -56,9 +56,9 @@ class VentorOptionSetting(models.Model):
             'scan_destination_package',
             'allow_creating_new_packages',
             'pack_all_items',
-            'allow_validate_less',
         ):
-            return self.set_related_package_fields(self._get_group_settings_value('stock.group_tracking_lot'))
+            return self.with_context(display_warning=True).set_related_package_fields(
+                self._get_group_settings_value('stock.group_tracking_lot'))
         elif self.technical_name in ('manage_product_owner'):
             self.set_manage_product_owner_fields(self._get_group_settings_value('stock.group_tracking_owner'))
         elif self.technical_name in ('apply_default_lots'):
@@ -115,21 +115,6 @@ class VentorOptionSetting(models.Model):
                 for set in ventor_option_settings.filtered(lambda r: r.action_type == action_type)
             }
         return settings
-
-    def set_allow_validate_less(self):
-        if self.technical_name == 'allow_validate_less':
-            pack_all_items = self.get_setting_field('pack_all_items')
-            if pack_all_items.value == self.env.ref('ventor_base.bool_true'):
-                self.value = self.env.ref('ventor_base.bool_false')
-        elif self.technical_name == 'pack_all_items':
-            allow_validate_less = self.get_setting_field('allow_validate_less')
-            if allow_validate_less.value == self.env.ref('ventor_base.bool_true'):
-                allow_validate_less.value = self.env.ref('ventor_base.bool_false')
-                return self._get_warning(_(
-                    'Because you changed "Force Pack" to True, '
-                    'automatically the following settings were also changed: '
-                    '\n- "Validate uncompleted orders" was changed to False'
-                ))
 
     def set_apply_default_lots_fields(self, group_stock_production_lot):
         if self.env.context.get('disable_apply_default_lots'):
@@ -197,6 +182,12 @@ class VentorOptionSetting(models.Model):
     def set_related_package_fields(self, group_stock_tracking_lot):
         if not group_stock_tracking_lot:
             self.value = self.env.ref('ventor_base.bool_false')
+            if self.env.context.get("display_warning"):
+                return {'warning': {
+                    'title': _("Warning"),
+                    'message': _("To enable the '%s' setting, you must activate the use of packages in Odoo.",
+                                self.name),
+                }}
         elif group_stock_tracking_lot:
             manage_packages = self.get_setting_field('manage_packages')
             if self.value.setting_value == 'False' and self.technical_name == 'manage_packages':
@@ -216,8 +207,6 @@ class VentorOptionSetting(models.Model):
                     ))
             if self.technical_name != 'manage_packages' and manage_packages.value == self.env.ref('ventor_base.bool_false'):
                 self.value = self.env.ref('ventor_base.bool_false')
-            if self.value.setting_value == 'True' and self.technical_name in ('pack_all_items', 'allow_validate_less'):
-                return self.set_allow_validate_less()
             if self.technical_name == 'scan_destination_package' and self.value == self.env.ref('ventor_base.bool_false'):
                 use_reusable_packages = self.get_setting_field('use_reusable_packages')
                 if use_reusable_packages.value == self.env.ref('ventor_base.bool_true'):
