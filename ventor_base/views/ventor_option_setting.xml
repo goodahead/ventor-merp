@@ -213,7 +213,7 @@
                   sequence="12"/>
 
         <menuitem name="RFID"
-                  id="ventor_create_po_app_menu"
+                  id="ventor_rfid_app_menu"
                   parent="ventor_base.ventor_settings_app_menu"
                   action="ventor_rfid_action"
                   sequence="13"/>
