@@ -24,6 +24,7 @@ class VentorOptionSetting(models.Model):
             ('scrap_management', 'Scrap Management'),
             ('create_so', 'Create SO'),
             ('create_po', 'Create PO'),
+            ('rfid', 'RFID'),
         ], required=True
     )
     description = fields.Text()
@@ -105,6 +106,7 @@ class VentorOptionSetting(models.Model):
             'scrap_management',
             'create_so',
             'create_po',
+            'rfid',
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
 
