@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 1.7.0 (2024-xx-xx)
+    - Added the setting "Apply all lines automatically" to the RFID menu
+
 * 1.6.0 (2024-05-08)
     - Removed the dependency between Force pack and Validate uncompleted orders settings
     - Added the setting "Show scrap button" to the Quick Info menu
