@@ -37,6 +37,10 @@ class ResUsers(models.Model):
         string='User Settings'
     )
 
+    ventor_filter_settings = fields.Text(
+        string='Filter Settings'
+    )
+
     @property
     def SELF_READABLE_FIELDS(self):
         readable_fields = [
@@ -44,12 +48,13 @@ class ResUsers(models.Model):
             'ventor_user_settings',
             'custom_package_name',
             'ventor_base_version',
+            'ventor_filter_settings',
         ]
         return super().SELF_READABLE_FIELDS + readable_fields
 
     @property
     def SELF_WRITEABLE_FIELDS(self):
-        writable_fields = ['ventor_user_settings']
+        writable_fields = ['ventor_user_settings', 'ventor_filter_settings']
         return super().SELF_WRITEABLE_FIELDS + writable_fields
 
     def _compute_custom_package_name(self):
