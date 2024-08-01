@@ -130,7 +130,7 @@
         </record>
 
         <record id='ventor_rfid_action' model='ir.actions.act_window'>
-            <field name="name">RFID</field>
+            <field name="name">RFID Inventory Adjustments</field>
             <field name="res_model">ventor.option.setting</field>
             <field name="view_mode">tree</field>
             <field name="usage">menu</field>
@@ -212,7 +212,7 @@
                   action="ventor_create_po_action"
                   sequence="12"/>
 
-        <menuitem name="RFID"
+        <menuitem name="RFID Inventory Adjustments"
                   id="ventor_rfid_app_menu"
                   parent="ventor_base.ventor_settings_app_menu"
                   action="ventor_rfid_action"
