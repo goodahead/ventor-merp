@@ -11,7 +11,7 @@ Change Log
 |
 
 * 1.7.0 (2024-xx-xx)
-    - Added the setting "Apply all lines automatically" to the RFID menu
+    - Added the settings "Apply all lines automatically", "Hide product's quantity", "Hide Apply button" to the RFID Inventory Adjustments menu
 
 * 1.6.0 (2024-05-08)
     - Removed the dependency between Force pack and Validate uncompleted orders settings
