@@ -12,6 +12,9 @@ Change Log
 
 * 16.0.1.6.0 (2024-xx-xx)
     - Added the settings "Apply all lines automatically", "Hide product's quantity", "Hide Apply button" to the RFID Inventory Adjustments menu
+    - Added the setting "Hide product's quantity" to the Quick Info menu
+    - Added the setting "Hide product's quantity" to the Instant Inventory menu
+    - Renamed the "Prohibition on updating inventory" setting to "Hide update inventory button" in the Instant Inventory menu
 
 * 16.0.1.5.0 (2024-05-08)
     - Added warning message when activating the Outgoing Routing checkbox and Picking and Reservation Strategy module not exist in server
