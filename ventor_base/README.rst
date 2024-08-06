@@ -6,6 +6,13 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+1.7.0 (2024-xx-xx)
+***********************
+
+* Added the setting "Hide product's quantity" to the Quick Info menu
+* Added the setting "Hide product's quantity" to the Instant Inventory menu
+* Renamed the "Prohibition on updating inventory" setting to "Hide update inventory button" in the Instant Inventory menu
+
 1.6.0 (2024-05-08)
 ***********************
 
