@@ -962,13 +962,23 @@
         </record>
 
         <record id="prohibition_on_updating_inventory" model="ventor.option.setting">
-            <field name="name">Prohibition on updating inventory</field>
+            <field name="name">Hide update inventory button</field>
             <field name="technical_name">prohibition_on_updating_inventory</field>
             <field name="value" ref="ventor_base.bool_false"/>
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">instant_inventory</field>
             <field name="description">The user will not be able to overwrite the inventory qty, but only count it and save</field>
+        </record>
+
+        <record id="hide_products_quantity_ins_inventory" model="ventor.option.setting">
+            <field name="name">Hide product's quantity</field>
+            <field name="technical_name">hide_products_quantity</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">instant_inventory</field>
+            <field name="description">Prevent users from seeing on-hand quantity</field>
         </record>
 
         <!-- Quick info -->
@@ -990,6 +1000,16 @@
             <field name="value_type">bool</field>
             <field name="action_type">quick_info</field>
             <field name="description">Showing the scrap button on each product line</field>
+        </record>
+
+        <record id="hide_products_quantity_quick_info" model="ventor.option.setting">
+            <field name="name">Hide product's quantity</field>
+            <field name="technical_name">hide_products_quantity</field>
+            <field name="value" ref="ventor_base.bool_false"/>
+            <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
+            <field name="value_type">bool</field>
+            <field name="action_type">quick_info</field>
+            <field name="description">Prevent users from seeing on-hand quantity</field>
         </record>
 
         <!-- Scrap Management -->
