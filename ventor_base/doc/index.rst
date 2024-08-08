@@ -10,6 +10,9 @@ Change Log
 
 |
 
+* 14.0.1.11.0 (2024-xx-xx)
+    - Updated the description for the 'Set qty to zero' settings in the Inventory Adjustment menu and 'Show packages field' in the Instant Inventory menu
+
 * 14.0.1.10.0 (2024-05-08)
     - Removed the dependency between Force pack and Validate uncompleted orders settings
 
