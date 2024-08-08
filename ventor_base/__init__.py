@@ -39,6 +39,7 @@ def _post_init_hook(cr, registry):
     group_settings = env['res.config.settings'].default_get(
         [
             'group_stock_tracking_lot',
+            'group_stock_tracking_owner',
         ]
     )
 
