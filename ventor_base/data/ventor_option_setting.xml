@@ -938,7 +938,7 @@
             <field name="settings_dependency" eval="[(6, 0, [ref('ventor_base.bool_false'), ref('ventor_base.bool_true')])]"/>
             <field name="value_type">bool</field>
             <field name="action_type">instant_inventory</field>
-            <field name="description">Scan source (destination) packages right after scanning source (destination) location. Use it if you move from one package to another or pick items from packages or pallets. Works only if package management settings is active on Odoo side</field>
+            <field name="description">It shows additional field 'Package' that you can scan to make an inventory in a package. Works only if package management settings is active on Odoo side</field>
         </record>
 
         <record id="allow_creating_new_packages_instant_inventory" model="ventor.option.setting">
