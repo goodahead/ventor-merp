@@ -13,6 +13,7 @@ Changelog
 * Added the setting "Hide product's quantity" to the Quick Info menu
 * Added the setting "Hide product's quantity" to the Instant Inventory menu
 * Renamed the "Prohibition on updating inventory" setting to "Hide update inventory button" in the Instant Inventory menu
+* Added the setting "Open details screen first" to the Warehouse Operations menu
 
 1.6.0 (2024-05-08)
 ***********************
