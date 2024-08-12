@@ -15,6 +15,7 @@ Change Log
     - Added the setting "Hide product's quantity" to the Quick Info menu
     - Added the setting "Hide product's quantity" to the Instant Inventory menu
     - Renamed the "Prohibition on updating inventory" setting to "Hide update inventory button" in the Instant Inventory menu
+    - Added the setting "Open details screen first" to the Warehouse Operations menu
 
 * 16.0.1.5.0 (2024-05-08)
     - Added warning message when activating the Outgoing Routing checkbox and Picking and Reservation Strategy module not exist in server
