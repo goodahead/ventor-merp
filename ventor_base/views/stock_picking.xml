@@ -41,6 +41,7 @@
                     <field name="code" invisible='1'/>
                     <field name="check_shipping_information" attrs="{'readonly': [('code','!=','outgoing')]}"/>
                     <field name="hide_qty_to_receive" attrs="{'readonly': [('code','!=','incoming')]}"/>
+                    <field name="open_details_screen_first"/>
                 </tree>
             </field>
         </record>
@@ -88,6 +89,7 @@
                             <field name="show_put_in_pack_button" attrs="{'invisible': [('is_package_tracking_enabled','=',False)]}"/>
                             <field name="check_shipping_information" attrs="{'invisible': [('code','!=','outgoing')]}"/>
                             <field name="hide_qty_to_receive" attrs="{'invisible': [('code','!=','incoming')]}"/>
+                            <field name="open_details_screen_first"/>
                         </group>
                     </group>
                 </xpath>
