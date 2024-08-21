@@ -6,6 +6,11 @@ Base module that allow relation between Ventor modules
 Changelog
 ---------
 
+14.0.1.11.0 (2024-08-21)
+***********************
+
+* Updated the description for the 'Set qty to zero' settings in the Inventory Adjustment menu and 'Show packages field' in the Instant Inventory menu
+
 14.0.1.10.0 (2024-05-08)
 ***********************
 
