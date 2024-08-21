@@ -134,6 +134,13 @@ class StockPickingType(models.Model):
              "Working only with 'Consignment' setting on Odoo side"
     )
 
+    open_details_screen_first = fields.Boolean(
+        string="Open details screen first",
+        default=False,
+        help="Clicking on transfer card will bring details screen "
+             "instead of opening a whole stock picking"
+    )
+
     scan_destination_location_once = fields.Boolean(
         string="Scan destination location once",
         help="Scan the destination location only once with the last item. "
@@ -295,5 +302,6 @@ class StockPickingType(models.Model):
                 "confirm_source_package": self.confirm_source_package,
                 "check_shipping_information": self.check_shipping_information,
                 "hide_qty_to_receive": self.hide_qty_to_receive,
+                "open_details_screen_first": self.open_details_screen_first,
             }
         }
