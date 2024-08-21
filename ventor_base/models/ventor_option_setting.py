@@ -24,6 +24,7 @@ class VentorOptionSetting(models.Model):
             ('scrap_management', 'Scrap Management'),
             ('create_so', 'Create SO'),
             ('create_po', 'Create PO'),
+            ('rfid', 'RFID'),
         ], required=True
     )
     description = fields.Text()
@@ -69,6 +70,8 @@ class VentorOptionSetting(models.Model):
             return self.set_reusable_packages_related_fields(self._get_group_settings_value('stock.group_tracking_lot'))
         elif self.technical_name in ('confirm_destination_location'):
             self._set_confirm_destination_location_cluster_picking_fields()
+        elif self.technical_name in ('hide_products_quantity', 'start_inventory_with_one'):
+            return self._set_start_inventory_with_one_fields()
 
     def _get_group_settings_value(self, key):
         internal_user_groups = self.env.ref('base.group_user').implied_ids
@@ -105,6 +108,7 @@ class VentorOptionSetting(models.Model):
             'scrap_management',
             'create_so',
             'create_po',
+            'rfid',
         ]
         ventor_option_settings = self.env['ventor.option.setting'].search([])
 
@@ -235,6 +239,20 @@ class VentorOptionSetting(models.Model):
                 '\n- "Confirm destination package" was changed to True'
             ))
 
+    def _set_start_inventory_with_one_fields(self):
+        if self.action_type == 'instant_inventory' and self.value == self.env.ref('ventor_base.bool_true'):
+            start_inventory_with_one = self.get_setting_field('start_inventory_with_one')
+            if start_inventory_with_one.value == self.env.ref('ventor_base.bool_false'):
+                start_inventory_with_one.value = self.env.ref('ventor_base.bool_true')
+        if self.technical_name == 'start_inventory_with_one' and self.value == self.env.ref('ventor_base.bool_false'):
+            hide_products_quantity = self.get_setting_field('hide_products_quantity')
+            if hide_products_quantity.value == self.env.ref('ventor_base.bool_true'):
+                self.value = self.env.ref('ventor_base.bool_true')
+                return self._get_warning(_(
+                        'You cannot change "Start inventory with 1" to False, '
+                        'because you have the "Hide products quantity" setting enabled.'
+                    ))
+
     def get_normalized_value(self, setting_value):
         normalized_settings = {
             'True': 'true',
@@ -244,6 +262,8 @@ class VentorOptionSetting(models.Model):
             'Always Split the Line': 'always_split_line',
             'Always Move Less Items': 'always_move_less_items',
             'Ask Me Every Time': 'ask_me_every_time',
+            'Save transfer': 'save_transfer',
+            'Cancel transfer': 'cancel_transfer',
         }
         return normalized_settings.get(setting_value)
 
